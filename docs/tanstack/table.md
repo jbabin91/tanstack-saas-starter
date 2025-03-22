@@ -241,6 +241,158 @@ This integration provides:
 - Automatic table updates when data changes
 - Loading states and error handling
 
+## Advanced Table Patterns
+
+### Infinite Scrolling Table
+
+Using TanStack Virtual for efficient rendering of large datasets:
+
+```tsx
+import { useVirtualizer } from '@tanstack/react-virtual';
+import { useInfiniteQuery } from '@tanstack/react-query';
+
+function InfiniteTable() {
+  const { data, fetchNextPage, hasNextPage } = useInfiniteQuery({
+    queryKey: ['infiniteUsers'],
+    queryFn: async ({ pageParam = 0 }) => {
+      const res = await fetch(`/api/users?cursor=${pageParam}`);
+      return res.json();
+    },
+    getNextPageParam: (lastPage) => lastPage.nextCursor,
+  });
+
+  const allRows = data ? data.pages.flatMap((page) => page.users) : [];
+
+  const parentRef = useRef<HTMLDivElement>(null);
+  const virtualizer = useVirtualizer({
+    count: hasNextPage ? allRows.length + 1 : allRows.length,
+    getScrollElement: () => parentRef.current,
+    estimateSize: () => 50,
+    overscan: 5,
+  });
+
+  useEffect(() => {
+    const [lastItem] = [...virtualizer.getVirtualItems()].reverse();
+    if (!lastItem) return;
+
+    if (lastItem.index >= allRows.length - 1 && hasNextPage && !isFetchingNextPage) {
+      fetchNextPage();
+    }
+  }, [virtualizer.getVirtualItems(), hasNextPage]);
+
+  const table = useReactTable({
+    data: allRows,
+    columns,
+    getCoreRowModel: getCoreRowModel(),
+  });
+
+  return (
+    <div ref={parentRef} style={{ height: '400px', overflow: 'auto' }}>
+      <table>
+        <thead>{/* ...header rendering... */}</thead>
+        <tbody>
+          {virtualizer.getVirtualItems().map((virtualRow) => {
+            const row = table.getRowModel().rows[virtualRow.index];
+            return row ?
+                <tr
+                  key={row.id}
+                  style={{
+                    height: `${virtualRow.size}px`,
+                    transform: `translateY(${virtualRow.start}px)`,
+                  }}
+                >
+                  {row.getVisibleCells().map((cell) => (
+                    <td key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</td>
+                  ))}
+                </tr>
+              : null;
+          })}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+```
+
+### Paginated Table
+
+Implementation of a table with server-side pagination:
+
+```tsx
+function PaginatedTable() {
+  const [{ pageIndex, pageSize }, setPagination] = useState({
+    pageIndex: 0,
+    pageSize: 10,
+  });
+
+  const { data, isLoading } = useQuery({
+    queryKey: ['pagedTable', pageIndex, pageSize],
+    queryFn: () => fetchPagedUsers({ page: pageIndex + 1, pageSize }),
+    keepPreviousData: true,
+  });
+
+  const table = useReactTable({
+    data: data?.users ?? [],
+    columns,
+    getCoreRowModel: getCoreRowModel(),
+    manualPagination: true,
+    pageCount: data?.totalPages ?? -1,
+    state: {
+      pagination: {
+        pageIndex,
+        pageSize,
+      },
+    },
+    onPaginationChange: setPagination,
+  });
+
+  return (
+    <div>
+      <table>
+        <thead>{/* ...header rendering... */}</thead>
+        <tbody>
+          {table.getRowModel().rows.map((row) => (
+            <tr key={row.id}>
+              {row.getVisibleCells().map((cell) => (
+                <td key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <div className="flex items-center gap-2">
+        <button onClick={() => table.previousPage()} disabled={!table.getCanPreviousPage()}>
+          Previous
+        </button>
+        <span>
+          Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
+        </span>
+        <button onClick={() => table.nextPage()} disabled={!table.getCanNextPage()}>
+          Next
+        </button>
+      </div>
+    </div>
+  );
+}
+```
+
+### Server Integration
+
+Example of server functions for table data:
+
+```tsx
+const fetchTablePage = createServerFn({ method: 'GET' })
+  .validator((d: { page: number; pageSize: number; sorting?: SortingState }) => d)
+  .handler(async ({ data }) => {
+    const { page, pageSize, sorting } = data;
+    // Implement server-side sorting and pagination
+    return {
+      users: sortedAndPagedData,
+      totalPages: Math.ceil(totalCount / pageSize),
+    };
+  });
+```
+
 ## Project Usage
 
 In this project, TanStack Table is used in:

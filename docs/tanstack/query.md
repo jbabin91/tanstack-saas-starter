@@ -225,6 +225,128 @@ const { data, isFetching } = useQuery({
 - **Optimistic Updates**: Update UI before the server responds
 - **Query Cancellation**: Cancel in-flight requests
 
+## Advanced Query Patterns
+
+### Infinite Queries
+
+Infinite queries are perfect for "Load More" or infinite scroll implementations:
+
+```tsx
+function InfiniteList() {
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status } = useInfiniteQuery({
+    queryKey: ['infiniteUsers'],
+    queryFn: async ({ pageParam = 0 }) => {
+      const res = await fetch(`/api/users?cursor=${pageParam}`);
+      return res.json();
+    },
+    getNextPageParam: (lastPage) => lastPage.nextCursor,
+  });
+
+  return (
+    <div>
+      {status === 'pending' ?
+        <p>Loading...</p>
+      : status === 'error' ?
+        <p>Error: {error.message}</p>
+      : <>
+          {data.pages.map((group, i) => (
+            <React.Fragment key={i}>
+              {group.users.map((user) => (
+                <p key={user.id}>{user.name}</p>
+              ))}
+            </React.Fragment>
+          ))}
+          <button onClick={() => fetchNextPage()} disabled={!hasNextPage || isFetchingNextPage}>
+            {isFetchingNextPage ?
+              'Loading more...'
+            : hasNextPage ?
+              'Load More'
+            : 'Nothing more to load'}
+          </button>
+        </>
+      }
+    </div>
+  );
+}
+```
+
+### Paginated Queries
+
+For traditional pagination with page numbers:
+
+```tsx
+function PaginatedList() {
+  const [page, setPage] = useState(1);
+
+  const { data, isLoading, isFetching, isPreviousData } = useQuery({
+    queryKey: ['users', page],
+    queryFn: () => fetchUsers(page),
+    keepPreviousData: true, // Keep previous page data while fetching next page
+  });
+
+  return (
+    <div>
+      {isLoading ?
+        <div>Loading...</div>
+      : <>
+          {data.users.map((user) => (
+            <p key={user.id}>{user.name}</p>
+          ))}
+          <div>
+            <button onClick={() => setPage((old) => Math.max(old - 1, 1))} disabled={page === 1}>
+              Previous Page
+            </button>
+            <span>Current Page: {page}</span>
+            <button
+              onClick={() => {
+                if (!isPreviousData && data.hasMore) {
+                  setPage((old) => old + 1);
+                }
+              }}
+              disabled={isPreviousData || !data?.hasMore}
+            >
+              Next Page
+            </button>
+          </div>
+          {isFetching ?
+            <span>Loading...</span>
+          : null}
+        </>
+      }
+    </div>
+  );
+}
+```
+
+### Integration with TanStack Start
+
+Server functions for pagination:
+
+```tsx
+const fetchPagedUsers = createServerFn({ method: 'GET' })
+  .validator((d: { page: number; pageSize: number }) => d)
+  .handler(async ({ data }) => {
+    const { page, pageSize } = data;
+    // Fetch paginated data from your data source
+    return {
+      users: pagedUsers,
+      totalPages: totalPages,
+      hasMore: page < totalPages,
+    };
+  });
+
+const fetchInfiniteUsers = createServerFn({ method: 'GET' })
+  .validator((d: { cursor: string }) => d)
+  .handler(async ({ data }) => {
+    const { cursor } = data;
+    // Fetch next batch of data using cursor
+    return {
+      users: nextBatch,
+      nextCursor: hasMore ? lastId : undefined,
+    };
+  });
+```
+
 ## Project Usage
 
 In this project, TanStack Query is used for all data fetching needs. Key integration points:
