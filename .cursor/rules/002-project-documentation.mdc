@@ -1,9 +1,0 @@
----
-description: ALWAYS review these docs when working on code in this project.
-globs: *
-alwaysApplay: true
----
-
-# Project Documentation
-
-- Always read docs [README](../../docs/README.md)
