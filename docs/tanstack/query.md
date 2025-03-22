@@ -117,6 +117,57 @@ export const createRouter = () => {
 };
 ```
 
+## Integration with TanStack Start
+
+TanStack Query works seamlessly with TanStack Start's server functions and API routes:
+
+```tsx
+// Using with API routes
+function useNames() {
+  return useQuery({
+    queryKey: ['names'],
+    queryFn: () => fetch('/api/demo-names').then((res) => res.json()),
+  });
+}
+
+// Using with server functions
+function useCount() {
+  return useQuery({
+    queryKey: ['count'],
+    queryFn: () => getCount(),
+  });
+}
+
+// Mutations with server functions
+function useUpdateCount() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: updateCount,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['count'] });
+    },
+  });
+}
+```
+
+Server functions can be used directly as query functions, and they maintain full type safety:
+
+```tsx
+const serverFn = createServerFn({ method: 'GET' })
+  .validator((d: InputType) => d)
+  .handler(async ({ data }) => {
+    // Return type is inferred
+    return result;
+  });
+
+// In component
+const { data } = useQuery({
+  queryKey: ['key', input],
+  queryFn: () => serverFn(input), // Types are preserved
+});
+```
+
 ## Advanced Features
 
 - **Dependent Queries**: Queries that depend on data from other queries

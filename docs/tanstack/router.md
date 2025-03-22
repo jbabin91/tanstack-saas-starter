@@ -79,6 +79,60 @@ export const createRouter = () => {
 };
 ```
 
+## Integration with TanStack Start
+
+TanStack Router integrates deeply with TanStack Start for server-side rendering and data loading:
+
+```tsx
+// In router.tsx
+import { routerWithQueryClient } from '@tanstack/react-router-with-query';
+import { getRouterManifest } from '@tanstack/react-start/router-manifest';
+
+export const createRouter = () => {
+  const router = routerWithQueryClient(
+    createTanstackRouter({
+      routeTree,
+      // Enable SSR
+      ssr: true,
+      // Use TanStack Start manifest
+      manifest: getRouterManifest(),
+    }),
+    queryClient,
+  );
+  return router;
+};
+
+// Using server functions in routes
+export const Route = createFileRoute('/data')({
+  component: DataComponent,
+  // Server function as loader
+  loader: async () => await getDataServerFn(),
+});
+```
+
+Server-side rendering is handled by TanStack Start's SSR handler:
+
+```tsx
+// ssr.tsx
+import { createStartHandler } from '@tanstack/react-start/server';
+import { getRouterManifest } from '@tanstack/react-start/router-manifest';
+
+export default createStartHandler({
+  createRouter,
+  getRouterManifest,
+})(defaultStreamHandler);
+```
+
+The router is then hydrated on the client:
+
+```tsx
+// client.tsx
+import { StartClient } from '@tanstack/react-start';
+
+const router = createRouter();
+hydrateRoot(document, <StartClient router={router} />);
+```
+
 ## Project Usage
 
 In this project, TanStack Router is used for all routing. Key files include:

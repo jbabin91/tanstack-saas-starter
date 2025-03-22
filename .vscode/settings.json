@@ -13,6 +13,12 @@
       "file": "./docs/README.md"
     },
     {
+      "file": "./docs/core/code-style.md"
+    },
+    {
+      "file": "./docs/core/markdown.md"
+    },
+    {
       "file": "./docs/core/react.md"
     },
     {
@@ -29,6 +35,9 @@
     },
     {
       "file": "./docs/tanstack/router.md"
+    },
+    {
+      "file": "./docs/tanstack/start.md"
     },
     {
       "file": "./docs/tanstack/table.md"

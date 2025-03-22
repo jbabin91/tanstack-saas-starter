@@ -136,6 +136,65 @@ const table = useReactTable({
 />
 ```
 
+## Integration with TanStack Start
+
+TanStack Table can be integrated with TanStack Start's server functions for server-side data fetching and mutations:
+
+```tsx
+import { useQuery } from '@tanstack/react-query';
+import { createServerFn } from '@tanstack/react-start';
+
+// Server function for fetching table data
+const getTableData = createServerFn({
+  method: 'GET',
+}).handler(async () => {
+  // Fetch data from database or other source
+  return data;
+});
+
+// Server function for updating rows
+const updateRow = createServerFn({ method: 'POST' })
+  .validator((d: RowUpdate) => d)
+  .handler(async ({ data }) => {
+    // Update data in database
+    return result;
+  });
+
+function ServerSideTable() {
+  // Fetch data using TanStack Query
+  const { data, isLoading } = useQuery({
+    queryKey: ['tableData'],
+    queryFn: () => getTableData(),
+  });
+
+  // Update mutation
+  const mutation = useMutation({
+    mutationFn: updateRow,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['tableData'] });
+    },
+  });
+
+  const table = useReactTable({
+    data: data ?? [],
+    columns,
+    getCoreRowModel: getCoreRowModel(),
+    // ... other features
+  });
+
+  if (isLoading) return <div>Loading...</div>;
+
+  return <table>{/* ... table rendering */}</table>;
+}
+```
+
+This integration provides:
+
+- Server-side data fetching with caching through TanStack Query
+- Type-safe mutations for updating table data
+- Automatic table updates when data changes
+- Loading states and error handling
+
 ## Project Usage
 
 In this project, TanStack Table is used in:

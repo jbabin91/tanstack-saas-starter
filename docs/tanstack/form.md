@@ -116,6 +116,72 @@ TanStack Form provides different validation timing options:
 - `onSubmit`: Validate only when the form is submitted
 - `onTouched`: Validate once a field has been touched and then on every change
 
+## Integration with TanStack Start
+
+TanStack Form can be used with TanStack Start's server functions for form submissions:
+
+```tsx
+import { useAppForm } from '../hooks/demo.form';
+import { createServerFn } from '@tanstack/react-start';
+
+// Define server function for form submission
+const submitForm = createServerFn({ method: 'POST' })
+  .validator((d: FormData) => d) // Use Zod schema here
+  .handler(async ({ data }) => {
+    // Process form submission on server
+    return result;
+  });
+
+function MyForm() {
+  const form = useAppForm({
+    defaultValues: {
+      title: '',
+      description: '',
+    },
+    validators: {
+      onBlur: schema,
+    },
+    onSubmit: async ({ value }) => {
+      // Submit to server function
+      await submitForm(value);
+    },
+  });
+
+  return (
+    <form onSubmit={form.handleSubmit}>
+      <form.AppField name="title">{(field) => <field.TextField label="Title" />}</form.AppField>
+
+      <form.AppField name="description">{(field) => <field.TextArea label="Description" />}</form.AppField>
+
+      <form.SubscribeButton label="Submit" />
+    </form>
+  );
+}
+```
+
+You can also combine with TanStack Query for optimistic updates:
+
+```tsx
+function MyFormWithQuery() {
+  const queryClient = useQueryClient();
+  const mutation = useMutation({
+    mutationFn: submitForm,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['formData'] });
+    },
+  });
+
+  const form = useAppForm({
+    // ...form config
+    onSubmit: async ({ value }) => {
+      await mutation.mutateAsync(value);
+    },
+  });
+
+  return <form onSubmit={form.handleSubmit}>{/* ...form fields */}</form>;
+}
+```
+
 ## Project Usage
 
 In this project, TanStack Form is used for all form handling. Key integration points:
