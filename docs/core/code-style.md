@@ -139,6 +139,30 @@ Our configuration differs from Prettier defaults in the following ways:
 - **Package.json Formatting**: Uses `prettier-plugin-packagejson` to consistently format package.json files
 - **Tailwind CSS Support**: Uses `prettier-plugin-tailwindcss` to automatically sort Tailwind CSS classes
 
+## Editor Configuration
+
+This project uses EditorConfig to maintain consistent coding styles across various editors and IDEs. The configuration is defined in `.editorconfig`:
+
+| Pattern             | Setting                    | Value   | Purpose                              |
+| ------------------- | -------------------------- | ------- | ------------------------------------ |
+| All Files           | `indent_style`             | `space` | Use spaces for indentation           |
+| All Files           | `indent_size`              | `2`     | Two spaces per indent level          |
+| All Files           | `end_of_line`              | `lf`    | Unix-style line endings              |
+| All Files           | `charset`                  | `utf-8` | UTF-8 character encoding             |
+| `*.{md,mdx}`        | `max_line_length`          | `120`   | Wider lines for documentation        |
+| `*.{md,mdx}`        | `trim_trailing_whitespace` | `false` | Preserve trailing spaces in Markdown |
+| `*.{js,jsx,ts,tsx}` | `max_line_length`          | `80`    | Standard code line length            |
+| `*.json`            | `insert_final_newline`     | `false` | No final newline in JSON             |
+| `*.{yml,yaml}`      | `insert_final_newline`     | `true`  | Required final newline in YAML       |
+
+### Integration with Prettier
+
+EditorConfig works alongside Prettier to ensure consistent formatting:
+
+- EditorConfig handles basic file formatting (indentation, line endings)
+- Prettier handles code-specific formatting (quotes, brackets, etc.)
+- Both tools respect file-specific settings for different file types
+
 ## Usage
 
 ### Command Line
