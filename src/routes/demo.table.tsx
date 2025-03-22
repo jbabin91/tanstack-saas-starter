@@ -167,8 +167,9 @@ function TableDemo() {
                         <>
                           <div
                             {...{
-                              className: header.column.getCanSort()
-                                ? 'cursor-pointer select-none hover:text-blue-400 transition-colors'
+                              className:
+                                header.column.getCanSort() ?
+                                  'cursor-pointer select-none hover:text-blue-400 transition-colors'
                                 : '',
                               onClick: header.column.getToggleSortingHandler(),
                             }}
@@ -182,11 +183,11 @@ function TableDemo() {
                               desc: ' 🔽',
                             }[header.column.getIsSorted() as string] ?? null}
                           </div>
-                          {header.column.getCanFilter() ? (
+                          {header.column.getCanFilter() ?
                             <div className="mt-2">
                               <Filter column={header.column} />
                             </div>
-                          ) : null}
+                          : null}
                         </>
                       )}
                     </th>
