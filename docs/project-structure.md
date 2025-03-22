@@ -91,5 +91,5 @@ TanStack Router uses file-based routing with a naming convention:
 4. Preview production build:
 
    ```bash
-   pnpm serve
+   pnpm start
    ```

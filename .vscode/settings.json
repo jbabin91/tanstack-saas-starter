@@ -1,16 +1,70 @@
 {
-  "files.watcherExclude": {
-    "**/routeTree.gen.ts": true
-  },
-  "search.exclude": {
-    "**/routeTree.gen.ts": true
-  },
   "files.readonlyInclude": {
     "**/routeTree.gen.ts": true
   },
+  "files.watcherExclude": {
+    "**/routeTree.gen.ts": true
+  },
+  "github.copilot.chat.codeGeneration.instructions": [
+    {
+      "file": "./docs/project-structure.md"
+    },
+    {
+      "file": "./docs/README.md"
+    },
+    {
+      "file": "./docs/core/react.md"
+    },
+    {
+      "file": "./docs/core/typescript.md"
+    },
+    {
+      "file": "./docs/core/vinxi.md"
+    },
+    {
+      "file": "./docs/tanstack/form.md"
+    },
+    {
+      "file": "./docs/tanstack/query.md"
+    },
+    {
+      "file": "./docs/tanstack/router.md"
+    },
+    {
+      "file": "./docs/tanstack/table.md"
+    },
+    {
+      "file": "./docs/testing/faker.md"
+    },
+    {
+      "file": "./docs/testing/vitest.md"
+    },
+    {
+      "file": "./docs/ui/component-utilities.md"
+    },
+    {
+      "file": "./docs/ui/radix-ui.md"
+    },
+    {
+      "file": "./docs/ui/tailwindcss.md"
+    },
+    {
+      "file": "./docs/validation/zod.md"
+    }
+  ],
   "github.copilot.chat.codeGeneration.useInstructionFiles": true,
   "github.copilot.chat.commitMessageGeneration.instructions": [
-    { "text": "Use conventional commit message format." },
-    { "file": "./docs/core/conventional-commits.md" }
-  ]
+    {
+      "text": "Use conventional commit message format."
+    },
+    {
+      "file": "./docs/core/conventional-commits.md"
+    }
+  ],
+  "github.copilot.chat.reviewSelection.enabled": true,
+  "github.copilot.chat.reviewSelection.instructions": [],
+  "github.copilot.chat.testGeneration.instructions": [],
+  "search.exclude": {
+    "**/routeTree.gen.ts": true
+  }
 }

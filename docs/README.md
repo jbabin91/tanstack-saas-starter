@@ -31,3 +31,7 @@ This directory contains documentation for the technologies used in the TanStack 
 ## Project Structure
 
 - [Project Structure](./project-structure.md) - Overview of the project organization
+
+## Workflow Rules
+
+- [Workflow Rules](./workflow-rules.md) - Rules for Wokring with this project
