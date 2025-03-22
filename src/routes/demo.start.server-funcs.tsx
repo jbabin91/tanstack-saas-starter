@@ -1,6 +1,7 @@
 import * as fs from 'node:fs';
-import { createFileRoute, useRouter } from '@tanstack/react-router';
+import { createFileRoute } from '@tanstack/react-router';
 import { createServerFn } from '@tanstack/react-start';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 const filePath = 'count.txt';
 
@@ -29,21 +30,25 @@ export const Route = createFileRoute('/demo/start/server-funcs')({
 });
 
 function Home() {
-  const router = useRouter();
+  const queryClient = useQueryClient();
   const state = Route.useLoaderData();
+
+  const mutation = useMutation({
+    mutationFn: updateCount,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['count'] });
+    },
+  });
 
   return (
     <div className="p-4">
       <button
         type="button"
-        onClick={() => {
-          updateCount({ data: 1 }).then(() => {
-            router.invalidate();
-          });
-        }}
-        className="rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700"
+        onClick={() => mutation.mutate({ data: 1 })}
+        disabled={mutation.isPending}
+        className="rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700 disabled:opacity-50"
       >
-        Add 1 to {state}?
+        {mutation.isPending ? 'Adding...' : `Add 1 to ${state}?`}
       </button>
     </div>
   );

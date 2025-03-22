@@ -1,6 +1,5 @@
-import { useEffect, useState } from 'react';
-
 import { createFileRoute } from '@tanstack/react-router';
+import { useQuery } from '@tanstack/react-query';
 
 function getNames() {
   return fetch('/api/demo-names').then((res) => res.json());
@@ -11,10 +10,10 @@ export const Route = createFileRoute('/demo/start/api-request')({
 });
 
 function Home() {
-  const [names, setNames] = useState<Array<string>>([]);
-  useEffect(() => {
-    getNames().then(setNames);
-  }, []);
+  const { data: names = [] } = useQuery({
+    queryKey: ['names'],
+    queryFn: getNames,
+  });
 
   return (
     <div className="p-4">
