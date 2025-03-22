@@ -6,7 +6,6 @@ import configPrettier from 'eslint-config-prettier';
 import pluginImportX from 'eslint-plugin-import-x';
 import pluginJsxA11y from 'eslint-plugin-jsx-a11y';
 import pluginReact from 'eslint-plugin-react';
-import pluginReactCompiler from 'eslint-plugin-react-compiler';
 // @ts-ignore
 import pluginReactHooks from 'eslint-plugin-react-hooks';
 import pluginSimpleImportSort from 'eslint-plugin-simple-import-sort';
@@ -112,7 +111,6 @@ export default tseslint.config(
     },
   },
   {
-    ...pluginReactCompiler.configs.recommended,
     extends: [
       reactPlugin.configs['recommended-type-checked'],
       reactPlugin.configs['recommended-typescript'],
@@ -127,11 +125,9 @@ export default tseslint.config(
       'jsx-a11y': pluginJsxA11y,
       // @ts-ignore
       react: pluginReact,
-      'react-compiler': pluginReactCompiler,
       'react-hooks': pluginReactHooks,
     },
     rules: {
-      ...pluginReactCompiler.configs.recommended.rules,
       ...reactPlugin.configs.recommended.rules,
       ...pluginReact.configs['jsx-runtime'].rules,
       ...pluginReactHooks.configs.recommended.rules,
@@ -139,15 +135,6 @@ export default tseslint.config(
       '@eslint-react/no-arrow-function-lifecycle': 'off',
       '@eslint-react/no-unstable-context-value': 'off',
       '@eslint-react/no-unstable-default-props': 'off',
-      'react-compiler/react-compiler': [
-        'error',
-        {
-          checkAsyncComponents: true,
-          checkClientComponents: true,
-          checkEffectEvents: true,
-          checkServerComponents: true,
-        },
-      ],
       'react-hooks/exhaustive-deps': 'off',
       'react/jsx-no-bind': 'off',
       'react/jsx-no-constructed-context-values': 'off',

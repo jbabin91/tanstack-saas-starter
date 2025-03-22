@@ -3,8 +3,15 @@ import { defineConfig } from '@tanstack/react-start/config';
 import viteTsConfigPaths from 'vite-tsconfig-paths';
 
 export default defineConfig({
+  server: {
+    compatibilityDate: '2024-11-25',
+    preset: 'node-server',
+  },
   tsr: {
     appDirectory: 'src',
+    autoCodeSplitting: true,
+    quoteStyle: 'single',
+    semicolons: true,
   },
   vite: {
     plugins: [
