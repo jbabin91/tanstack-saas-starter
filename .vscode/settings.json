@@ -5,6 +5,8 @@
   "files.watcherExclude": {
     "**/routeTree.gen.ts": true
   },
+  "github.copilot.advanced": {},
+  "github.copilot.chat.agent.runTasks": true,
   "github.copilot.chat.codeGeneration.instructions": [
     {
       "file": "./docs/project-structure.md"
@@ -62,17 +64,40 @@
     }
   ],
   "github.copilot.chat.codeGeneration.useInstructionFiles": true,
+  "github.copilot.chat.codesearch.enabled": true,
   "github.copilot.chat.commitMessageGeneration.instructions": [
     {
-      "text": "Use conventional commit message format."
+      "text": "ALL commit messages MUST follow this format exactly:\n<type>[(optional scope)]: <description>\n\n[optional body]\n\nwhere:\n- type MUST be one of: feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert\n- type MUST be lowercase\n- scope is optional and MUST be a noun in parentheses\n- description MUST be in present tense\n- description MUST be lowercase\n- a longer body MAY be included after a blank line\n- breaking changes MUST be indicated by ! after type/scope or BREAKING CHANGE: in footer"
     },
     {
       "file": "./docs/core/conventional-commits.md"
     }
   ],
+  "github.copilot.chat.completionContext.typescript.mode": "on",
+  "github.copilot.chat.copilotDebugCommand.enabled": true,
+  "github.copilot.chat.editor.temporalContext.enabled": true,
+  "github.copilot.chat.edits.suggestRelatedFilesForTests": true,
+  "github.copilot.chat.edits.suggestRelatedFilesFromGitHistory": true,
+  "github.copilot.chat.edits.temporalContext.enabled": true,
+  "github.copilot.chat.followUps": "always",
+  "github.copilot.chat.generateTests.codeLens": true,
+  "github.copilot.chat.languageContext.typescript.enabled": true,
+  "github.copilot.chat.localeOverride": "en",
+  "github.copilot.chat.newWorkspaceCreation.enabled": true,
+  "github.copilot.chat.pullRequestDescriptionGeneration.instructions": [],
   "github.copilot.chat.reviewSelection.enabled": true,
   "github.copilot.chat.reviewSelection.instructions": [],
+  "github.copilot.chat.scopeSelection": true,
+  "github.copilot.chat.search.semanticTextResults": true,
+  "github.copilot.chat.setupTests.enabled": true,
+  "github.copilot.chat.startDebugging.enabled": true,
+  "github.copilot.chat.terminalChatLocation": "terminal",
   "github.copilot.chat.testGeneration.instructions": [],
+  "github.copilot.chat.useProjectTemplates": true,
+  "github.copilot.editor.enableAutoCompletions": true,
+  "github.copilot.editor.enableCodeActions": true,
+  "github.copilot.nextEditSuggestions.enabled": true,
+  "github.copilot.renameSuggestions.triggerAutomatically": true,
   "search.exclude": {
     "**/routeTree.gen.ts": true
   }

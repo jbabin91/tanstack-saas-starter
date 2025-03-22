@@ -1,0 +1,51 @@
+---
+description: ALWAYS use when generating git commit messages to ensure adherence to conventional commit format
+globs: **/*
+alwaysApply: true
+---
+
+# Conventional Commit Message Rules
+
+## Context
+
+- When creating any git commit message
+- When reviewing commit messages before push
+- When suggesting commit messages to users
+
+## Requirements
+
+- Follow the exact format: <type>[(optional scope)]: <description>
+- Type MUST be one of: feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert
+- Type MUST be lowercase
+- Scope is optional but MUST be a noun in parentheses when used
+- Description MUST be in present tense
+- Description MUST be lowercase and concise
+- Body (if included) MUST be separated by a blank line
+- Breaking changes MUST be indicated with ! or BREAKING CHANGE footer
+
+## Examples
+
+<example>
+feat(auth): add google oauth integration
+
+Implement Google OAuth2 authentication flow with proper error handling
+and user session management.
+
+- Add GoogleAuthProvider component
+- Implement OAuth callback handler
+- Add user session storage
+  </example>
+
+<example type="invalid">
+Added new auth feature
+
+This commit adds Google authentication to the app
+</example>
+
+## Critical Rules
+
+- NEVER skip the type prefix
+- ALWAYS use lowercase for type and description
+- ALWAYS use present tense in description
+- NEVER exceed 72 characters in the first line
+- ALWAYS separate body with a blank line if included
