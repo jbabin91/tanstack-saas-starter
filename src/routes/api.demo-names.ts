@@ -1,4 +1,4 @@
-import { createAPIFileRoute } from '@tanstack/react-start/api'
+import { createAPIFileRoute } from '@tanstack/react-start/api';
 
 export const APIRoute = createAPIFileRoute('/api/demo-names')({
   GET: async ({ request }) => {
@@ -6,6 +6,6 @@ export const APIRoute = createAPIFileRoute('/api/demo-names')({
       headers: {
         'Content-Type': 'application/json',
       },
-    })
+    });
   },
-})
+});
