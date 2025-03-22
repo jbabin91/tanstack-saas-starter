@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
 
 function getNames() {
-  return fetch('/api/demo-names').then((res) => res.json());
+  return fetch('/api/demos/names').then((res) => res.json());
 }
 
 export const Route = createFileRoute('/_app/demos/start/api-request')({
