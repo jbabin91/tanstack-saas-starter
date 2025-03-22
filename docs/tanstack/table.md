@@ -82,6 +82,52 @@ function MyTable({ data }) {
 }
 ```
 
+## Column Definitions
+
+TanStack Table provides multiple ways to define columns:
+
+```tsx
+const columns = [
+  // Basic column
+  columnHelper.accessor('name', {
+    header: 'Name',
+    cell: (info) => info.getValue(),
+  }),
+
+  // Computed column
+  columnHelper.accessor((row) => `${row.firstName} ${row.lastName}`, {
+    id: 'fullName',
+    header: 'Full Name',
+  }),
+
+  // Display column (no accessor)
+  columnHelper.display({
+    id: 'actions',
+    cell: (info) => <button onClick={() => handleEdit(info.row.original)}>Edit</button>,
+  }),
+];
+```
+
+### Column Groups
+
+You can organize columns into groups:
+
+```tsx
+const columns = [
+  columnHelper.group({
+    header: 'Name',
+    columns: [
+      columnHelper.accessor('firstName', {
+        header: 'First Name',
+      }),
+      columnHelper.accessor('lastName', {
+        header: 'Last Name',
+      }),
+    ],
+  }),
+];
+```
+
 ## Adding Sorting
 
 ```tsx

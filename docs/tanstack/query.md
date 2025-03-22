@@ -168,6 +168,55 @@ const { data } = useQuery({
 });
 ```
 
+## Query Keys and Caching
+
+Query keys are used to uniquely identify and cache query data:
+
+```tsx
+// Simple query key
+useQuery({ queryKey: ['todos'], queryFn: fetchTodos });
+
+// Composite query key
+useQuery({
+  queryKey: ['todo', { id, version }],
+  queryFn: () => fetchTodoById(id),
+});
+```
+
+### Cache Time vs Stale Time
+
+- `cacheTime`: How long unused data remains in cache (default: 5 minutes)
+- `staleTime`: How long data remains "fresh" (default: 0 seconds)
+
+```tsx
+const { data } = useQuery({
+  queryKey: ['users'],
+  queryFn: fetchUsers,
+  staleTime: 1000 * 60 * 5, // 5 minutes
+  cacheTime: 1000 * 60 * 30, // 30 minutes
+});
+```
+
+### Background Updates
+
+TanStack Query automatically manages background updates:
+
+```tsx
+const { data, isFetching } = useQuery({
+  queryKey: ['users'],
+  queryFn: fetchUsers,
+  // Refetch options
+  refetchOnWindowFocus: true,
+  refetchOnMount: true,
+  refetchOnReconnect: true,
+});
+
+// Show background refresh indicator
+{
+  isFetching && <Spinner />;
+}
+```
+
 ## Advanced Features
 
 - **Dependent Queries**: Queries that depend on data from other queries

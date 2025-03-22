@@ -178,6 +178,9 @@ Prefix a directory with `_` to make it pathless - the directory name won't appea
 src/routes/
 ├── __root.tsx               # Root layout
 ├── index.tsx               # Home page
+├── api/                    # API routes directory
+│   ├── health.ts          # /api/health
+│   └── users/             # /api/users/*
 ├── _app/                   # Core app routes (pathless)
 │   ├── route.tsx          # App layout
 │   ├── dashboard.tsx      # /dashboard
@@ -193,7 +196,7 @@ src/routes/
 └── _auth/                # Auth routes (pathless)
     ├── route.tsx         # Auth layout
     ├── login.tsx         # /login
-    └── signup.tsx       # /signup
+    └── signup.tsx        # /signup
 ```
 
 ### Organization Benefits
@@ -235,6 +238,32 @@ export const Route = createFileRoute('/dashboard')({
 export const Route = createFileRoute('/about')({
   component: AboutPage,
 });
+```
+
+## Type-Safe Parameters
+
+TanStack Router provides complete type safety for route parameters:
+
+```tsx
+// Define route with params
+export const Route = createFileRoute('/users/$userId/posts/$postId')({
+  component: UserPost,
+  validateSearch: (search: Record<string, unknown>) => ({
+    sort: z.enum(['asc', 'desc']).optional().parse(search.sort),
+  }),
+});
+
+// Use params with full type safety
+function UserPost() {
+  const { userId, postId } = Route.useParams();
+  const { sort } = Route.useSearch();
+
+  return (
+    <div>
+      User {userId}, Post {postId}, Sort: {sort}
+    </div>
+  );
+}
 ```
 
 ## Resources

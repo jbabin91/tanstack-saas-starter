@@ -89,6 +89,56 @@ This organization provides clear separation of concerns while maintaining clean 
 3. **State Management**: Primarily through TanStack Query for server state
 4. **UI Rendering**: React components styled with TailwindCSS
 
+## API Directory Structure
+
+The `/src/routes` directory also contains our API routes, following these conventions:
+
+### API Route Files
+
+API routes are organized under the `api/` directory:
+
+```sh
+src/routes/
+├── api/                       # API routes directory
+│   ├── health.ts             # /api/health
+│   ├── auth/                 # Authentication endpoints
+│   │   ├── login.ts         # /api/auth/login
+│   │   ├── logout.ts        # /api/auth/logout
+│   │   └── refresh.ts       # /api/auth/refresh
+│   ├── users/               # User management endpoints
+│   │   ├── [userId].ts     # /api/users/:userId
+│   │   ├── create.ts       # /api/users/create
+│   │   └── search.ts       # /api/users/search
+│   └── webhooks/           # Webhook endpoints
+│       ├── stripe.ts       # /api/webhooks/stripe
+│       └── github.ts       # /api/webhooks/github
+```
+
+### API Route Implementation
+
+Each API route file follows this pattern:
+
+```ts
+import { createAPIFileRoute } from '@tanstack/react-start/api';
+
+export const APIRoute = createAPIFileRoute('/api/path')({
+  // HTTP method handlers
+  GET: async ({ request }) => {
+    // Handle GET request
+  },
+  POST: async ({ request }) => {
+    // Handle POST request
+  },
+});
+```
+
+### API Organization Benefits
+
+1. **Discoverability**: All API routes are organized under the `api/` directory
+2. **Grouping**: Related endpoints are grouped in subdirectories
+3. **Versioning**: Easy to add versioned routes (e.g., `api/v1/users/`)
+4. **Type Safety**: Full type safety with TanStack Start's API route types
+
 ## Development Workflow
 
 1. Start the development server:

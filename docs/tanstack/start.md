@@ -172,7 +172,7 @@ This project includes demo implementations of both API routes and server functio
 ### API Route Example
 
 ```ts
-// /src/routes/api.demo-names.ts
+// filepath: /src/routes/api/demo-names.ts
 import { createAPIFileRoute } from '@tanstack/react-start/api';
 
 export const APIRoute = createAPIFileRoute('/api/demo-names')({
