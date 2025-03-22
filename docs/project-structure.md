@@ -53,13 +53,34 @@ Contains comprehensive documentation of the tech stack:
 
 ## Routing Structure
 
-TanStack Router uses file-based routing with a naming convention:
+TanStack Router uses file-based routing with specific organizational patterns:
+
+### Root Level Routes
 
 - `__root.tsx` - Root layout that wraps all routes
 - `index.tsx` - Home page
-- `demo.*.tsx` - Demo route files
-  - The `.` in filenames represents route nesting
-  - Example: `demo.form.simple.tsx` becomes `/demo/form/simple`
+
+### Pathless Directory Organization
+
+We use pathless directories (prefixed with `_`) to organize routes without affecting URLs:
+
+- `_app/` - Core application routes
+
+  - Mounted at root level
+  - Contains authenticated/protected routes
+  - Example: `_app/settings.tsx` → `/settings`
+
+- `_public/` - Public-facing routes
+
+  - Marketing pages, landing pages
+  - No authentication required
+  - Example: `_public/about.tsx` → `/about`
+
+- `_auth/` - Authentication routes
+  - Login, signup flows
+  - Example: `_auth/login.tsx` → `/login`
+
+This organization provides clear separation of concerns while maintaining clean URLs.
 
 ## Data Flow
 

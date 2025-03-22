@@ -142,6 +142,101 @@ In this project, TanStack Router is used for all routing. Key files include:
 - `/src/routes/index.tsx`: Home page
 - `/src/routeTree.gen.ts`: Generated route tree
 
+## Route File Naming Convention
+
+When creating routes in this project, we follow these conventions:
+
+### Special Route Files
+
+- `__root.tsx`: Root layout that wraps all routes
+- `index.tsx`: Home page or directory index
+- `route.tsx`: Layout or parent route file (preferred over `layout.tsx`)
+
+### Pathless Directories
+
+Prefix a directory with `_` to make it pathless - the directory name won't appear in the URL path. This is useful for:
+
+1. **`_app`**: Application-level organization
+
+   - Routes inside `_app` are mounted at the root level
+   - Good for core application routes
+   - Example: `_app/settings.tsx` → `/settings`
+
+2. **`_public`**: Public-facing routes
+
+   - Routes accessible without authentication
+   - Landing pages, marketing pages, etc.
+   - Example: `_public/pricing.tsx` → `/pricing`
+
+3. **`_auth`**: Authentication-related routes
+   - Login, signup, password reset, etc.
+   - Example: `_auth/login.tsx` → `/login`
+
+### Directory Structure Example
+
+```plaintext
+src/routes/
+├── __root.tsx               # Root layout
+├── index.tsx               # Home page
+├── _app/                   # Core app routes (pathless)
+│   ├── route.tsx          # App layout
+│   ├── dashboard.tsx      # /dashboard
+│   └── settings/          # /settings
+│       ├── route.tsx      # Settings layout
+│       ├── profile.tsx    # /settings/profile
+│       └── billing.tsx    # /settings/billing
+├── _public/               # Public routes (pathless)
+│   ├── route.tsx         # Public layout
+│   ├── about.tsx         # /about
+│   ├── pricing.tsx       # /pricing
+│   └── contact.tsx       # /contact
+└── _auth/                # Auth routes (pathless)
+    ├── route.tsx         # Auth layout
+    ├── login.tsx         # /login
+    └── signup.tsx       # /signup
+```
+
+### Organization Benefits
+
+1. **Logical Grouping**: Group related routes without affecting URLs
+2. **Access Control**: Easily apply middleware or layouts to specific groups
+3. **Code Organization**: Better file organization without impacting URL structure
+4. **Maintainability**: Clear separation of concerns in the routing structure
+
+### Route File Examples
+
+```tsx
+// __root.tsx - Root layout
+export const Route = createRootRouteWithContext<RouterContext>()({
+  component: RootLayout,
+});
+
+// route.tsx - Section layout
+export const Route = createFileRoute('/dashboard')({
+  component: DashboardLayout,
+});
+
+// Nested page route
+export const Route = createFileRoute('/dashboard/settings')({
+  component: SettingsPage,
+});
+
+// _app/route.tsx - App layout (mounts at /)
+export const Route = createFileRoute('/_app')({
+  component: AppLayout,
+});
+
+// _app/dashboard.tsx - Dashboard page (mounts at /dashboard)
+export const Route = createFileRoute('/dashboard')({
+  component: DashboardPage,
+});
+
+// _public/about.tsx - About page (mounts at /about)
+export const Route = createFileRoute('/about')({
+  component: AboutPage,
+});
+```
+
 ## Resources
 
 - [Official Documentation](https://tanstack.com/router/latest/docs/framework/react/overview)
