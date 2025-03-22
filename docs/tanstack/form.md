@@ -49,13 +49,10 @@ function MyForm() {
         {(field) => (
           <div>
             <label>Name</label>
-            <input
-              value={field.state.value}
-              onChange={(e) => field.handleChange(e.target.value)}
-            />
-            {field.state.meta.touchedErrors ? (
+            <input value={field.state.value} onChange={(e) => field.handleChange(e.target.value)} />
+            {field.state.meta.touchedErrors ?
               <em>{field.state.meta.touchedErrors}</em>
-            ) : null}
+            : null}
           </div>
         )}
       </form.Field>
@@ -64,13 +61,10 @@ function MyForm() {
         {(field) => (
           <div>
             <label>Email</label>
-            <input
-              value={field.state.value}
-              onChange={(e) => field.handleChange(e.target.value)}
-            />
-            {field.state.meta.touchedErrors ? (
+            <input value={field.state.value} onChange={(e) => field.handleChange(e.target.value)} />
+            {field.state.meta.touchedErrors ?
               <em>{field.state.meta.touchedErrors}</em>
-            ) : null}
+            : null}
           </div>
         )}
       </form.Field>
@@ -103,13 +97,9 @@ function SimpleForm() {
 
   return (
     <form onSubmit={form.handleSubmit}>
-      <form.AppField name="title">
-        {(field) => <field.TextField label="Title" />}
-      </form.AppField>
+      <form.AppField name="title">{(field) => <field.TextField label="Title" />}</form.AppField>
 
-      <form.AppField name="description">
-        {(field) => <field.TextArea label="Description" />}
-      </form.AppField>
+      <form.AppField name="description">{(field) => <field.TextArea label="Description" />}</form.AppField>
 
       <form.SubscribeButton label="Submit" />
     </form>

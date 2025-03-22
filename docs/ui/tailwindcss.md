@@ -15,11 +15,7 @@ TailwindCSS is a utility-first CSS framework that allows you to build custom des
 
 ```html
 <!-- Using utility classes for styling -->
-<button
-  class="bg-primary text-primary-foreground hover:bg-primary/90 rounded px-4 py-2 font-bold"
->
-  Submit
-</button>
+<button class="bg-primary text-primary-foreground hover:bg-primary/90 rounded px-4 py-2 font-bold">Submit</button>
 ```
 
 ## Configuration
@@ -85,21 +81,15 @@ In React components, Tailwind is used directly in className props:
 
 ```tsx
 function Button({ variant = 'primary', children }) {
-  const baseStyles =
-    'px-4 py-2 rounded-md font-medium focus:outline-none transition-colors';
+  const baseStyles = 'px-4 py-2 rounded-md font-medium focus:outline-none transition-colors';
 
   const variantStyles = {
     primary: 'bg-primary text-primary-foreground hover:bg-primary/90',
     secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/80',
-    destructive:
-      'bg-destructive text-destructive-foreground hover:bg-destructive/90',
+    destructive: 'bg-destructive text-destructive-foreground hover:bg-destructive/90',
   };
 
-  return (
-    <button className={`${baseStyles} ${variantStyles[variant]}`}>
-      {children}
-    </button>
-  );
+  return <button className={`${baseStyles} ${variantStyles[variant]}`}>{children}</button>;
 }
 ```
 
@@ -110,37 +100,27 @@ This project combines TailwindCSS with CVA for component variants:
 ```tsx
 import { cva } from 'class-variance-authority';
 
-const buttonVariants = cva(
-  'inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors',
-  {
-    variants: {
-      variant: {
-        default: 'bg-primary text-primary-foreground hover:bg-primary/90',
-        secondary:
-          'bg-secondary text-secondary-foreground hover:bg-secondary/80',
-        destructive:
-          'bg-destructive text-destructive-foreground hover:bg-destructive/90',
-      },
-      size: {
-        default: 'h-10 px-4 py-2',
-        sm: 'h-8 px-3 text-xs',
-        lg: 'h-12 px-6 text-lg',
-      },
+const buttonVariants = cva('inline-flex items-center justify-center rounded-md text-sm font-medium transition-colors', {
+  variants: {
+    variant: {
+      default: 'bg-primary text-primary-foreground hover:bg-primary/90',
+      secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/80',
+      destructive: 'bg-destructive text-destructive-foreground hover:bg-destructive/90',
     },
-    defaultVariants: {
-      variant: 'default',
-      size: 'default',
+    size: {
+      default: 'h-10 px-4 py-2',
+      sm: 'h-8 px-3 text-xs',
+      lg: 'h-12 px-6 text-lg',
     },
   },
-);
+  defaultVariants: {
+    variant: 'default',
+    size: 'default',
+  },
+});
 
 export function Button({ variant, size, className, ...props }) {
-  return (
-    <button
-      className={buttonVariants({ variant, size, className })}
-      {...props}
-    />
-  );
+  return <button className={buttonVariants({ variant, size, className })} {...props} />;
 }
 ```
 

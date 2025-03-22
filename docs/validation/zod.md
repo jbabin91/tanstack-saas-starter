@@ -10,6 +10,16 @@ Zod is a TypeScript-first schema validation library with comprehensive type infe
 - Runtime type checking
 - Parse and transform data
 
+## Validation Methods
+
+| Method      | Description            | Example               |
+| ----------- | ---------------------- | --------------------- |
+| `string()`  | Validates string type  | `z.string()`          |
+| `number()`  | Validates number type  | `z.number()`          |
+| `boolean()` | Validates boolean type | `z.boolean()`         |
+| `date()`    | Validates Date objects | `z.date()`            |
+| `array()`   | Validates arrays       | `z.array(z.string())` |
+
 ## Basic Usage
 
 ```tsx
@@ -65,10 +75,7 @@ const booleanSchema = z.boolean();
 const dateSchema = z.date();
 
 // Arrays
-const arraySchema = z
-  .array(z.string())
-  .min(1, 'Must have at least one item')
-  .max(10, 'Too many items');
+const arraySchema = z.array(z.string()).min(1, 'Must have at least one item').max(10, 'Too many items');
 
 // Optional fields
 const optionalSchema = z.object({
@@ -85,6 +92,25 @@ const unionSchema2 = z.string().or(z.number());
 // Enums
 const roleSchema = z.enum(['admin', 'user', 'editor']);
 ```
+
+## String Validations
+
+| Method    | Purpose          | Example                        |
+| --------- | ---------------- | ------------------------------ |
+| `min()`   | Minimum length   | `.min(2, 'Too short')`         |
+| `max()`   | Maximum length   | `.max(100, 'Too long')`        |
+| `email()` | Email format     | `.email('Invalid email')`      |
+| `url()`   | URL format       | `.url('Invalid URL')`          |
+| `regex()` | Pattern matching | `.regex(/pattern/, 'Invalid')` |
+
+## Number Validations
+
+| Method       | Purpose            | Example                         |
+| ------------ | ------------------ | ------------------------------- |
+| `int()`      | Integer validation | `.int('Must be integer')`       |
+| `positive()` | Greater than 0     | `.positive('Must be positive')` |
+| `min()`      | Minimum value      | `.min(0, 'Min value is 0')`     |
+| `max()`      | Maximum value      | `.max(100, 'Max is 100')`       |
 
 ## Integration with TanStack Form
 
@@ -128,10 +154,7 @@ const stringToNumber = z.string().transform((val) => parseInt(val, 10));
 const dateString = z.string().transform((val) => new Date(val));
 
 // Preprocessing
-const trimmedString = z.preprocess(
-  (val) => (typeof val === 'string' ? val.trim() : val),
-  z.string().min(1),
-);
+const trimmedString = z.preprocess((val) => (typeof val === 'string' ? val.trim() : val), z.string().min(1));
 ```
 
 ## Project Usage

@@ -2,6 +2,47 @@
 
 TypeScript is a strongly typed programming language that builds on JavaScript, giving you better tooling at any scale.
 
+## Common TypeScript Types
+
+| Type      | Description                    | Example                          |
+| --------- | ------------------------------ | -------------------------------- |
+| `string`  | Text values                    | `let name: string = 'John'`      |
+| `number`  | Numeric values                 | `let age: number = 25`           |
+| `boolean` | True/false values              | `let active: boolean = true`     |
+| `any`     | Any type (avoid when possible) | `let data: any = fetchData()`    |
+| `unknown` | Type-safe alternative to `any` | `let input: unknown = userInput` |
+
+## Utility Types
+
+| Type          | Purpose                                   | Example                      |
+| ------------- | ----------------------------------------- | ---------------------------- |
+| `Partial<T>`  | Makes all properties optional             | `Partial<User>`              |
+| `Required<T>` | Makes all properties required             | `Required<UserForm>`         |
+| `Pick<T, K>`  | Creates type with subset of properties    | `Pick<User, 'id' \| 'name'>` |
+| `Omit<T, K>`  | Creates type without specified properties | `Omit<User, 'password'>`     |
+
+## Example Usage
+
+Here's an example of utility types in action:
+
+```typescript
+interface User {
+  id: string;
+  name: string;
+  email: string;
+  password: string;
+}
+
+// Using Pick to create a login form type
+type LoginForm = Pick<User, 'email' | 'password'>;
+
+// Using Omit to create a public profile type
+type PublicProfile = Omit<User, 'password'>;
+
+// Using Partial for optional updates
+type UserUpdate = Partial<User>;
+```
+
 ## Key Features
 
 - Static type checking
@@ -27,9 +68,7 @@ interface User {
 }
 
 // Type inference
-const users: User[] = [
-  { id: '1', name: 'John', email: 'john@example.com', role: 'admin' },
-];
+const users: User[] = [{ id: '1', name: 'John', email: 'john@example.com', role: 'admin' }];
 
 // Generic types
 function getFirst<T>(items: T[]): T | undefined {
@@ -55,18 +94,9 @@ interface ButtonProps {
 }
 
 // React component with TypeScript
-const Button: React.FC<ButtonProps> = ({
-  label,
-  onClick,
-  disabled = false,
-  variant = 'primary',
-}) => {
+const Button: React.FC<ButtonProps> = ({ label, onClick, disabled = false, variant = 'primary' }) => {
   return (
-    <button
-      onClick={onClick}
-      disabled={disabled}
-      className={`btn btn-${variant}`}
-    >
+    <button onClick={onClick} disabled={disabled} className={`btn btn-${variant}`}>
       {label}
     </button>
   );

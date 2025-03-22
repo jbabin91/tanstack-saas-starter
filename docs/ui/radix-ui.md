@@ -11,6 +11,24 @@ Radix UI provides unstyled, accessible UI primitives that can be styled with Tai
 - Screen reader announcements
 - Proper ARIA attributes
 
+## Common Component Props
+
+| Component | Key Props                              | Description                |
+| --------- | -------------------------------------- | -------------------------- |
+| Select    | `value`, `onValueChange`               | Controlled select input    |
+| Switch    | `checked`, `onCheckedChange`           | Toggle switch control      |
+| Slider    | `value`, `onValueChange`, `min`, `max` | Range input control        |
+| Label     | `htmlFor`, `asChild`                   | Accessible label component |
+
+## Accessibility Features
+
+| Feature          | Implementation            | Example                       |
+| ---------------- | ------------------------- | ----------------------------- |
+| ARIA Labels      | Automatic ARIA attributes | `aria-label`, `aria-expanded` |
+| Keyboard Nav     | Arrow key navigation      | `↑`, `↓`, `Space`, `Enter`    |
+| Focus Management | Automatic focus handling  | Focus trap in modals          |
+| Screen Readers   | Descriptive announcements | State changes, selections     |
+
 ## Components Used in This Project
 
 This project uses several Radix UI components:

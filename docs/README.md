@@ -8,6 +8,8 @@ This directory contains documentation for the technologies used in the TanStack 
 - [React](./core/react.md) - UI library (v19)
 - [TypeScript](./core/typescript.md) - Type-safe JavaScript
 - [Conventional Commits](./core/conventional-commits.md) - Git commit message conventions
+- [Code Style](./core/code-style.md) - Code formatting and style guidelines
+- [Markdown](./core/markdown.md) - Documentation formatting guidelines
 
 ## TanStack Ecosystem
 
