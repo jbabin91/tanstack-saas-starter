@@ -1,6 +1,8 @@
 import { createRouter as createTanstackRouter } from '@tanstack/react-router';
 import { routerWithQueryClient } from '@tanstack/react-router-with-query';
 
+import { DefaultCatchBoundary } from '@/components/errors/default-catch-boundary';
+import { NotFound } from '@/components/errors/not-found';
 import * as TanstackQuery from '@/integrations/tanstack-query/root-provider';
 // Import the generated route tree
 import { routeTree } from '@/routeTree.gen';
@@ -12,6 +14,8 @@ export const createRouter = () => {
       context: {
         ...TanstackQuery.getContext(),
       },
+      defaultErrorComponent: DefaultCatchBoundary,
+      defaultNotFoundComponent: () => <NotFound />,
       defaultPreloadStaleTime: 0,
       routeTree,
       scrollRestoration: true,

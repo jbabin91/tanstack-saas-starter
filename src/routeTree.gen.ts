@@ -11,196 +11,293 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
-import { Route as IndexImport } from './routes/index'
-import { Route as DemoTanstackQueryImport } from './routes/demo.tanstack-query'
-import { Route as DemoTableImport } from './routes/demo.table'
-import { Route as DemoStartServerFuncsImport } from './routes/demo.start.server-funcs'
-import { Route as DemoStartApiRequestImport } from './routes/demo.start.api-request'
-import { Route as DemoFormSimpleImport } from './routes/demo.form.simple'
-import { Route as DemoFormAddressImport } from './routes/demo.form.address'
+import { Route as PublicRouteImport } from './routes/_public/route'
+import { Route as AuthRouteImport } from './routes/_auth/route'
+import { Route as AppRouteImport } from './routes/_app/route'
+import { Route as PublicIndexImport } from './routes/_public/index'
+import { Route as AppDemosStartServerFuncsImport } from './routes/_app/demos/start/server-funcs'
+import { Route as AppDemosStartApiRequestImport } from './routes/_app/demos/start/api-request'
+import { Route as AppDemosFormsSimpleImport } from './routes/_app/demos/forms/simple'
+import { Route as AppDemosFormsAddressImport } from './routes/_app/demos/forms/address'
+import { Route as AppDemosDataTableImport } from './routes/_app/demos/data/table'
+import { Route as AppDemosDataQueryImport } from './routes/_app/demos/data/query'
+import { Route as AppDemosDataCounterImport } from './routes/_app/demos/data/counter'
 
 // Create/Update Routes
 
-const IndexRoute = IndexImport.update({
+const PublicRouteRoute = PublicRouteImport.update({
+  id: '/_public',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const AuthRouteRoute = AuthRouteImport.update({
+  id: '/_auth',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const AppRouteRoute = AppRouteImport.update({
+  id: '/_app',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const PublicIndexRoute = PublicIndexImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => PublicRouteRoute,
 } as any)
 
-const DemoTanstackQueryRoute = DemoTanstackQueryImport.update({
-  id: '/demo/tanstack-query',
-  path: '/demo/tanstack-query',
-  getParentRoute: () => rootRoute,
+const AppDemosStartServerFuncsRoute = AppDemosStartServerFuncsImport.update({
+  id: '/demos/start/server-funcs',
+  path: '/demos/start/server-funcs',
+  getParentRoute: () => AppRouteRoute,
 } as any)
 
-const DemoTableRoute = DemoTableImport.update({
-  id: '/demo/table',
-  path: '/demo/table',
-  getParentRoute: () => rootRoute,
+const AppDemosStartApiRequestRoute = AppDemosStartApiRequestImport.update({
+  id: '/demos/start/api-request',
+  path: '/demos/start/api-request',
+  getParentRoute: () => AppRouteRoute,
 } as any)
 
-const DemoStartServerFuncsRoute = DemoStartServerFuncsImport.update({
-  id: '/demo/start/server-funcs',
-  path: '/demo/start/server-funcs',
-  getParentRoute: () => rootRoute,
+const AppDemosFormsSimpleRoute = AppDemosFormsSimpleImport.update({
+  id: '/demos/forms/simple',
+  path: '/demos/forms/simple',
+  getParentRoute: () => AppRouteRoute,
 } as any)
 
-const DemoStartApiRequestRoute = DemoStartApiRequestImport.update({
-  id: '/demo/start/api-request',
-  path: '/demo/start/api-request',
-  getParentRoute: () => rootRoute,
+const AppDemosFormsAddressRoute = AppDemosFormsAddressImport.update({
+  id: '/demos/forms/address',
+  path: '/demos/forms/address',
+  getParentRoute: () => AppRouteRoute,
 } as any)
 
-const DemoFormSimpleRoute = DemoFormSimpleImport.update({
-  id: '/demo/form/simple',
-  path: '/demo/form/simple',
-  getParentRoute: () => rootRoute,
+const AppDemosDataTableRoute = AppDemosDataTableImport.update({
+  id: '/demos/data/table',
+  path: '/demos/data/table',
+  getParentRoute: () => AppRouteRoute,
 } as any)
 
-const DemoFormAddressRoute = DemoFormAddressImport.update({
-  id: '/demo/form/address',
-  path: '/demo/form/address',
-  getParentRoute: () => rootRoute,
+const AppDemosDataQueryRoute = AppDemosDataQueryImport.update({
+  id: '/demos/data/query',
+  path: '/demos/data/query',
+  getParentRoute: () => AppRouteRoute,
+} as any)
+
+const AppDemosDataCounterRoute = AppDemosDataCounterImport.update({
+  id: '/demos/data/counter',
+  path: '/demos/data/counter',
+  getParentRoute: () => AppRouteRoute,
 } as any)
 
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
+    '/_app': {
+      id: '/_app'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof AppRouteImport
+      parentRoute: typeof rootRoute
+    }
+    '/_auth': {
+      id: '/_auth'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRoute
+    }
+    '/_public': {
+      id: '/_public'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof PublicRouteImport
+      parentRoute: typeof rootRoute
+    }
+    '/_public/': {
+      id: '/_public/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof IndexImport
-      parentRoute: typeof rootRoute
+      preLoaderRoute: typeof PublicIndexImport
+      parentRoute: typeof PublicRouteImport
     }
-    '/demo/table': {
-      id: '/demo/table'
-      path: '/demo/table'
-      fullPath: '/demo/table'
-      preLoaderRoute: typeof DemoTableImport
-      parentRoute: typeof rootRoute
+    '/_app/demos/data/counter': {
+      id: '/_app/demos/data/counter'
+      path: '/demos/data/counter'
+      fullPath: '/demos/data/counter'
+      preLoaderRoute: typeof AppDemosDataCounterImport
+      parentRoute: typeof AppRouteImport
     }
-    '/demo/tanstack-query': {
-      id: '/demo/tanstack-query'
-      path: '/demo/tanstack-query'
-      fullPath: '/demo/tanstack-query'
-      preLoaderRoute: typeof DemoTanstackQueryImport
-      parentRoute: typeof rootRoute
+    '/_app/demos/data/query': {
+      id: '/_app/demos/data/query'
+      path: '/demos/data/query'
+      fullPath: '/demos/data/query'
+      preLoaderRoute: typeof AppDemosDataQueryImport
+      parentRoute: typeof AppRouteImport
     }
-    '/demo/form/address': {
-      id: '/demo/form/address'
-      path: '/demo/form/address'
-      fullPath: '/demo/form/address'
-      preLoaderRoute: typeof DemoFormAddressImport
-      parentRoute: typeof rootRoute
+    '/_app/demos/data/table': {
+      id: '/_app/demos/data/table'
+      path: '/demos/data/table'
+      fullPath: '/demos/data/table'
+      preLoaderRoute: typeof AppDemosDataTableImport
+      parentRoute: typeof AppRouteImport
     }
-    '/demo/form/simple': {
-      id: '/demo/form/simple'
-      path: '/demo/form/simple'
-      fullPath: '/demo/form/simple'
-      preLoaderRoute: typeof DemoFormSimpleImport
-      parentRoute: typeof rootRoute
+    '/_app/demos/forms/address': {
+      id: '/_app/demos/forms/address'
+      path: '/demos/forms/address'
+      fullPath: '/demos/forms/address'
+      preLoaderRoute: typeof AppDemosFormsAddressImport
+      parentRoute: typeof AppRouteImport
     }
-    '/demo/start/api-request': {
-      id: '/demo/start/api-request'
-      path: '/demo/start/api-request'
-      fullPath: '/demo/start/api-request'
-      preLoaderRoute: typeof DemoStartApiRequestImport
-      parentRoute: typeof rootRoute
+    '/_app/demos/forms/simple': {
+      id: '/_app/demos/forms/simple'
+      path: '/demos/forms/simple'
+      fullPath: '/demos/forms/simple'
+      preLoaderRoute: typeof AppDemosFormsSimpleImport
+      parentRoute: typeof AppRouteImport
     }
-    '/demo/start/server-funcs': {
-      id: '/demo/start/server-funcs'
-      path: '/demo/start/server-funcs'
-      fullPath: '/demo/start/server-funcs'
-      preLoaderRoute: typeof DemoStartServerFuncsImport
-      parentRoute: typeof rootRoute
+    '/_app/demos/start/api-request': {
+      id: '/_app/demos/start/api-request'
+      path: '/demos/start/api-request'
+      fullPath: '/demos/start/api-request'
+      preLoaderRoute: typeof AppDemosStartApiRequestImport
+      parentRoute: typeof AppRouteImport
+    }
+    '/_app/demos/start/server-funcs': {
+      id: '/_app/demos/start/server-funcs'
+      path: '/demos/start/server-funcs'
+      fullPath: '/demos/start/server-funcs'
+      preLoaderRoute: typeof AppDemosStartServerFuncsImport
+      parentRoute: typeof AppRouteImport
     }
   }
 }
 
 // Create and export the route tree
 
+interface AppRouteRouteChildren {
+  AppDemosDataCounterRoute: typeof AppDemosDataCounterRoute
+  AppDemosDataQueryRoute: typeof AppDemosDataQueryRoute
+  AppDemosDataTableRoute: typeof AppDemosDataTableRoute
+  AppDemosFormsAddressRoute: typeof AppDemosFormsAddressRoute
+  AppDemosFormsSimpleRoute: typeof AppDemosFormsSimpleRoute
+  AppDemosStartApiRequestRoute: typeof AppDemosStartApiRequestRoute
+  AppDemosStartServerFuncsRoute: typeof AppDemosStartServerFuncsRoute
+}
+
+const AppRouteRouteChildren: AppRouteRouteChildren = {
+  AppDemosDataCounterRoute: AppDemosDataCounterRoute,
+  AppDemosDataQueryRoute: AppDemosDataQueryRoute,
+  AppDemosDataTableRoute: AppDemosDataTableRoute,
+  AppDemosFormsAddressRoute: AppDemosFormsAddressRoute,
+  AppDemosFormsSimpleRoute: AppDemosFormsSimpleRoute,
+  AppDemosStartApiRequestRoute: AppDemosStartApiRequestRoute,
+  AppDemosStartServerFuncsRoute: AppDemosStartServerFuncsRoute,
+}
+
+const AppRouteRouteWithChildren = AppRouteRoute._addFileChildren(
+  AppRouteRouteChildren,
+)
+
+interface PublicRouteRouteChildren {
+  PublicIndexRoute: typeof PublicIndexRoute
+}
+
+const PublicRouteRouteChildren: PublicRouteRouteChildren = {
+  PublicIndexRoute: PublicIndexRoute,
+}
+
+const PublicRouteRouteWithChildren = PublicRouteRoute._addFileChildren(
+  PublicRouteRouteChildren,
+)
+
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/demo/table': typeof DemoTableRoute
-  '/demo/tanstack-query': typeof DemoTanstackQueryRoute
-  '/demo/form/address': typeof DemoFormAddressRoute
-  '/demo/form/simple': typeof DemoFormSimpleRoute
-  '/demo/start/api-request': typeof DemoStartApiRequestRoute
-  '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
+  '': typeof PublicRouteRouteWithChildren
+  '/': typeof PublicIndexRoute
+  '/demos/data/counter': typeof AppDemosDataCounterRoute
+  '/demos/data/query': typeof AppDemosDataQueryRoute
+  '/demos/data/table': typeof AppDemosDataTableRoute
+  '/demos/forms/address': typeof AppDemosFormsAddressRoute
+  '/demos/forms/simple': typeof AppDemosFormsSimpleRoute
+  '/demos/start/api-request': typeof AppDemosStartApiRequestRoute
+  '/demos/start/server-funcs': typeof AppDemosStartServerFuncsRoute
 }
 
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/demo/table': typeof DemoTableRoute
-  '/demo/tanstack-query': typeof DemoTanstackQueryRoute
-  '/demo/form/address': typeof DemoFormAddressRoute
-  '/demo/form/simple': typeof DemoFormSimpleRoute
-  '/demo/start/api-request': typeof DemoStartApiRequestRoute
-  '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
+  '': typeof AuthRouteRoute
+  '/': typeof PublicIndexRoute
+  '/demos/data/counter': typeof AppDemosDataCounterRoute
+  '/demos/data/query': typeof AppDemosDataQueryRoute
+  '/demos/data/table': typeof AppDemosDataTableRoute
+  '/demos/forms/address': typeof AppDemosFormsAddressRoute
+  '/demos/forms/simple': typeof AppDemosFormsSimpleRoute
+  '/demos/start/api-request': typeof AppDemosStartApiRequestRoute
+  '/demos/start/server-funcs': typeof AppDemosStartServerFuncsRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
-  '/': typeof IndexRoute
-  '/demo/table': typeof DemoTableRoute
-  '/demo/tanstack-query': typeof DemoTanstackQueryRoute
-  '/demo/form/address': typeof DemoFormAddressRoute
-  '/demo/form/simple': typeof DemoFormSimpleRoute
-  '/demo/start/api-request': typeof DemoStartApiRequestRoute
-  '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
+  '/_app': typeof AppRouteRouteWithChildren
+  '/_auth': typeof AuthRouteRoute
+  '/_public': typeof PublicRouteRouteWithChildren
+  '/_public/': typeof PublicIndexRoute
+  '/_app/demos/data/counter': typeof AppDemosDataCounterRoute
+  '/_app/demos/data/query': typeof AppDemosDataQueryRoute
+  '/_app/demos/data/table': typeof AppDemosDataTableRoute
+  '/_app/demos/forms/address': typeof AppDemosFormsAddressRoute
+  '/_app/demos/forms/simple': typeof AppDemosFormsSimpleRoute
+  '/_app/demos/start/api-request': typeof AppDemosStartApiRequestRoute
+  '/_app/demos/start/server-funcs': typeof AppDemosStartServerFuncsRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
+    | ''
     | '/'
-    | '/demo/table'
-    | '/demo/tanstack-query'
-    | '/demo/form/address'
-    | '/demo/form/simple'
-    | '/demo/start/api-request'
-    | '/demo/start/server-funcs'
+    | '/demos/data/counter'
+    | '/demos/data/query'
+    | '/demos/data/table'
+    | '/demos/forms/address'
+    | '/demos/forms/simple'
+    | '/demos/start/api-request'
+    | '/demos/start/server-funcs'
   fileRoutesByTo: FileRoutesByTo
   to:
+    | ''
     | '/'
-    | '/demo/table'
-    | '/demo/tanstack-query'
-    | '/demo/form/address'
-    | '/demo/form/simple'
-    | '/demo/start/api-request'
-    | '/demo/start/server-funcs'
+    | '/demos/data/counter'
+    | '/demos/data/query'
+    | '/demos/data/table'
+    | '/demos/forms/address'
+    | '/demos/forms/simple'
+    | '/demos/start/api-request'
+    | '/demos/start/server-funcs'
   id:
     | '__root__'
-    | '/'
-    | '/demo/table'
-    | '/demo/tanstack-query'
-    | '/demo/form/address'
-    | '/demo/form/simple'
-    | '/demo/start/api-request'
-    | '/demo/start/server-funcs'
+    | '/_app'
+    | '/_auth'
+    | '/_public'
+    | '/_public/'
+    | '/_app/demos/data/counter'
+    | '/_app/demos/data/query'
+    | '/_app/demos/data/table'
+    | '/_app/demos/forms/address'
+    | '/_app/demos/forms/simple'
+    | '/_app/demos/start/api-request'
+    | '/_app/demos/start/server-funcs'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  DemoTableRoute: typeof DemoTableRoute
-  DemoTanstackQueryRoute: typeof DemoTanstackQueryRoute
-  DemoFormAddressRoute: typeof DemoFormAddressRoute
-  DemoFormSimpleRoute: typeof DemoFormSimpleRoute
-  DemoStartApiRequestRoute: typeof DemoStartApiRequestRoute
-  DemoStartServerFuncsRoute: typeof DemoStartServerFuncsRoute
+  AppRouteRoute: typeof AppRouteRouteWithChildren
+  AuthRouteRoute: typeof AuthRouteRoute
+  PublicRouteRoute: typeof PublicRouteRouteWithChildren
 }
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
-  DemoTableRoute: DemoTableRoute,
-  DemoTanstackQueryRoute: DemoTanstackQueryRoute,
-  DemoFormAddressRoute: DemoFormAddressRoute,
-  DemoFormSimpleRoute: DemoFormSimpleRoute,
-  DemoStartApiRequestRoute: DemoStartApiRequestRoute,
-  DemoStartServerFuncsRoute: DemoStartServerFuncsRoute,
+  AppRouteRoute: AppRouteRouteWithChildren,
+  AuthRouteRoute: AuthRouteRoute,
+  PublicRouteRoute: PublicRouteRouteWithChildren,
 }
 
 export const routeTree = rootRoute
@@ -213,35 +310,63 @@ export const routeTree = rootRoute
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
-        "/",
-        "/demo/table",
-        "/demo/tanstack-query",
-        "/demo/form/address",
-        "/demo/form/simple",
-        "/demo/start/api-request",
-        "/demo/start/server-funcs"
+        "/_app",
+        "/_auth",
+        "/_public"
       ]
     },
-    "/": {
-      "filePath": "index.tsx"
+    "/_app": {
+      "filePath": "_app/route.tsx",
+      "children": [
+        "/_app/demos/data/counter",
+        "/_app/demos/data/query",
+        "/_app/demos/data/table",
+        "/_app/demos/forms/address",
+        "/_app/demos/forms/simple",
+        "/_app/demos/start/api-request",
+        "/_app/demos/start/server-funcs"
+      ]
     },
-    "/demo/table": {
-      "filePath": "demo.table.tsx"
+    "/_auth": {
+      "filePath": "_auth/route.tsx"
     },
-    "/demo/tanstack-query": {
-      "filePath": "demo.tanstack-query.tsx"
+    "/_public": {
+      "filePath": "_public/route.tsx",
+      "children": [
+        "/_public/"
+      ]
     },
-    "/demo/form/address": {
-      "filePath": "demo.form.address.tsx"
+    "/_public/": {
+      "filePath": "_public/index.tsx",
+      "parent": "/_public"
     },
-    "/demo/form/simple": {
-      "filePath": "demo.form.simple.tsx"
+    "/_app/demos/data/counter": {
+      "filePath": "_app/demos/data/counter.tsx",
+      "parent": "/_app"
     },
-    "/demo/start/api-request": {
-      "filePath": "demo.start.api-request.tsx"
+    "/_app/demos/data/query": {
+      "filePath": "_app/demos/data/query.tsx",
+      "parent": "/_app"
     },
-    "/demo/start/server-funcs": {
-      "filePath": "demo.start.server-funcs.tsx"
+    "/_app/demos/data/table": {
+      "filePath": "_app/demos/data/table.tsx",
+      "parent": "/_app"
+    },
+    "/_app/demos/forms/address": {
+      "filePath": "_app/demos/forms/address.tsx",
+      "parent": "/_app"
+    },
+    "/_app/demos/forms/simple": {
+      "filePath": "_app/demos/forms/simple.tsx",
+      "parent": "/_app"
+    },
+    "/_app/demos/start/api-request": {
+      "filePath": "_app/demos/start/api-request.tsx",
+      "parent": "/_app"
+    },
+    "/_app/demos/start/server-funcs": {
+      "filePath": "_app/demos/start/server-funcs.tsx",
+      "parent": "/_app"
     }
   }
 }

@@ -9,27 +9,27 @@ export default function Header() {
         </div>
 
         <div className="px-2 font-bold">
-          <Link to="/demo/start/server-funcs">Start - Server Functions</Link>
+          <Link to="/demos/start/server-funcs">Start - Server Functions</Link>
         </div>
 
         <div className="px-2 font-bold">
-          <Link to="/demo/start/api-request">Start - API Request</Link>
+          <Link to="/demos/start/api-request">Start - API Request</Link>
         </div>
 
         <div className="px-2 font-bold">
-          <Link to="/demo/form/simple">Simple Form</Link>
+          <Link to="/demos/forms/simple">Simple Form</Link>
         </div>
 
         <div className="px-2 font-bold">
-          <Link to="/demo/form/address">Address Form</Link>
+          <Link to="/demos/forms/address">Address Form</Link>
         </div>
 
         <div className="px-2 font-bold">
-          <Link to="/demo/tanstack-query">TanStack Query</Link>
+          <Link to="/demos/data/query">TanStack Query</Link>
         </div>
 
         <div className="px-2 font-bold">
-          <Link to="/demo/table">TanStack Table</Link>
+          <Link to="/demos/data/table">TanStack Table</Link>
         </div>
       </nav>
     </header>

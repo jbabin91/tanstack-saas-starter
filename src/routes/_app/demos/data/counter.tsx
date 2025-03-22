@@ -25,12 +25,12 @@ const updateCount = createServerFn({ method: 'POST' })
     await fs.promises.writeFile(filePath, `${count + data}`);
   });
 
-export const Route = createFileRoute('/demo/start/server-funcs')({
-  component: Home,
+export const Route = createFileRoute('/_app/demos/data/counter')({
+  component: CounterDemo,
   loader: async () => await getCount(),
 });
 
-function Home() {
+function CounterDemo() {
   const queryClient = useQueryClient();
   const state = Route.useLoaderData();
 
