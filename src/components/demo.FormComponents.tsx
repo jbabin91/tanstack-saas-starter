@@ -1,21 +1,21 @@
 import { useStore } from '@tanstack/react-form';
 
-import { useFieldContext, useFormContext } from '../hooks/demo.form-context';
-
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Textarea as ShadcnTextarea } from '@/components/ui/textarea';
+import { Label } from '@/components/ui/label';
 import * as ShadcnSelect from '@/components/ui/select';
 import { Slider as ShadcnSlider } from '@/components/ui/slider';
 import { Switch as ShadcnSwitch } from '@/components/ui/switch';
-import { Label } from '@/components/ui/label';
+import { Textarea as ShadcnTextarea } from '@/components/ui/textarea';
+
+import { useFieldContext, useFormContext } from '../hooks/demo.form-context';
 
 export function SubscribeButton({ label }: { label: string }) {
   const form = useFormContext();
   return (
     <form.Subscribe selector={(state) => state.isSubmitting}>
       {(isSubmitting) => (
-        <Button type="submit" disabled={isSubmitting}>
+        <Button disabled={isSubmitting} type="submit">
           {label}
         </Button>
       )}
@@ -26,7 +26,7 @@ export function SubscribeButton({ label }: { label: string }) {
 function ErrorMessages({
   errors,
 }: {
-  errors: Array<string | { message: string }>;
+  errors: (string | { message: string })[];
 }) {
   return (
     <>
@@ -54,12 +54,12 @@ export function TextField({
 
   return (
     <div>
-      <Label htmlFor={label} className="mb-2 text-xl font-bold">
+      <Label className="mb-2 text-xl font-bold" htmlFor={label}>
         {label}
       </Label>
       <Input
-        value={field.state.value}
         placeholder={placeholder}
+        value={field.state.value}
         onBlur={field.handleBlur}
         onChange={(e) => field.handleChange(e.target.value)}
       />
@@ -80,14 +80,14 @@ export function TextArea({
 
   return (
     <div>
-      <Label htmlFor={label} className="mb-2 text-xl font-bold">
+      <Label className="mb-2 text-xl font-bold" htmlFor={label}>
         {label}
       </Label>
       <ShadcnTextarea
         id={label}
+        rows={rows}
         value={field.state.value}
         onBlur={field.handleBlur}
-        rows={rows}
         onChange={(e) => field.handleChange(e.target.value)}
       />
       {field.state.meta.isTouched && <ErrorMessages errors={errors} />}
@@ -101,7 +101,7 @@ export function Select({
   placeholder,
 }: {
   label: string;
-  values: Array<{ label: string; value: string }>;
+  values: { label: string; value: string }[];
   placeholder?: string;
 }) {
   const field = useFieldContext<string>();
@@ -139,13 +139,13 @@ export function Slider({ label }: { label: string }) {
 
   return (
     <div>
-      <Label htmlFor={label} className="mb-2 text-xl font-bold">
+      <Label className="mb-2 text-xl font-bold" htmlFor={label}>
         {label}
       </Label>
       <ShadcnSlider
         id={label}
-        onBlur={field.handleBlur}
         value={[field.state.value]}
+        onBlur={field.handleBlur}
         onValueChange={(value) => field.handleChange(value[0])}
       />
       {field.state.meta.isTouched && <ErrorMessages errors={errors} />}
@@ -161,9 +161,9 @@ export function Switch({ label }: { label: string }) {
     <div>
       <div className="flex items-center gap-2">
         <ShadcnSwitch
+          checked={field.state.value}
           id={label}
           onBlur={field.handleBlur}
-          checked={field.state.value}
           onCheckedChange={(checked) => field.handleChange(checked)}
         />
         <Label htmlFor={label}>{label}</Label>

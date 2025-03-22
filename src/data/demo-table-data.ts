@@ -21,23 +21,23 @@ const range = (len: number) => {
 
 const newPerson = (num: number): Person => {
   return {
-    id: num,
-    firstName: faker.person.firstName(),
-    lastName: faker.person.lastName(),
     age: faker.number.int(40),
-    visits: faker.number.int(1000),
+    firstName: faker.person.firstName(),
+    id: num,
+    lastName: faker.person.lastName(),
     progress: faker.number.int(100),
     status: faker.helpers.shuffle<Person['status']>([
       'relationship',
       'complicated',
       'single',
-    ])[0]!,
+    ])[0],
+    visits: faker.number.int(1000),
   };
 };
 
 export function makeData(...lens: number[]) {
   const makeDataLevel = (depth = 0): Person[] => {
-    const len = lens[depth]!;
+    const len = lens[depth];
     return range(len).map((index): Person => {
       return {
         ...newPerson(index),

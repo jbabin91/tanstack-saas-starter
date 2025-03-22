@@ -1,7 +1,8 @@
 import * as fs from 'node:fs';
+
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
 import { createServerFn } from '@tanstack/react-start';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 const filePath = 'count.txt';
 
@@ -43,10 +44,10 @@ function Home() {
   return (
     <div className="p-4">
       <button
+        className="rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700 disabled:opacity-50"
+        disabled={mutation.isPending}
         type="button"
         onClick={() => mutation.mutate({ data: 1 })}
-        disabled={mutation.isPending}
-        className="rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700 disabled:opacity-50"
       >
         {mutation.isPending ? 'Adding...' : `Add 1 to ${state}?`}
       </button>

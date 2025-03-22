@@ -1,21 +1,19 @@
+import type { QueryClient } from '@tanstack/react-query';
 import {
-  Outlet,
-  HeadContent,
-  Scripts,
   createRootRouteWithContext,
+  HeadContent,
+  Outlet,
+  Scripts,
 } from '@tanstack/react-router';
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools';
 
-import Header from '../components/Header';
+import Header from '@/components/layout/header';
+import TanstackQueryLayout from '@/integrations/tanstack-query/layout';
+import globalsCss from '@/styles/globals.css?url';
 
-import TanstackQueryLayout from '../integrations/tanstack-query/layout';
-
-import appCss from '../styles.css?url';
-
-import type { QueryClient } from '@tanstack/react-query';
-interface MyRouterContext {
+type MyRouterContext = {
   queryClient: QueryClient;
-}
+};
 
 export const Route = createRootRouteWithContext<MyRouterContext>()({
   head: () => ({
@@ -34,7 +32,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
     links: [
       {
         rel: 'stylesheet',
-        href: appCss,
+        href: globalsCss,
       },
     ],
   }),

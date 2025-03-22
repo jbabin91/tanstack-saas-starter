@@ -1,15 +1,10 @@
 /** @type {import("prettier").Config} */
 export default {
-  singleQuote: true,
-  plugins: ['prettier-plugin-packagejson', 'prettier-plugin-tailwindcss'],
-  printWidth: 80, // Default line length for most files
-
   // Experimental options
-  experimentalTernaries: true, // New ternary formatting
-  singleAttributePerLine: false, // Experimental HTML/JSX formatting
-  objectWrap: 'preserve', // Controls object literal wrapping ('always', 'never', or 'preserve')
   experimentalOperatorPosition: 'start', // Controls where operators are positioned in expressions ('start' or 'end')
-
+  experimentalTernaries: true, // New ternary formatting
+  // Experimental HTML/JSX formatting
+  objectWrap: 'preserve', // Controls object literal wrapping ('always', 'never', or 'preserve')
   // Override settings for specific file types
   overrides: [
     {
@@ -19,4 +14,8 @@ export default {
       },
     },
   ],
+  plugins: ['prettier-plugin-packagejson', 'prettier-plugin-tailwindcss'],
+  printWidth: 80, // Default line length for most files
+  singleAttributePerLine: false,
+  singleQuote: true,
 };
