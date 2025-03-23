@@ -1,4 +1,5 @@
 import type { QueryClient } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import {
   createRootRouteWithContext,
   HeadContent,
@@ -8,7 +9,6 @@ import {
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools';
 
 import Header from '@/components/layout/header';
-import TanstackQueryLayout from '@/integrations/tanstack-query/layout';
 import globalsCss from '@/styles/globals.css?url';
 
 type MyRouterContext = {
@@ -40,11 +40,9 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
   component: () => (
     <RootDocument>
       <Header />
-
       <Outlet />
       <TanStackRouterDevtools />
-
-      <TanstackQueryLayout />
+      <ReactQueryDevtools />
     </RootDocument>
   ),
 });
