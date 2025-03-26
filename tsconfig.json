@@ -1,5 +1,4 @@
 {
-  "include": ["**/*.ts", "**/*.tsx"],
   "compilerOptions": {
     "target": "ES2022",
     "jsx": "react-jsx",
@@ -24,5 +23,18 @@
     "paths": {
       "@/*": ["./src/*"]
     }
-  }
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "*.ts",
+    "*.tsx",
+    "*.js",
+    "*.jsx",
+    ".eslintrc.*",
+    ".commitlintrc.ts",
+    "eslint.config.*",
+    "postcss.config.*",
+    "app.config.*"
+  ]
 }

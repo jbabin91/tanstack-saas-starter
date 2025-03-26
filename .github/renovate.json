@@ -1,0 +1,17 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended",
+    "schedule:earlyMondays",
+    ":maintainLockFilesMonthly",
+    ":semanticCommits",
+    ":semanticCommitTypeAll(chore)"
+  ],
+  "packageRules": [],
+  "updateInternalDeps": true,
+  "labels": ["dependencies"],
+  "rangeStrategy": "bump",
+  "postUpdateOptions": ["pnpmDedupe"],
+  "automerge": true,
+  "ignoreDeps": []
+}
