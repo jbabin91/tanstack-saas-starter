@@ -1,0 +1,29 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  ci:
+    name: Branch Checks
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Setup and Install dependencies
+        uses: ./.github/actions/setup
+
+      - name: Branch Checks
+        uses: ./.github/actions/branch-checks
+
+      - name: Build App
+        uses: ./.github/actions/build-app

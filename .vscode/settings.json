@@ -73,7 +73,7 @@
   "github.copilot.chat.codesearch.enabled": true,
   "github.copilot.chat.commitMessageGeneration.instructions": [
     {
-      "text": "Generate commit messages in this exact format: <type>(<scope>): <emoji> <description>. Use these type+emoji pairs:\nfeat: ✨\nfix: 🐛\ndocs: 📝\nstyle: 💄\nrefactor: ♻️\nperf: ⚡️\ntest: ✅\nbuild: 📦\nci: 👷\nchore: 🔨\nrevert: ⏪️"
+      "text": "Generate commit messages in this exact format: type(scope): emoji description\nWhere:\n- type is one of: feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert\n- scope is not optional but when provided should be in parentheses\n- emoji must be one of these pairs:\n  feat: ✨\n  fix: 🐛\n  docs: 📝\n  style: 💄\n  refactor: ♻️\n  perf: ⚡️\n  test: ✅\n  build: 📦\n  ci: 👷\n  chore: 🔨\n  revert: ⏪️\n- description should be clear and concise"
     },
     {
       "file": "./docs/core/conventional-commits.md"

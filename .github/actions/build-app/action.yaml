@@ -1,0 +1,9 @@
+name: Build App
+description: Action to build app
+
+runs:
+  using: composite
+  steps:
+    - name: Build App
+      shell: bash
+      run: pnpm build

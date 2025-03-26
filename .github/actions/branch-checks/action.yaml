@@ -1,0 +1,20 @@
+name: Branch Checks
+description: Action to check code consistency
+
+runs:
+  using: composite
+  steps:
+    - name: Check Formatting
+      shell: bash
+      run: pnpm format:check
+
+    - name: Lint Code
+      shell: bash
+      run: pnpm lint
+
+    - name: Type Check
+      shell: bash
+      run: pnpm typecheck
+
+    # Add additional branch checks here.
+    # i.e. Tests, Translations, security, and any other additional check
