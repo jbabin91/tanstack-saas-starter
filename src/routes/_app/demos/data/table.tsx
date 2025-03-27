@@ -20,6 +20,15 @@ import {
 } from '@tanstack/react-table';
 import React from 'react';
 
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { makeData, type Person } from '@/data/demo-table-data';
 
 export const Route = createFileRoute('/_app/demos/data/table')({
@@ -141,19 +150,19 @@ function TableDemo() {
   }, [table.getState().columnFilters[0]?.id]);
 
   return (
-    <div className="min-h-screen bg-gray-900 p-6">
+    <div className="min-h-screen p-6">
       <div>
         <DebouncedInput
-          className="w-full rounded-lg border border-gray-700 bg-gray-800 p-3 text-white outline-none focus:border-transparent focus:ring-2 focus:ring-blue-500"
+          className="w-full rounded-lg border p-3 outline-none focus:border-transparent focus:ring-2 focus:ring-blue-500"
           placeholder="Search all columns..."
           value={globalFilter ?? ''}
           onChange={(value) => setGlobalFilter(String(value))}
         />
       </div>
       <div className="h-4" />
-      <div className="overflow-x-auto rounded-lg border border-gray-700">
-        <table className="w-full text-sm text-gray-200">
-          <thead className="bg-gray-800 text-gray-100">
+      <div className="overflow-x-auto rounded-lg border">
+        <table className="w-full text-sm">
+          <thead>
             {table.getHeaderGroups().map((headerGroup) => (
               <tr key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
@@ -207,12 +216,12 @@ function TableDemo() {
               </tr>
             ))}
           </thead>
-          <tbody className="divide-y divide-gray-700">
+          <tbody className="divide-y">
             {table.getRowModel().rows.map((row) => {
               return (
                 <tr
                   key={row.id}
-                  className="transition-colors hover:bg-gray-800"
+                  className="hover:bg-background/10 transition-colors"
                 >
                   {row.getVisibleCells().map((cell) => {
                     return (
@@ -231,39 +240,34 @@ function TableDemo() {
         </table>
       </div>
       <div className="h-4" />
-      <div className="flex flex-wrap items-center gap-2 text-gray-200">
-        <button
-          className="rounded-md bg-gray-800 px-3 py-1 hover:bg-gray-700 disabled:cursor-not-allowed disabled:opacity-50"
+      <div className="flex flex-wrap items-center gap-2">
+        <Button
           disabled={!table.getCanPreviousPage()}
-          type="button"
           onClick={() => table.setPageIndex(0)}
         >
           {'<<'}
-        </button>
-        <button
-          className="rounded-md bg-gray-800 px-3 py-1 hover:bg-gray-700 disabled:cursor-not-allowed disabled:opacity-50"
+        </Button>
+        <Button
           disabled={!table.getCanPreviousPage()}
           type="button"
           onClick={() => table.previousPage()}
         >
           {'<'}
-        </button>
-        <button
-          className="rounded-md bg-gray-800 px-3 py-1 hover:bg-gray-700 disabled:cursor-not-allowed disabled:opacity-50"
+        </Button>
+        <Button
           disabled={!table.getCanNextPage()}
           type="button"
           onClick={() => table.nextPage()}
         >
           {'>'}
-        </button>
-        <button
-          className="rounded-md bg-gray-800 px-3 py-1 hover:bg-gray-700 disabled:cursor-not-allowed disabled:opacity-50"
+        </Button>
+        <Button
           disabled={!table.getCanNextPage()}
           type="button"
           onClick={() => table.setPageIndex(table.getPageCount() - 1)}
         >
           {'>>'}
-        </button>
+        </Button>
         <span className="flex items-center gap-1">
           <div>Page</div>
           <strong>
@@ -273,8 +277,8 @@ function TableDemo() {
         </span>
         <span className="flex items-center gap-1">
           | Go to page:
-          <input
-            className="w-16 rounded-md border border-gray-700 bg-gray-800 px-2 py-1 outline-none focus:border-transparent focus:ring-2 focus:ring-blue-500"
+          <Input
+            className="w-16"
             defaultValue={table.getState().pagination.pageIndex + 1}
             type="number"
             onChange={(e) => {
@@ -283,40 +287,32 @@ function TableDemo() {
             }}
           />
         </span>
-        <select
-          className="rounded-md border border-gray-700 bg-gray-800 px-2 py-1 outline-none focus:border-transparent focus:ring-2 focus:ring-blue-500"
-          value={table.getState().pagination.pageSize}
-          onChange={(e) => {
-            table.setPageSize(Number(e.target.value));
+        <Select
+          value={table.getState().pagination.pageSize.toString()}
+          onValueChange={(value) => {
+            table.setPageSize(Number(value));
           }}
         >
-          {[10, 20, 30, 40, 50].map((pageSize) => (
-            <option key={pageSize} value={pageSize}>
-              Show {pageSize}
-            </option>
-          ))}
-        </select>
+          <SelectTrigger className="w-[180px]">
+            <SelectValue placeholder="Select page size" />
+          </SelectTrigger>
+          <SelectContent>
+            {[10, 20, 30, 40, 50].map((pageSize) => (
+              <SelectItem key={pageSize} value={pageSize.toString()}>
+                Show {pageSize}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       </div>
-      <div className="mt-4 text-gray-400">
+      <div className="mt-4">
         {table.getPrePaginationRowModel().rows.length} Rows
       </div>
       <div className="mt-4 flex gap-2">
-        <button
-          className="rounded-md bg-blue-600 px-4 py-2 text-white transition-colors hover:bg-blue-700"
-          type="button"
-          onClick={() => rerender()}
-        >
-          Force Rerender
-        </button>
-        <button
-          className="rounded-md bg-blue-600 px-4 py-2 text-white transition-colors hover:bg-blue-700"
-          type="button"
-          onClick={() => refreshData()}
-        >
-          Refresh Data
-        </button>
+        <Button onClick={() => rerender()}>Force Rerender</Button>
+        <Button onClick={() => refreshData()}>Refresh Data</Button>
       </div>
-      <pre className="mt-4 overflow-auto rounded-lg bg-gray-800 p-4 text-gray-300">
+      <pre className="bg-secondary mt-4 overflow-auto rounded-lg p-4">
         {JSON.stringify(
           {
             columnFilters: table.getState().columnFilters,
@@ -335,7 +331,7 @@ function Filter({ column }: { column: Column<any, unknown> }) {
 
   return (
     <DebouncedInput
-      className="w-full rounded-md border border-gray-600 bg-gray-700 px-2 py-1 text-white outline-none focus:border-transparent focus:ring-2 focus:ring-blue-500"
+      className="w-full rounded-md border px-2 py-1 outline-none focus:border-transparent focus:ring-2 focus:ring-blue-500"
       placeholder={`Search...`}
       type="text"
       value={(columnFilterValue ?? '') as string}
