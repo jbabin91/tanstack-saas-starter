@@ -1,7 +1,7 @@
 ---
 description: Testing standards and practices using Vitest and related testing tools
-globs: ['**/*.test.ts', '**/*.test.tsx', '**/*.spec.ts', '**/*.spec.tsx']
-docs_path: 'docs/testing'
+globs: **/*.test.ts,**/*.test.tsx,**/*.spec.ts, **/*.spec.tsx
+alwaysApply: false
 ---
 
 # Testing Rules

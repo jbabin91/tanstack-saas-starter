@@ -1,6 +1,7 @@
 ---
 description: Data validation standards and practices using Zod
-globs: ['src/**/*.ts', 'src/**/*.tsx']
+globs: src/**/*.ts,src/**/*.tsx
+alwaysApply: false
 ---
 
 # Validation Rules

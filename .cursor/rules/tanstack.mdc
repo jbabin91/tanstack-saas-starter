@@ -1,6 +1,7 @@
 ---
 description: TanStack ecosystem rules and patterns for Router, Query, Form, and Table components
-globs: ['src/routes/**/*', 'src/components/**/*', 'src/hooks/**/*']
+globs: src/routes/**/*,src/components/**/*,src/hooks/**/*
+alwaysApply: false
 ---
 
 # TanStack Ecosystem Rules
