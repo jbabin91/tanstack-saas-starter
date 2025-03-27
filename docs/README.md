@@ -6,6 +6,7 @@ This directory contains comprehensive documentation for the TanStack SaaS Starte
 
 - [TypeScript](./core/typescript.md) - TypeScript standards and best practices
 - [Project Structure](./core/project-structure.md) - Project organization and architecture
+- [Modules](./core/modules.md) - Module organization and import/export guidelines
 - [Conventional Commits](./core/conventional-commits.md) - Commit message conventions
 - [Code Style](./core/code-style.md) - Code formatting and style guidelines
 - [Comments](./core/comments.md) - Code commenting standards and best practices

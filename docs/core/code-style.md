@@ -574,3 +574,157 @@ DateFormatters.ts;
 - Avoids case-sensitivity issues in git
 - Improves readability in URLs and imports
 - Reduces cognitive load with a single naming convention
+
+# Code Style Guide
+
+This guide outlines our code style standards and best practices for the TanStack SaaS Starter project.
+
+## Property Access
+
+### Use Dot Notation
+
+Use dot notation for property access unless syntactically impossible:
+
+```typescript
+const user = { name: 'Brittany', 'data-id': '123' };
+
+// ✅ Good
+const name = user.name;
+const id = user['data-id'];
+function getUserProperty(user: User, property: string) {
+  return user[property];
+}
+
+// ❌ Avoid
+const name = user['name'];
+```
+
+## Comparison and Equality
+
+### Triple Equals
+
+Use triple equals (`===` and `!==`) for comparisons to avoid type coercion:
+
+```typescript
+// ✅ Good
+const user = { id: '123' };
+if (user.id === '123') {
+  // ...
+}
+
+// Exception: Comparing with null/undefined
+const a = null;
+if (a === null) {
+  // ...
+}
+if (b != null) {
+  // ...
+}
+
+// ❌ Avoid
+if (a == null) {
+  // ...
+}
+if (b !== null && b !== undefined) {
+  // ...
+}
+```
+
+### Use Truthiness
+
+Rely on truthiness instead of explicit comparisons:
+
+```typescript
+// ✅ Good
+if (user) {
+  // ...
+}
+
+// ❌ Avoid
+if (user === true) {
+  // ...
+}
+```
+
+### Avoid Unnecessary Ternaries
+
+```typescript
+// ✅ Good
+const isAdmin = user.role === 'admin';
+const value = input ?? defaultValue;
+
+// ❌ Avoid
+const isAdmin = user.role === 'admin' ? true : false;
+const value = input != null ? input : defaultValue;
+```
+
+## Code Blocks
+
+### Use Braces for Multi-line Blocks
+
+Use braces for multi-line blocks, even for single statements:
+
+```typescript
+// ✅ Good
+if (!user) return;
+if (user.role === 'admin') {
+  abilities = ['add', 'remove', 'edit', 'create', 'modify', 'fly', 'sing'];
+}
+
+// ❌ Avoid
+if (user.role === 'admin') abilities = ['add', 'remove', 'edit', 'create', 'modify', 'fly', 'sing'];
+```
+
+### Switch Statement Braces
+
+Use braces in switch statements to clarify scope and prevent variable leakage:
+
+```typescript
+// ✅ Good
+switch (action.type) {
+  case 'add': {
+    const { amount } = action;
+    add(amount);
+    break;
+  }
+  case 'remove': {
+    const { removal } = action;
+    remove(removal);
+    break;
+  }
+}
+
+// ❌ Avoid
+switch (action.type) {
+  case 'add':
+    const { amount } = action;
+    add(amount);
+    break;
+  case 'remove':
+    const { removal } = action;
+    remove(removal);
+    break;
+}
+```
+
+## Control Statements
+
+### Use Statements Over Expressions
+
+Use statements instead of expressions unless you need the value:
+
+```typescript
+// ✅ Good
+if (user) {
+  makeUserHappy(user);
+}
+
+// ❌ Avoid
+user && makeUserHappy(user);
+```
+
+## Related Documentation
+
+- [TypeScript](./typescript.md) - TypeScript-specific guidelines
+- [Modules](./modules.md) - Module organization guidelines
+- [Comments](./comments.md) - Code commenting guidelines
