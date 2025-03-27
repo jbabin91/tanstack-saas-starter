@@ -4,6 +4,7 @@ This directory contains documentation for the technologies used in the TanStack 
 
 ## Core Technologies
 
+- [Project Structure](./core/project-structure.md) - Overview of the project organization
 - [Vinxi](./core/vinxi.md) - Meta-framework built on Vite and Nitro
 - [React](./core/react.md) - UI library (v19)
 - [TypeScript](./core/typescript.md) - Type-safe JavaScript
@@ -32,5 +33,3 @@ This directory contains documentation for the technologies used in the TanStack 
 - [Faker.js](./testing/faker.md) - Mock data generation
 
 ## Project Structure
-
-- [Project Structure](./project-structure.md) - Overview of the project organization
