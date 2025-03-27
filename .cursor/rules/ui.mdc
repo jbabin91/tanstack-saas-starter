@@ -28,7 +28,7 @@ globs: ['src/components/**/*', 'src/styles/**/*']
 - Create reusable components
 - Follow atomic design principles
 - Implement proper component composition
-- Use proper prop interfaces
+- Use proper prop types
 - Handle component variants properly
 - Document component APIs
 

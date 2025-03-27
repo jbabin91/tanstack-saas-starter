@@ -1,56 +1,70 @@
 ---
 description: Testing standards and practices using Vitest and related testing tools
 globs: ['**/*.test.ts', '**/*.test.tsx', '**/*.spec.ts', '**/*.spec.tsx']
+docs_path: 'docs/testing'
 ---
 
-# Testing Rules
+# Testing Standards
 
-## Test Organization
+Follow the Testing Trophy hierarchy: Static → Unit → Integration → E2E.
+See docs/testing/\* for detailed implementation examples.
 
-- Place tests next to the files they test
-- Use descriptive test file names
-- Group related tests using describe blocks
-- Write clear test descriptions
-- Follow the Arrange-Act-Assert pattern
+## Core Principles
 
-## Vitest Usage
+- Test user behavior, not implementation details
+- Write isolated and deterministic tests
+- Keep tests flat and avoid nesting
+- Use `test` over `describe` and `it`
+- Avoid shared setup/teardown
+- Use `userEvent` over `fireEvent`
+- Mock only external dependencies (MSW for API calls)
+- Use type-safe data factories
 
-- Use proper test runners and configurations
-- Implement proper mocking strategies
-- Use proper assertion methods
-- Handle async tests properly
-- Use proper setup and teardown
+## Query Selection
 
-## Test Coverage
+Priority order (highest to lowest):
 
-- Maintain high test coverage for critical paths
-- Write unit tests for utility functions
-- Write integration tests for complex features
-- Test error handling paths
-- Test edge cases and boundary conditions
+1. `getByRole`
+2. `getByLabelText`
+3. `getByText`
+4. `getByTestId` (avoid)
 
-## Mock Data
+Query variants:
 
-- Use Faker.js for generating test data
-- Create realistic test scenarios
-- Use consistent mock data patterns
-- Document mock data generation
-- Keep mock data maintainable
+- Use `queryBy` for non-existence checks
+- Use `findBy` for async elements
+- Avoid `waitFor` for elements
 
-## Testing Best Practices
+## File Organization
 
-- Write isolated tests
-- Avoid test interdependencies
-- Use proper cleanup after tests
-- Write deterministic tests
-- Keep tests focused and simple
-- Test both success and failure paths
+- Place test files next to implementation
+- Name pattern: `Component.test.tsx` or `Component.spec.tsx`
+- Group test utilities in `__tests__/utils`
+- Group factories in `__tests__/factories`
 
-## Component Testing
+## Testing Patterns
 
-- Test component rendering
-- Test component interactions
-- Test component props
-- Test component events
-- Test component error states
-- Test component accessibility
+DO:
+
+- Test user interactions and behavior
+- Write focused, single-purpose tests
+- Test error states and edge cases
+- Use realistic test data
+- Keep assertions specific
+
+DON'T:
+
+- Test implementation details
+- Use shared test setup
+- Mock internal code
+- Use snapshot tests
+- Test library internals
+
+## Documentation References
+
+Refer to these docs for detailed examples and patterns:
+
+- Static Analysis: docs/testing/static.md
+- Unit Testing: docs/testing/unit.md
+- Integration Testing: docs/testing/integration.md
+- End-to-End Testing: docs/testing/e2e.md

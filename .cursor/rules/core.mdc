@@ -20,13 +20,46 @@ globs: ['src/**/*.ts', 'src/**/*.tsx']
 - Follow React 19 best practices
 - Use hooks for state management and side effects
 
-## TypeScript Standards
+## JavaScript/TypeScript Standards
+
+### Variables and References
+
+- Use `const` by default, `let` only when reassignment is needed
+- Never use `var`
+- Use descriptive, clear names that explain purpose
+- Use uppercase with underscores for true constants (e.g., `BASE_URL`)
+
+### Objects and Arrays
+
+- Use object/array literal syntax
+- Use property shorthand when possible
+- Use computed property names for dynamic properties
+- Use object method shorthand
+- Avoid accessors (getters/setters)
+- Use `.filter(Boolean)` to remove falsey values
+- Use array methods over loops
+- Use non-mutative array methods when available
+- Use spread operator for copying
+
+### Functions
+
+- Use function declarations over expressions
+- Limit single-use functions
+- Use default parameters over short-circuiting
+- Return early to avoid deep nesting
+- Use async/await over promise chains
+- Use arrow functions for inline callbacks
+
+### TypeScript Specifics
 
 - Enable strict mode in tsconfig
-- Use proper type annotations for all functions and variables
-- Avoid `any` type unless absolutely necessary
-- Prefer types over interface
-- Use type for unions and intersections
+- Use proper type annotations
+- Avoid `any` type, prefer `unknown`
+- Let TypeScript infer return types when possible
+- Use type guards with type predicates
+- Use schema validation (Zod) for external data
+- Avoid type assertions (`as`)
+- Use Array generic syntax (e.g., `Array<string>` over `string[]`)
 
 ## Code Style
 
@@ -35,6 +68,8 @@ globs: ['src/**/*.ts', 'src/**/*.tsx']
 - Use meaningful variable and function names
 - Keep components focused and single-responsibility
 - Document complex logic with comments
+- Don't use semicolons unless necessary
+- Use kebab-case for file names
 
 ## File Organization
 
@@ -64,3 +99,6 @@ globs: ['src/**/*.ts', 'src/**/*.tsx']
 - Implement proper TypeScript types
 - Follow conventional commits
 - Document public APIs and components
+- Use early returns
+- Keep code DRY but not at the expense of clarity
+- Follow the principle of least surprise

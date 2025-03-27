@@ -202,3 +202,314 @@ pnpm prettier --write "src/**/*.{js,jsx,ts,tsx}"
 - [Prettier Documentation](https://prettier.io/docs/en/)
 - [Prettier Plugin for Tailwind CSS](https://github.com/tailwindlabs/prettier-plugin-tailwindcss)
 - [Prettier Plugin for package.json](https://github.com/matzkoh/prettier-plugin-packagejson)
+
+# Code Style Guidelines
+
+## Core Principles
+
+- Write code that is easy to understand, maintain, and scale
+- Follow the principle of least surprise
+- Keep code DRY but not at the expense of clarity
+- Use descriptive names that explain purpose
+- Write self-documenting code
+
+## Variables
+
+### References
+
+```ts
+// ✅ Good
+const workshopTitle = 'Web App Fundamentals';
+const instructorName = 'Kent C. Dodds';
+const isEnabled = true;
+
+// ❌ Avoid
+const t = 'Web App Fundamentals';
+const n = 'Kent C. Dodds';
+const e = true;
+```
+
+### Constants
+
+For truly constant values used across files:
+
+```ts
+// ✅ Good
+const BASE_URL = 'https://epicweb.dev';
+const DEFAULT_PORT = 3000;
+```
+
+## Objects
+
+### Literal Syntax
+
+```ts
+// ✅ Good
+const name = 'Kent';
+const age = 36;
+const person = { name, age };
+
+// ❌ Avoid
+const name = 'Kent';
+const age = 36;
+const person = { name: name, age: age };
+```
+
+### Computed Properties
+
+```ts
+// ✅ Good
+const key = 'name';
+const obj = {
+  [key]: 'Kent',
+};
+
+// ❌ Avoid
+const key = 'name';
+const obj = {};
+obj[key] = 'Kent';
+```
+
+### Method Shorthand
+
+```ts
+// ✅ Good
+const obj = {
+  method() {
+    // ...
+  },
+  async asyncMethod() {
+    // ...
+  },
+};
+
+// ❌ Avoid
+const obj = {
+  method: function () {
+    // ...
+  },
+  asyncMethod: async function () {
+    // ...
+  },
+};
+```
+
+## Arrays
+
+### Array Methods
+
+Use array methods over loops for transformations:
+
+```ts
+// ✅ Good
+const items = [1, 2, 3];
+const doubledItems = items.map((n) => n * 2);
+
+// ❌ Avoid
+const doubledItems = [];
+for (const n of items) {
+  doubledItems.push(n * 2);
+}
+```
+
+### Filtering Falsey Values
+
+```ts
+// ✅ Good
+const items = [1, null, 2, undefined, 3];
+const filteredItems = items.filter(Boolean);
+
+// ❌ Avoid
+const filteredItems = items.filter((item) => item != null);
+```
+
+### Non-mutative Methods
+
+```ts
+// ✅ Good
+const reversedItems = items.toReversed();
+const sortedItems = items.toSorted();
+
+// ❌ Avoid
+const reversedItems = items.reverse();
+const sortedItems = items.sort();
+```
+
+## Functions
+
+### Function Declarations
+
+```ts
+// ✅ Good
+function calculateTotal(items: Array<number>) {
+  return items.reduce((sum, item) => sum + item, 0);
+}
+
+// ❌ Avoid
+const calculateTotal = function (items: Array<number>) {
+  return items.reduce((sum, item) => sum + item, 0);
+};
+```
+
+### Early Returns
+
+```ts
+// ✅ Good
+function getMinResolutionValue(resolution: number | undefined) {
+  if (!resolution) return undefined;
+  if (resolution <= 480) return MinResolution.noLessThan480p;
+  if (resolution <= 540) return MinResolution.noLessThan540p;
+  return MinResolution.noLessThan1080p;
+}
+
+// ❌ Avoid
+function getMinResolutionValue(resolution: number | undefined) {
+  if (resolution) {
+    if (resolution <= 480) {
+      return MinResolution.noLessThan480p;
+    } else if (resolution <= 540) {
+      return MinResolution.noLessThan540p;
+    } else {
+      return MinResolution.noLessThan1080p;
+    }
+  } else {
+    return undefined;
+  }
+}
+```
+
+### Async/Await
+
+```ts
+// ✅ Good
+async function fetchUserData(userId: string) {
+  const user = await getUser(userId);
+  const posts = await getUserPosts(user.id);
+  return { user, posts };
+}
+
+// ❌ Avoid
+function fetchUserData(userId: string) {
+  return getUser(userId).then((user) => {
+    return getUserPosts(user.id).then((posts) => ({ user, posts }));
+  });
+}
+```
+
+## Modules
+
+### Import Order
+
+```ts
+// Group imports in this order:
+import 'node:fs'; // Built-in
+import 'match-sorter'; // external packages
+import '#app/components'; // Internal absolute imports
+import '../other-folder'; // Internal relative imports
+import './local-file'; // Local imports
+```
+
+### File Extensions
+
+```ts
+// ✅ Good
+import { redirect } from 'react-router';
+import { add } from './math.ts';
+
+// ❌ Avoid
+import { add } from './math';
+```
+
+### Export Location
+
+```ts
+// ✅ Good
+export function add(a: number, b: number) {
+  return a + b;
+}
+
+// ❌ Avoid
+function add(a: number, b: number) {
+  return a + b;
+}
+export { add };
+```
+
+## Comments
+
+### Explain Why, Not What
+
+```ts
+// ✅ Good
+// We need to sanitize lineNumber to prevent malicious use on win32
+// via: https://example.com/link-to-issue
+if (lineNumber && !(Number.isInteger(lineNumber) && lineNumber > 0)) {
+  return { status: 'error', message: 'lineNumber must be a positive integer' };
+}
+
+// ❌ Avoid
+// Check if lineNumber is valid
+if (lineNumber && !(Number.isInteger(lineNumber) && lineNumber > 0)) {
+  return { status: 'error', message: 'lineNumber must be a positive integer' };
+}
+```
+
+### TODO Comments
+
+```ts
+// ✅ Good
+// TODO: figure out how to send error messages as JSX from here...
+function getErrorMessage() {
+  // ...
+}
+
+// ❌ Avoid
+// FIXME: this is broken
+function getErrorMessage() {
+  // ...
+}
+```
+
+### TypeScript Comments
+
+```ts
+// ✅ Good
+// @ts-expect-error no idea why this started being an issue suddenly 🤷‍♂️
+if (jsxEl.name !== 'EpicVideo') return;
+
+// ❌ Avoid
+// @ts-ignore
+if (jsxEl.name !== 'EpicVideo') return;
+```
+
+## File Naming
+
+Use kebab-case for file names:
+
+```sh
+// ✅ Good
+highlight-button.tsx
+user-profile.ts
+api-utils.ts
+
+// ❌ Avoid
+HighlightButton.tsx
+userProfile.ts
+apiUtils.ts
+```
+
+## Best Practices
+
+- Write self-documenting code with clear variable and function names
+- Keep functions focused and single-purpose
+- Use early returns to reduce nesting
+- Follow the principle of least surprise
+- Keep code DRY but not at the expense of clarity
+- Use proper error handling
+- Write descriptive error messages
+- Document complex logic with comments
+- Use proper TypeScript types
+- Follow consistent naming conventions
+- Use proper formatting (Prettier)
+- Follow linting rules (ESLint)
+- Write tests for critical functionality

@@ -1,35 +1,39 @@
-# TanStack SaaS Starter Documentation
+# Documentation
 
-This directory contains documentation for the technologies used in the TanStack SaaS Starter project.
+This directory contains comprehensive documentation for the TanStack SaaS Starter project.
 
-## Core Technologies
+## Core Documentation
 
-- [Project Structure](./core/project-structure.md) - Overview of the project organization
-- [Vinxi](./core/vinxi.md) - Meta-framework built on Vite and Nitro
-- [React](./core/react.md) - UI library (v19)
-- [TypeScript](./core/typescript.md) - Type-safe JavaScript
-- [Conventional Commits](./core/conventional-commits.md) - Git commit message conventions
+- [TypeScript](./core/typescript.md) - TypeScript standards and best practices
+- [Project Structure](./core/project-structure.md) - Project organization and architecture
+- [Conventional Commits](./core/conventional-commits.md) - Commit message conventions
 - [Code Style](./core/code-style.md) - Code formatting and style guidelines
-- [Markdown](./core/markdown.md) - Documentation formatting guidelines
+- [Vinxi](./core/vinxi.md) - Vinxi configuration and usage
+- [Markdown](./core/markdown.md) - Markdown formatting guidelines
+- [React](./core/react.md) - React patterns and best practices
 
-## TanStack Ecosystem
+## Testing Documentation
 
-- [TanStack Router](./tanstack/router.md) - Type-safe routing
-- [TanStack Query](./tanstack/query.md) - Data fetching and state management
-- [TanStack Form](./tanstack/form.md) - Form state management
-- [TanStack Table](./tanstack/table.md) - Headless table components
-- [TanStack Start](./tanstack/start.md) - Full-stack framework with SSR and API routes
+Following the Testing Trophy hierarchy:
 
-## UI and Styling
+1. [Static Analysis](./testing/static.md) - TypeScript and ESLint configuration
+2. [Unit Testing](./testing/unit.md) - Testing individual functions and components
+3. [Integration Testing](./testing/integration.md) - Testing component interactions
+4. [End-to-End Testing](./testing/e2e.md) - Testing complete user flows
 
-- [TailwindCSS](./ui/tailwindcss.md) - Utility-first CSS framework
-- [Radix UI](./ui/radix-ui.md) - Unstyled, accessible UI primitives
-- [Component Utilities](./ui/component-utilities.md) - Styling utilities (cva, clsx, etc.)
+## TanStack Documentation
 
-## Validation and Testing
+- [Router](./tanstack/router.md) - TanStack Router setup and patterns
+- [Query](./tanstack/query.md) - TanStack Query data fetching
+- [Form](./tanstack/form.md) - TanStack Form handling
+- [Table](./tanstack/table.md) - TanStack Table implementation
 
-- [Zod](./validation/zod.md) - Schema validation
-- [Vitest](./testing/vitest.md) - Testing framework
-- [Faker.js](./testing/faker.md) - Mock data generation
+## UI Documentation
 
-## Project Structure
+- [Components](./ui/components.md) - UI component guidelines
+- [Tailwind](./ui/tailwind.md) - TailwindCSS usage and patterns
+- [Radix](./ui/radix.md) - Radix UI integration
+
+## Validation Documentation
+
+- [Zod](./validation/zod.md) - Schema validation with Zod
