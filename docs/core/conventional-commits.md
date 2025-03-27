@@ -4,124 +4,111 @@
 
 Conventional Commits is a specification for adding human and machine-readable meaning to commit messages. This convention dovetails with [SemVer](https://semver.org/), by describing features, fixes, and breaking changes in commit messages.
 
-## Commit Message Structure
+## Message Format
 
-```sh
-<type>[(optional scope)]: <description>
+STRICT FORMAT = `<type>(<scope>): <emoji> <description>`
 
-[optional body]
+### Type-Emoji Pairs (REQUIRED)
 
-[optional footer(s)]
-```
+| Type     | Emoji | Description                                                   |
+| -------- | ----- | ------------------------------------------------------------- |
+| feat     | ✨    | A new feature                                                 |
+| fix      | 🐛    | A bug fix                                                     |
+| docs     | 📝    | Documentation only changes                                    |
+| style    | 💄    | Changes that do not affect the meaning of the code            |
+| refactor | ♻️    | A code change that neither fixes a bug nor adds a feature     |
+| perf     | ⚡️   | A code change that improves performance                       |
+| test     | ✅    | Adding missing tests or correcting existing tests             |
+| build    | 📦    | Changes that affect the build system or external dependencies |
+| ci       | 👷    | Changes to CI configuration files and scripts                 |
+| chore    | 🔨    | Other changes that don't modify src or test files             |
+| revert   | ⏪️   | Reverts a previous commit                                     |
 
-## Types
+### Scopes (REQUIRED)
 
-- `feat`: ✨ A new feature
-- `fix`: 🐛 A bug fix
-- `docs`: 📝 Documentation only changes
-- `style`: 💄 Changes that do not affect the meaning of the code (white-space, formatting, etc)
-- `refactor`: ♻️ A code change that neither fixes a bug nor adds a feature
-- `perf`: ⚡️ A code change that improves performance
-- `test`: ✅ Adding missing tests or correcting existing tests
-- `build`: 📦 Changes that affect the build system or external dependencies
-- `ci`: 👷 Changes to CI configuration files and scripts
-- `chore`: 🔨 Other changes that don't modify src or test files
-- `revert`: ⏪️ Reverts a previous commit
+| Scope  | Description                    |
+| ------ | ------------------------------ |
+| ui     | Component and styling changes  |
+| api    | Backend endpoint changes       |
+| docs   | Documentation updates          |
+| test   | Testing-related changes        |
+| forms  | Form components and logic      |
+| router | Routing-related changes        |
+| query  | Data fetching and caching      |
+| deps   | Dependency updates             |
+| config | Configuration changes          |
+| auth   | Authentication-related changes |
+| types  | TypeScript type changes        |
 
-## Scopes
+Multiple scopes can be combined using commas: `feat(ui,forms): ✨ add new form component`
 
-Common scopes for this project:
+### Breaking Changes
 
-- `ui`: Component and styling changes
-- `api`: Backend endpoint changes
-- `docs`: Documentation updates
-- `test`: Testing-related changes
-- `forms`: Form components and logic
-- `router`: Routing-related changes
-- `query`: Data fetching and caching
-- `deps`: Dependency updates
-- `config`: Configuration changes
-- `auth`: Authentication-related changes
-- `types`: TypeScript type changes
+For breaking changes:
 
-Each scope represents a specific area of the codebase. Choose the most appropriate scope for your changes. Multiple scopes can be combined using commas when changes affect multiple areas: `feat(ui,forms): add new form component with validation`
+- Only allowed in `feat` and `fix` types
+- Add `!` before the colon
+- Pattern: `<type>(<scope>)!: <emoji> <description>`
 
-### Scope Descriptions
+### Commit Body
 
-| Scope    | Description                    |
-| -------- | ------------------------------ |
-| `ui`     | Component and styling changes  |
-| `api`    | Backend endpoint changes       |
-| `docs`   | Documentation updates          |
-| `test`   | Testing-related changes        |
-| `forms`  | Form components and logic      |
-| `router` | Routing-related changes        |
-| `query`  | Data fetching and caching      |
-| `deps`   | Dependency updates             |
-| `config` | Configuration changes          |
-| `auth`   | Authentication-related changes |
-| `types`  | TypeScript type changes        |
+The commit body should:
 
-## Quick Commands (Aliases)
-
-The following alias is available for quick commits:
-
-- `b`: Quick dependency updates (`chore(deps):🔨`)
+1. Be separated from the subject with a blank line
+2. Use bullet points with "-"
+3. Start each point with a capital letter
+4. Describe:
+   - What changes were made
+   - Why changes were needed
+   - Impact of changes
+   - Notable implementation details
 
 ## Examples
 
-### Feature with Emoji
+### Feature with Breaking Change
 
 ```sh
-feat(auth): ✨ add login with Google OAuth
+feat(auth)!: ✨ implement new OAuth2 flow
+
+- Replaced legacy authentication system with OAuth2 implementation
+- Added support for multiple identity providers (Google, GitHub)
+- Improved security by implementing PKCE flow
+- Updated user session management to handle new token format
 ```
 
-### Bug Fix with Emoji
+### Bug Fix
 
 ```sh
-fix(api): 🐛 handle null response from user endpoint
+fix(api): 🐛 handle null responses in user service
+
+- Added null checks to prevent crashes in user profile fetching
+- Implemented fallback values for missing user data
+- Updated error handling to provide more descriptive messages
+- Added logging for better debugging of null responses
 ```
 
-### Documentation with Emoji
+### Documentation Update
 
 ```sh
-docs(readme): 📝 update installation instructions
+docs(docs): 📝 add conventional commit guidelines
+
+- Introduced comprehensive documentation for conventional commit message formatting
+- Defined standard type-emoji mappings to ensure consistency across commits
+- Added detailed examples and use cases for different commit types
+- Included guidelines for breaking changes and multi-scope commits
 ```
 
-### Breaking Change
+## Validation
+
+### Regex Pattern
 
 ```sh
-feat(api)!: ✨ remove deprecated user endpoints
-
-BREAKING CHANGE: The /api/v1/users endpoint has been removed. Use /api/v2/users instead.
+^(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert)(\([a-z,]+\))(!)?:\s[✨🐛📝💄♻️⚡️✅📦👷🔨⏪️]\s.+$
 ```
 
-### Multiple Scopes
+### Quick Commands
 
-```sh
-feat(ui,forms): ✨ add new form component with validation
-```
-
-### Using Aliases
-
-```sh
-# Using 'b' for dependency updates
-b "update react to v19"
-```
-
-## Rules
-
-1. Commits MUST be prefixed with a type from the list above
-2. Types MUST be in lowercase
-3. Messages MUST be in present tense ("add feature" not "added feature")
-4. Description MUST immediately follow the colon and space after type/scope
-5. A scope MAY be provided after a type
-6. A scope MUST consist of noun describing a section of the codebase surrounded by parenthesis
-7. A description MUST immediately follow the colon and space after the type/scope prefix
-8. A longer commit body MAY be provided after the short description
-9. Breaking changes MUST be indicated by a `!` after the type/scope and/or a `BREAKING CHANGE:` footer
-10. Maximum subject length is 100 characters
-11. Breaking changes are only allowed in `feat` and `fix` commits
+- `b`: Quick dependency updates (`chore(deps): 🔨`)
 
 ## Configuration
 
