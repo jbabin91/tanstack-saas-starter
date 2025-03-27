@@ -172,32 +172,32 @@
   select:-webkit-autofill:focus {
     -webkit-animation-name: autofill;
     -webkit-animation-fill-mode: both;
-    -webkit-text-fill-color: inherit !important;
-    -webkit-box-shadow: 0 0 0px 1000px transparent inset !important;
-    -webkit-background-clip: text !important;
-    background-clip: text !important;
+    -webkit-text-fill-color: inherit;
+    -webkit-box-shadow: 0 0 0px 1000px transparent inset;
+    -webkit-background-clip: text;
+    background-clip: text;
     transition:
       background-color 600000s 0s,
       color 600000s 0s;
   }
 
   input[data-autocompleted] {
-    background-color: transparent !important;
+    background-color: transparent;
   }
 
   /* Override 1Password autofill styles */
   [data-com-onepassword-filled] {
-    @apply dark:bg-input/30 bg-transparent text-current !important;
-    background-clip: text !important;
-    -webkit-background-clip: text !important;
-    -webkit-text-fill-color: currentColor !important;
+    @apply dark:bg-input/30 bg-transparent text-current;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: currentColor;
   }
 
   :root[style*='color-scheme: light'] [data-com-onepassword-filled] {
-    @apply bg-transparent !important;
+    @apply bg-transparent;
   }
 
   :root[style*='color-scheme: dark'] [data-com-onepassword-filled] {
-    @apply dark:bg-input/30 !important;
+    @apply dark:bg-input/30;
   }
 }
