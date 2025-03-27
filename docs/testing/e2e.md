@@ -1,261 +1,196 @@
 # End-to-End Testing
 
-End-to-end (E2E) tests verify that your application works correctly from a user's perspective, testing complete user flows and critical business paths.
+End-to-end (E2E) tests verify that your application works correctly from a user's perspective, testing complete features and user flows in a real browser environment.
 
-## Core Principles
+## Test Structure
 
-- Test complete user journeys
-- Focus on critical business flows
-- Test in a production-like environment
-- Minimize test flakiness
-- Test real integrations when possible
+1. **User Flows**
 
-## Setting Up E2E Tests
+   - Complete user journeys
+   - Critical business paths
+   - Multi-step processes
 
-```tsx
-// playwright.config.ts
-import { defineConfig, devices } from '@playwright/test';
+2. **Test Organization**
 
-export default defineConfig({
-  testDir: './e2e',
-  use: {
-    baseURL: 'http://localhost:3000',
-    trace: 'on-first-retry',
-  },
-  projects: [
-    {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
-    },
-    {
-      name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
-    },
-  ],
+   - Group by feature
+   - Reusable page objects
+   - Shared test utilities
+
+3. **Test Coverage**
+   - Happy paths
+   - Error paths
+   - Edge cases
+   - Cross-browser scenarios
+
+## Example User Flows
+
+```typescript
+// tests/e2e/auth.spec.ts
+import { test, expect } from '@playwright/test';
+
+test.describe('Authentication', () => {
+  test('completes signup flow', async ({ page }) => {
+    await page.goto('/signup');
+
+    // Fill signup form
+    await page.getByLabel('Email').fill('test@example.com');
+    await page.getByLabel('Password').fill('password123');
+    await page.getByRole('button', { name: 'Sign Up' }).click();
+
+    // Verify email verification screen
+    await expect(page.getByText('Check your email')).toBeVisible();
+
+    // Simulate email verification
+    await page.goto('/verify-email?token=test-token');
+
+    // Verify successful signup
+    await expect(page.getByText('Welcome')).toBeVisible();
+    await expect(page).toHaveURL('/dashboard');
+  });
+
+  test('handles invalid credentials', async ({ page }) => {
+    await page.goto('/login');
+
+    await page.getByLabel('Email').fill('invalid@example.com');
+    await page.getByLabel('Password').fill('wrong');
+    await page.getByRole('button', { name: 'Log In' }).click();
+
+    await expect(page.getByText('Invalid credentials')).toBeVisible();
+  });
 });
 
-// e2e/auth.setup.ts
-import { test as setup } from '@playwright/test';
+// tests/e2e/subscription.spec.ts
+test.describe('Subscription', () => {
+  test('completes subscription flow', async ({ page }) => {
+    // Login first
+    await page.goto('/login');
+    await page.getByLabel('Email').fill('test@example.com');
+    await page.getByLabel('Password').fill('password123');
+    await page.getByRole('button', { name: 'Log In' }).click();
 
-setup('authenticate', async ({ page }) => {
-  await page.goto('/login');
-  await page.getByLabel('Email').fill('test@example.com');
-  await page.getByLabel('Password').fill('password123');
-  await page.getByRole('button', { name: 'Log in' }).click();
-  await page.waitForURL('/dashboard');
+    // Go to pricing
+    await page.goto('/pricing');
+    await page.getByRole('button', { name: 'Choose Pro' }).click();
 
-  // Save signed-in state
-  await page.context().storageState({
-    path: './e2e/.auth/user.json',
+    // Fill payment details
+    await page.getByLabel('Card number').fill('4242424242424242');
+    await page.getByLabel('Expiry').fill('12/25');
+    await page.getByLabel('CVC').fill('123');
+    await page.getByRole('button', { name: 'Subscribe' }).click();
+
+    // Verify success
+    await expect(page.getByText('Subscription activated')).toBeVisible();
+    await expect(page).toHaveURL('/dashboard');
   });
 });
 ```
 
-## Testing User Flows
+## Page Objects
 
-```tsx
-// e2e/checkout.spec.ts
-import { test, expect } from '@playwright/test';
+```typescript
+// tests/e2e/pages/auth.ts
+export class AuthPage {
+  constructor(private page: Page) {}
 
-test('complete checkout flow', async ({ page }) => {
-  // 1. Add items to cart
-  await page.goto('/products');
-  await page.getByRole('button', { name: 'Add to Cart' }).click();
-  await expect(page.getByText('1 item')).toBeVisible();
+  async login(email: string, password: string) {
+    await this.page.goto('/login');
+    await this.page.getByLabel('Email').fill(email);
+    await this.page.getByLabel('Password').fill(password);
+    await this.page.getByRole('button', { name: 'Log In' }).click();
+  }
 
-  // 2. Go to cart
-  await page.getByRole('link', { name: 'Cart' }).click();
-  await expect(page).toHaveURL('/cart');
+  async signup(email: string, password: string) {
+    await this.page.goto('/signup');
+    await this.page.getByLabel('Email').fill(email);
+    await this.page.getByLabel('Password').fill(password);
+    await this.page.getByRole('button', { name: 'Sign Up' }).click();
+  }
 
-  // 3. Start checkout
-  await page.getByRole('button', { name: 'Checkout' }).click();
-  await expect(page).toHaveURL('/checkout');
+  async verifyEmail(token: string) {
+    await this.page.goto(`/verify-email?token=${token}`);
+  }
+}
 
-  // 4. Fill shipping info
-  await page.getByLabel('Address').fill('123 Main St');
-  await page.getByLabel('City').fill('New York');
-  await page.getByLabel('ZIP').fill('10001');
-  await page.getByRole('button', { name: 'Continue' }).click();
+// tests/e2e/pages/subscription.ts
+export class SubscriptionPage {
+  constructor(private page: Page) {}
 
-  // 5. Fill payment info
-  await page.getByLabel('Card number').fill('4242424242424242');
-  await page.getByLabel('Expiry').fill('12/25');
-  await page.getByLabel('CVC').fill('123');
-  await page.getByRole('button', { name: 'Pay' }).click();
+  async subscribe(plan: string, cardDetails: CardDetails) {
+    await this.page.goto('/pricing');
+    await this.page.getByRole('button', { name: `Choose ${plan}` }).click();
 
-  // 6. Verify success
-  await expect(page.getByText('Order Confirmed')).toBeVisible();
-  await expect(page).toHaveURL('/order-confirmation');
-});
+    await this.page.getByLabel('Card number').fill(cardDetails.number);
+    await this.page.getByLabel('Expiry').fill(cardDetails.expiry);
+    await this.page.getByLabel('CVC').fill(cardDetails.cvc);
+    await this.page.getByRole('button', { name: 'Subscribe' }).click();
+  }
+}
 ```
 
-## Testing Authentication
+## Test Utilities
 
-```tsx
-// e2e/auth.spec.ts
-import { test, expect } from '@playwright/test';
-
-test('registration flow', async ({ page }) => {
-  await page.goto('/register');
-
-  // Fill registration form
-  await page.getByLabel('Email').fill('new@example.com');
-  await page.getByLabel('Password').fill('password123');
-  await page.getByLabel('Confirm Password').fill('password123');
-  await page.getByRole('button', { name: 'Register' }).click();
-
-  // Verify email verification screen
-  await expect(page).toHaveURL('/verify-email');
-  await expect(page.getByText('Check your email')).toBeVisible();
-
-  // Simulate email verification
-  const verifyToken = 'test-token';
-  await page.goto(`/verify-email?token=${verifyToken}`);
-
-  // Verify successful registration
-  await expect(page).toHaveURL('/dashboard');
-  await expect(page.getByText('Welcome')).toBeVisible();
+```typescript
+// tests/e2e/utils/test-data.ts
+export const generateTestUser = () => ({
+  email: `test-${Date.now()}@example.com`,
+  password: 'password123',
 });
 
-test('login and protected routes', async ({ page }) => {
-  // Try accessing protected route
-  await page.goto('/dashboard');
-  await expect(page).toHaveURL('/login');
+export const testCardDetails = {
+  number: '4242424242424242',
+  expiry: '12/25',
+  cvc: '123',
+};
 
-  // Login
-  await page.getByLabel('Email').fill('test@example.com');
-  await page.getByLabel('Password').fill('password123');
-  await page.getByRole('button', { name: 'Log in' }).click();
+// tests/e2e/utils/test-setup.ts
+export const setupTestUser = async (page: Page) => {
+  const user = generateTestUser();
+  const authPage = new AuthPage(page);
 
-  // Verify access to protected route
-  await expect(page).toHaveURL('/dashboard');
-});
-```
+  await authPage.signup(user.email, user.password);
+  await authPage.verifyEmail('test-token');
 
-## Testing Error Scenarios
-
-```tsx
-// e2e/error-handling.spec.ts
-import { test, expect } from '@playwright/test';
-
-test('handles network errors', async ({ page }) => {
-  // Simulate offline
-  await page.route('**/*', (route) => route.abort());
-
-  await page.goto('/dashboard');
-  await expect(page.getByText('Connection Error')).toBeVisible();
-});
-
-test('handles invalid input', async ({ page }) => {
-  await page.goto('/profile');
-
-  // Try invalid email
-  await page.getByLabel('Email').fill('invalid-email');
-  await page.getByRole('button', { name: 'Save' }).click();
-
-  await expect(page.getByText('Invalid email')).toBeVisible();
-});
-
-test('handles server errors', async ({ page }) => {
-  // Mock 500 error
-  await page.route('/api/profile', (route) => {
-    route.fulfill({
-      status: 500,
-      body: 'Server Error',
-    });
-  });
-
-  await page.goto('/profile');
-  await page.getByRole('button', { name: 'Save' }).click();
-
-  await expect(page.getByText('Something went wrong')).toBeVisible();
-});
+  return user;
+};
 ```
 
 ## Best Practices
 
-1. Test Setup
+1. **Test Organization**
 
-   ```tsx
-   // Use test fixtures
-   const test = base.extend({
-     signedInPage: async ({ page }, use) => {
-       await page.goto('/login');
-       await page.getByLabel('Email').fill('test@example.com');
-       await page.getByLabel('Password').fill('password123');
-       await page.getByRole('button', { name: 'Log in' }).click();
-       await use(page);
-     },
-   });
-   ```
+   - Group tests by feature/user flow
+   - Use page objects for reusable actions
+   - Create test utilities for common operations
+   - Keep tests independent
 
-2. Handle Dynamic Content
+2. **Test Stability**
 
-   ```tsx
-   // Wait for dynamic content
-   await expect(page.getByRole('list')).not.toBeEmpty();
+   - Use reliable selectors (roles, labels)
+   - Handle dynamic content
+   - Add appropriate waits
+   - Retry flaky operations
 
-   // Handle loading states
-   await expect(page.getByText('Loading...')).toBeVisible();
-   await expect(page.getByText('Loading...')).not.toBeVisible();
-   ```
+3. **Test Data**
 
-3. Visual Testing
+   - Use isolated test data
+   - Clean up after tests
+   - Mock external services
+   - Use test utilities
 
-   ```tsx
-   // Compare screenshots
-   await expect(page).toHaveScreenshot('checkout-form.png');
+4. **Cross-browser Testing**
+   - Test in multiple browsers
+   - Handle browser-specific behavior
+   - Use consistent viewport sizes
+   - Test responsive layouts
 
-   // Compare specific element
-   await expect(page.getByRole('dialog')).toHaveScreenshot('modal.png');
-   ```
+For shared testing patterns and guidelines, see:
 
-## Common Patterns
-
-1. Data Setup
-
-   ```tsx
-   test.beforeEach(async ({ request }) => {
-     // Setup test data via API
-     await request.post('/api/test/seed', {
-       data: {
-         users: [testUser],
-         products: testProducts,
-       },
-     });
-   });
-   ```
-
-2. Mobile Testing
-
-   ```tsx
-   test.describe('mobile view', () => {
-     test.use({ viewport: { width: 375, height: 667 } });
-
-     test('shows mobile menu', async ({ page }) => {
-       await page.getByRole('button', { name: 'Menu' }).click();
-       await expect(page.getByRole('navigation')).toBeVisible();
-     });
-   });
-   ```
-
-3. Accessibility Testing
-
-   ```tsx
-   test('passes accessibility checks', async ({ page }) => {
-     await page.goto('/');
-     const violations = await page.evaluate(async () => {
-       // Run axe-core
-       const { axe } = await import('axe-core');
-       return axe(document);
-     });
-     expect(violations.length).toBe(0);
-   });
-   ```
+- [Testing Strategy](./README.md)
+- [Integration Testing](./integration.md) for component interaction tests
+- [Unit Testing](./unit.md) for individual component tests
 
 ## Resources
 
-- [Playwright Documentation](https://playwright.dev/docs/intro)
-- [E2E Testing Best Practices](https://playwright.dev/docs/best-practices)
-- [Visual Testing Guide](https://playwright.dev/docs/test-snapshots)
-- [CI Setup Guide](https://playwright.dev/docs/ci)
+- [Playwright Documentation](https://playwright.dev)
+- [Testing Best Practices](https://playwright.dev/docs/best-practices)
+- [Page Object Model](https://playwright.dev/docs/pom)

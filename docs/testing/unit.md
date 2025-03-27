@@ -1,217 +1,58 @@
 # Unit Testing
 
-Unit tests focus on testing individual functions, components, and utilities in isolation. They are the foundation of the testing pyramid and should be fast, reliable, and focused.
+Unit tests verify individual pieces of code in isolation. They are the foundation of our testing strategy, providing fast feedback and confidence in our core logic.
 
-## Core Testing Principles
+## What to Unit Test
 
-### Test User Behavior, Not Implementation
+- Pure functions
+- Utility functions
+- Custom hooks
+- Individual components
+- Type guards
+- Helper functions
 
-> The more your tests resemble the way your software is used, the more confidence they can give you. - [Kent C. Dodds](https://x.com/kentcdodds/status/977018512689455106)
-
-```tsx
-// ✅ Good
-test('User can increment counter', async () => {
-  render(<Counter />);
-  await userEvent.click(screen.getByRole('button', { name: /increment/i }));
-  expect(screen.getByText(/count: 1/i)).toBeInTheDocument();
-});
-
-// ❌ Avoid
-test('Counter state updates', () => {
-  const { container } = render(<Counter />);
-  const button = container.querySelector('[data-testid="increment"]');
-  fireEvent.click(button);
-  expect(container.querySelector('[data-testid="count"]')).toHaveTextContent('1');
-});
-```
-
-### Avoid Unnecessary Mocks
-
-Only mock what's absolutely necessary. Most of the time, you don't need to mock your own code.
+## Component Testing
 
 ```tsx
-// ✅ Good
+// Example of a simple component test
 function Greeting({ name }: { name: string }) {
   return <div>Hello {name}</div>;
 }
 
-test('Greeting displays the name', () => {
-  render(<Greeting name="Kent" />);
-  expect(screen.getByText('Hello Kent')).toBeInTheDocument();
+test('renders greeting', () => {
+  render(<Greeting name="User" />);
+  expect(screen.getByText('Hello User')).toBeInTheDocument();
 });
 
-// ❌ Avoid
-test('Greeting displays the name', () => {
-  const mockName = 'Kent';
-  vi.mock('./greeting.tsx', () => ({
-    Greeting: () => <div>Hello {mockName}</div>,
-  }));
-  render(<Greeting name={mockName} />);
-  expect(container).toHaveTextContent('Hello Kent');
-});
-```
+// Example of a component with user interaction
+function Counter() {
+  const [count, setCount] = useState(0);
+  return (
+    <div>
+      <span>Count: {count}</span>
+      <button onClick={() => setCount((c) => c + 1)}>Increment</button>
+    </div>
+  );
+}
 
-### Use Proper Query Priority
-
-Follow this query priority order:
-
-1. `getByRole` (most preferred)
-2. `getByLabelText`
-3. `getByText`
-4. `getByTestId` (least preferred)
-
-```tsx
-// ✅ Good
-screen.getByRole('textbox', { name: /username/i });
-
-// ❌ Avoid
-screen.getByTestId('username');
-container.querySelector('.input-username');
-```
-
-### Use Query Variants Correctly
-
-```tsx
-// ✅ Good - Use queryBy for checking non-existence
-expect(screen.queryByRole('alert')).not.toBeInTheDocument();
-
-// ✅ Good - Use findBy for async elements
-const submitButton = await screen.findByRole('button', { name: /submit/i });
-
-// ❌ Avoid - Don't use waitFor for elements
-const submitButton = await waitFor(() => screen.getByRole('button', { name: /submit/i }));
-```
-
-### Keep Tests Flat
-
-Avoid nesting tests with describe blocks. Keep tests simple and direct.
-
-```tsx
-// ✅ Good
-test('User can log in with valid credentials', async () => {
-  render(<LoginForm />);
-  await userEvent.type(screen.getByRole('textbox', { name: /email/i }), 'test@example.com');
-  await userEvent.click(screen.getByRole('button', { name: /submit/i }));
-  expect(await screen.findByText(/welcome/i)).toBeInTheDocument();
-});
-
-// ❌ Avoid
-describe('LoginForm', () => {
-  describe('when credentials are valid', () => {
-    it('should allow login', async () => {
-      // ... same test code ...
-    });
-  });
+test('increments counter', async () => {
+  render(<Counter />);
+  await userEvent.click(screen.getByRole('button'));
+  expect(screen.getByText('Count: 1')).toBeInTheDocument();
 });
 ```
 
-### Avoid Shared Setup
+## Hook Testing
 
 ```tsx
-// ✅ Good
-test('renders a greeting', () => {
-  render(<Greeting name="Kent" />);
-  expect(screen.getByText('Hello Kent')).toBeInTheDocument();
-});
-
-// ❌ Avoid
-let utils;
-beforeEach(() => {
-  utils = render(<Greeting name="Kent" />);
-});
-
-test('renders a greeting', () => {
-  expect(utils.getByText('Hello Kent')).toBeInTheDocument();
-});
-```
-
-### Use userEvent Over fireEvent
-
-```tsx
-// ✅ Good
-await userEvent.type(screen.getByRole('textbox'), 'Hello');
-
-// ❌ Avoid
-fireEvent.change(screen.getByRole('textbox'), { target: { value: 'Hello' } });
-```
-
-## Core Principles
-
-- Test pure functions in isolation
-- One assertion per test
-- Fast execution
-- No external dependencies
-- Clear input/output expectations
-
-## Testing Pure Functions
-
-```tsx
-// math.ts
-export const add = (a: number, b: number): number => a + b;
-export const multiply = (a: number, b: number): number => a * b;
-
-// math.test.ts
-import { add, multiply } from './math';
-
-test('add combines two numbers', () => {
-  expect(add(2, 3)).toBe(5);
-  expect(add(-1, 1)).toBe(0);
-  expect(add(0, 0)).toBe(0);
-});
-
-test('multiply combines two numbers', () => {
-  expect(multiply(2, 3)).toBe(6);
-  expect(multiply(-2, 3)).toBe(-6);
-  expect(multiply(0, 5)).toBe(0);
-});
-```
-
-## Testing Utilities
-
-```tsx
-// utils/format.ts
-export const formatCurrency = (amount: number): string => {
-  return new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-  }).format(amount);
-};
-
-// utils/format.test.ts
-import { formatCurrency } from './format';
-
-test('formats currency correctly', () => {
-  expect(formatCurrency(10)).toBe('$10.00');
-  expect(formatCurrency(10.5)).toBe('$10.50');
-  expect(formatCurrency(1000)).toBe('$1,000.00');
-});
-```
-
-## Testing Hooks
-
-```tsx
-// hooks/useCounter.ts
-import { useState } from 'react';
-
-export const useCounter = (initial = 0) => {
+// Custom hook example
+function useCounter(initial = 0) {
   const [count, setCount] = useState(initial);
-
   const increment = () => setCount((c) => c + 1);
-  const decrement = () => setCount((c) => c - 1);
+  return { count, increment };
+}
 
-  return { count, increment, decrement };
-};
-
-// hooks/useCounter.test.ts
-import { renderHook, act } from '@testing-library/react';
-import { useCounter } from './useCounter';
-
-test('initializes with default value', () => {
-  const { result } = renderHook(() => useCounter());
-  expect(result.current.count).toBe(0);
-});
-
-test('can increment counter', () => {
+test('useCounter hook', () => {
   const { result } = renderHook(() => useCounter(0));
 
   act(() => {
@@ -222,142 +63,142 @@ test('can increment counter', () => {
 });
 ```
 
-## Testing Helper Functions
+## Pure Function Testing
 
 ```tsx
-// helpers/validation.ts
-export const isValidEmail = (email: string): boolean => {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-};
+// Pure function examples
+function add(a: number, b: number): number {
+  return a + b;
+}
 
-// helpers/validation.test.ts
-import { isValidEmail } from './validation';
+test('adds numbers correctly', () => {
+  expect(add(1, 2)).toBe(3);
+  expect(add(-1, 1)).toBe(0);
+  expect(add(0, 0)).toBe(0);
+});
 
-test('validates email format', () => {
-  // Valid emails
-  expect(isValidEmail('test@example.com')).toBe(true);
-  expect(isValidEmail('user.name@domain.co.uk')).toBe(true);
+// String manipulation
+function formatName(first: string, last: string): string {
+  return `${first.trim()} ${last.trim()}`.trim();
+}
 
-  // Invalid emails
-  expect(isValidEmail('invalid-email')).toBe(false);
-  expect(isValidEmail('@domain.com')).toBe(false);
-  expect(isValidEmail('user@')).toBe(false);
+test('formats names correctly', () => {
+  expect(formatName('John', 'Doe')).toBe('John Doe');
+  expect(formatName(' John ', ' Doe ')).toBe('John Doe');
+  expect(formatName('', 'Doe')).toBe('Doe');
 });
 ```
 
-## Testing Type Guards
+## Type Guard Testing
 
 ```tsx
-// types/guards.ts
 type User = {
   id: string;
   name: string;
-  email: string;
 };
 
-export const isUser = (value: unknown): value is User => {
+function isUser(value: unknown): value is User {
   return (
     typeof value === 'object'
     && value !== null
     && 'id' in value
     && 'name' in value
-    && 'email' in value
     && typeof value.id === 'string'
     && typeof value.name === 'string'
-    && typeof value.email === 'string'
   );
-};
+}
 
-// types/guards.test.ts
-import { isUser } from './guards';
-
-test('validates user objects', () => {
-  // Valid user
-  expect(isUser({ id: '1', name: 'John', email: 'john@example.com' })).toBe(true);
-
-  // Invalid users
+test('validates user type guard', () => {
+  expect(isUser({ id: '1', name: 'Test' })).toBe(true);
   expect(isUser(null)).toBe(false);
-  expect(isUser({})).toBe(false);
-  expect(isUser({ id: 1, name: 'John', email: 'john@example.com' })).toBe(false);
-  expect(isUser({ id: '1', name: 123, email: 'john@example.com' })).toBe(false);
-  expect(isUser({ id: '1', name: 'John', email: 123 })).toBe(false);
+  expect(isUser({ id: 1, name: 'Test' })).toBe(false);
 });
 ```
 
-## Best Practices
+## Utility Function Testing
 
-1. Test Structure
+```tsx
+// Date formatting utility
+function formatDate(date: Date): string {
+  return new Intl.DateTimeFormat('en-US').format(date);
+}
 
-   ```tsx
-   test('descriptive test name', () => {
-     // 1. Arrange
-     const input = 'test';
+test('formats dates correctly', () => {
+  const date = new Date('2024-03-27');
+  expect(formatDate(date)).toBe('3/27/2024');
+});
 
-     // 2. Act
-     const result = processInput(input);
+// Currency formatting
+function formatCurrency(amount: number): string {
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+  }).format(amount);
+}
 
-     // 3. Assert
-     expect(result).toBe('TEST');
-   });
-   ```
+test('formats currency correctly', () => {
+  expect(formatCurrency(10.99)).toBe('$10.99');
+  expect(formatCurrency(1000)).toBe('$1,000.00');
+});
+```
 
-2. Edge Cases
+## Unit Testing Best Practices
 
-   ```tsx
-   test('handles edge cases', () => {
-     expect(processInput('')).toBe('');
-     expect(processInput(null)).toBe('');
-     expect(processInput(undefined)).toBe('');
-   });
-   ```
+1. **Keep Tests Focused**
 
-3. Error Cases
+   - Test one thing at a time
+   - Clear arrange-act-assert structure
+   - Descriptive test names
 
-   ```tsx
-   test('throws for invalid input', () => {
-     expect(() => divide(1, 0)).toThrow('Cannot divide by zero');
-   });
-   ```
+2. **Avoid Implementation Details**
+
+   - Test behavior, not implementation
+   - Don't test internal state
+   - Focus on inputs and outputs
+
+3. **Handle Edge Cases**
+
+   - Test boundary conditions
+   - Include error cases
+   - Test empty/null values
+
+4. **Write Maintainable Tests**
+   - Avoid test interdependence
+   - Don't share mutable state
+   - Keep setup simple
+
+For shared testing patterns and guidelines, see:
+
+- [Testing Strategy](./README.md)
+- [Integration Testing](./integration.md) for component interaction tests
+- [E2E Testing](./e2e.md) for full user flow tests
 
 ## Common Patterns
 
-1. Setup/Teardown
+```tsx
+// Parameterized tests
+test.each([
+  ['John', 'Doe', 'John Doe'],
+  ['Jane', 'Smith', 'Jane Smith'],
+  ['', 'Doe', 'Doe'],
+])('formats "%s %s" to "%s"', (first, last, expected) => {
+  expect(formatName(first, last)).toBe(expected);
+});
 
-   ```tsx
-   let testData: TestData;
+// Error testing
+test('handles errors', () => {
+  expect(() => divide(1, 0)).toThrow('Cannot divide by zero');
+});
 
-   beforeEach(() => {
-     testData = createTestData();
-   });
-
-   afterEach(() => {
-     cleanup();
-   });
-   ```
-
-2. Parameterized Tests
-
-   ```tsx
-   test.each([
-     [1, 1, 2],
-     [2, 2, 4],
-     [0, 5, 5],
-   ])('adds %i + %i to equal %i', (a, b, expected) => {
-     expect(add(a, b)).toBe(expected);
-   });
-   ```
-
-3. Mocking Return Values
-
-   ```tsx
-   const mockFn = vi.fn();
-   mockFn.mockReturnValue('mocked value');
-   // or
-   mockFn.mockImplementation(() => 'mocked value');
-   ```
+// Async function testing
+test('async function', async () => {
+  const result = await fetchData();
+  expect(result).toBeDefined();
+});
+```
 
 ## Resources
 
-- [Vitest Unit Testing Guide](https://vitest.dev/guide/testing-types.html)
-- [Testing Library Hooks Testing](https://testing-library.com/docs/react-testing-library/api#renderhook)
-- [Jest Expect API](https://jestjs.io/docs/expect)
+- [Vitest Documentation](https://vitest.dev)
+- [Testing Library Queries](https://testing-library.com/docs/queries/about)
+- [React Testing Library](https://testing-library.com/docs/react-testing-library/intro)

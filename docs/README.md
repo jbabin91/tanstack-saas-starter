@@ -14,12 +14,30 @@ This directory contains comprehensive documentation for the TanStack SaaS Starte
 
 ## Testing Documentation
 
-Following the Testing Trophy hierarchy:
+Our testing strategy follows the Testing Trophy hierarchy, emphasizing different types of tests for maximum effectiveness. See [Testing Strategy](./testing/README.md) for a comprehensive overview.
 
 1. [Static Analysis](./testing/static.md) - TypeScript and ESLint configuration
+
+   - Type checking
+   - Linting rules
+   - Code quality tools
+
 2. [Unit Testing](./testing/unit.md) - Testing individual functions and components
+
+   - Component testing
+   - Hook testing
+   - Utility functions
+
 3. [Integration Testing](./testing/integration.md) - Testing component interactions
+
+   - Form submissions
+   - API integrations
+   - Data flow
+
 4. [End-to-End Testing](./testing/e2e.md) - Testing complete user flows
+   - User journeys
+   - Critical paths
+   - Real-world scenarios
 
 ## TanStack Documentation
 

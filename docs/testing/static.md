@@ -1,14 +1,27 @@
-# Static Analysis Testing
+# Static Analysis
 
-Static analysis testing catches type errors, code style issues, and potential bugs before runtime. It's the foundation of the Testing Trophy and provides immediate feedback during development.
+Static analysis tools help catch errors and enforce code quality standards before runtime. They analyze code without executing it, identifying potential issues, enforcing conventions, and ensuring type safety.
 
-## Core Principles
+## Tools Overview
 
-- Catch errors at compile time
-- Enforce consistent code style
-- Prevent common mistakes
-- Zero runtime overhead
-- Automated in CI/CD
+1. **TypeScript**
+
+   - Static type checking
+   - Type inference
+   - Type assertions
+   - Generics and utility types
+
+2. **ESLint**
+
+   - Code style enforcement
+   - Best practices
+   - Error prevention
+   - Custom rules
+
+3. **Prettier**
+   - Code formatting
+   - Style consistency
+   - Automatic fixes
 
 ## TypeScript Configuration
 
@@ -16,299 +29,195 @@ Static analysis testing catches type errors, code style issues, and potential bu
 // tsconfig.json
 {
   "compilerOptions": {
+    "target": "ES2020",
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "module": "ESNext",
+    "skipLibCheck": true,
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
     "strict": true,
-    "noUncheckedIndexedAccess": true,
-    "noImplicitAny": true,
-    "noImplicitThis": true,
-    "strictNullChecks": true,
-    "strictFunctionTypes": true,
-    "strictBindCallApply": true,
-    "strictPropertyInitialization": true,
-    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "forceConsistentCasingInFileNames": true,
-    "skipLibCheck": true
-  }
+    "types": ["vitest/globals"]
+  },
+  "include": ["src"],
+  "references": [{ "path": "./tsconfig.node.json" }]
 }
 ```
 
 ## ESLint Configuration
 
-```js
-// eslint.config.js
-import eslint from '@eslint/js';
-import tseslint from 'typescript-eslint';
-import reactHooks from 'eslint-plugin-react-hooks';
-import testingLibrary from 'eslint-plugin-testing-library';
-import jestDom from 'eslint-plugin-jest-dom';
-import nextPlugin from '@next/eslint-plugin-next';
-
-export default tseslint.config(
-  eslint.configs.recommended,
-  ...tseslint.configs.recommended,
-  ...tseslint.configs.strictTypeChecked,
-  {
-    languageOptions: {
-      parserOptions: {
-        project: true,
-        tsconfigRootDir: import.meta.dirname,
-      },
-    },
+```javascript
+// .eslintrc.cjs
+module.exports = {
+  root: true,
+  env: { browser: true, es2020: true },
+  extends: [
+    'eslint:recommended',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:react-hooks/recommended',
+    'plugin:prettier/recommended',
+  ],
+  ignorePatterns: ['dist', '.eslintrc.cjs'],
+  parser: '@typescript-eslint/parser',
+  plugins: ['react-refresh'],
+  rules: {
+    'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
+    '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+    'no-console': ['error', { allow: ['warn', 'error'] }],
   },
-  {
-    files: ['**/*.{ts,tsx}'],
-    plugins: {
-      'react-hooks': reactHooks,
-      '@next/next': nextPlugin,
-      'testing-library': testingLibrary,
-      'jest-dom': jestDom,
-    },
-    rules: {
-      // React Rules
-      'react-hooks/rules-of-hooks': 'error',
-      'react-hooks/exhaustive-deps': 'warn',
+};
+```
 
-      // TypeScript Rules
-      '@typescript-eslint/no-explicit-any': 'error',
-      '@typescript-eslint/explicit-module-boundary-types': 'error',
-      '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
-      '@typescript-eslint/consistent-type-imports': ['error', { prefer: 'type-imports' }],
-      '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
+## Prettier Configuration
 
-      // Testing Rules
-      'testing-library/await-async-queries': 'error',
-      'testing-library/no-await-sync-queries': 'error',
-      'testing-library/prefer-screen-queries': 'error',
-      'testing-library/prefer-user-event': 'error',
-      'jest-dom/prefer-to-have-value': 'error',
-      'jest-dom/prefer-in-document': 'error',
-
-      // Next.js Rules
-      '@next/next/no-html-link-for-pages': 'error',
-      '@next/next/no-img-element': 'error',
-    },
-    settings: {
-      next: {
-        rootDir: '.',
-      },
-    },
-  },
-  {
-    // Override rules for test files
-    files: ['**/*.{test,spec}.{ts,tsx}'],
-    rules: {
-      '@typescript-eslint/no-explicit-any': 'off',
-      '@typescript-eslint/no-non-null-assertion': 'off',
-    },
-  },
-  {
-    // Override rules for configuration files
-    files: ['*.config.{js,ts}'],
-    rules: {
-      '@typescript-eslint/no-explicit-any': 'off',
-    },
-  },
-);
+```javascript
+// .prettierrc.json
+{
+  "semi": true,
+  "singleQuote": true,
+  "tabWidth": 2,
+  "printWidth": 80,
+  "trailingComma": "es5"
+}
 ```
 
 ## Type Safety Examples
 
 ```typescript
-// 1. Function Parameters and Return Types
+// Type inference
+const numbers = [1, 2, 3]; // inferred as number[]
+const user = {
+  name: 'John',
+  age: 30,
+}; // inferred as { name: string; age: number }
+
+// Type assertions
+const canvas = document.getElementById('canvas') as HTMLCanvasElement;
+const ctx = canvas.getContext('2d')!;
+
+// Generics
+function getFirst<T>(arr: T[]): T | undefined {
+  return arr[0];
+}
+
+// Utility types
 type User = {
   id: string;
   name: string;
   email: string;
 };
 
-// ✅ DO: Explicit types
-function getUser(id: string): Promise<User> {
-  return api.users.get(id);
-}
-
-// ❌ DON'T: Implicit any
-function getUser(id) {
-  return api.users.get(id);
-}
-
-// 2. React Component Props
-type ButtonProps = {
-  variant: 'primary' | 'secondary';
-  size: 'sm' | 'md' | 'lg';
-  onClick: () => void;
-  children: React.ReactNode;
-};
-
-// ✅ DO: Type props interface
-const Button = ({ variant, size = 'medium', onClick, children }: ButtonProps) => {
-  return (
-    <button
-      className={`btn-${variant} btn-${size}`}
-      onClick={onClick}
-    >
-      {children}
-    </button>
-  );
-};
-
-// 3. Generic Types
-// ✅ DO: Use generics for reusable types
-type ApiResponse<T> = {
-  data: T;
-  status: number;
-  message: string;
-};
-
-async function fetchData<T>(url: string): Promise<ApiResponse<T>> {
-  const response = await fetch(url);
-  return response.json();
-}
-
-// Usage
-const user = await fetchData<User>('/api/user');
-```
-
-## ESLint Rules Examples
-
-```typescript
-// 1. React Hooks Rules
-// ✅ DO: Follow hooks rules
-function Component() {
-  const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    document.title = `Count: ${count}`;
-  }, [count]); // Dependency array includes all dependencies
-}
-
-// ❌ DON'T: Break hooks rules
-function Component() {
-  if (condition) {
-    const [count, setCount] = useState(0); // Error: Hook inside condition
-  }
-}
-
-// 2. TypeScript Rules
-// ✅ DO: Use explicit types
-function calculateTotal(items: CartItem[]): number {
-  return items.reduce((total, item) => total + item.price, 0);
-}
-
-// ❌ DON'T: Use any
-function processData(data: any) { // Error: Explicit any
-  return data.value;
-}
-
-// 3. Testing Rules
-// ✅ DO: Use proper testing queries
-test('renders button', () => {
-  render(<Button>Click me</Button>);
-  expect(screen.getByRole('button')).toBeInTheDocument();
-});
-
-// ❌ DON'T: Use container queries
-test('renders button', () => {
-  const { container } = render(<Button>Click me</Button>);
-  expect(container.querySelector('button')).toBeInTheDocument();
-});
+type UserUpdate = Partial<User>;
+type UserRequired = Required<User>;
+type UserReadOnly = Readonly<User>;
 ```
 
 ## Common Patterns
 
-1. Type Guards
+1. **Type Guards**
 
-   ```typescript
-   // ✅ DO: Use type guards
-   function isError(value: unknown): value is Error {
-     return value instanceof Error;
-   }
+```typescript
+function isError(value: unknown): value is Error {
+  return value instanceof Error;
+}
 
-   try {
-     // Some code
-   } catch (error: unknown) {
-     if (isError(error)) {
-       console.error(error.message);
-     }
-   }
-   ```
+function handleResult(result: unknown) {
+  if (isError(result)) {
+    console.error(result.message);
+    return;
+  }
+  // result is not Error type here
+}
+```
 
-2. Exhaustive Checks
+2. **Discriminated Unions**
 
-   ```typescript
-   // ✅ DO: Use exhaustive checks
-   type Status = 'idle' | 'loading' | 'success' | 'error';
+```typescript
+type Success<T> = {
+  type: 'success';
+  data: T;
+};
 
-   function getStatusMessage(status: Status): string {
-     switch (status) {
-       case 'idle':
-         return 'Waiting...';
-       case 'loading':
-         return 'Loading...';
-       case 'success':
-         return 'Success!';
-       case 'error':
-         return 'Error!';
-       default:
-         const _exhaustiveCheck: never = status;
-         return _exhaustiveCheck;
-     }
-   }
-   ```
+type Failure = {
+  type: 'failure';
+  error: string;
+};
 
-3. Branded Types
+type Result<T> = Success<T> | Failure;
 
-   ```typescript
-   // ✅ DO: Use branded types for type safety
-   type UserId = string & { readonly brand: unique symbol };
+function handleResult<T>(result: Result<T>) {
+  switch (result.type) {
+    case 'success':
+      return result.data; // T type
+    case 'failure':
+      throw new Error(result.error);
+  }
+}
+```
 
-   function createUserId(id: string): UserId {
-     return id as UserId;
-   }
+3. **Branded Types**
 
-   function getUserById(id: UserId) {
-     // Type-safe ID usage
-   }
-   ```
+```typescript
+type UserId = string & { readonly brand: unique symbol };
+
+function createUserId(id: string): UserId {
+  return id as UserId;
+}
+
+function getUserById(id: UserId) {
+  // Type safe ID handling
+}
+
+// Error: Argument of type 'string' is not assignable to parameter of type 'UserId'
+getUserById('123');
+
+// OK
+getUserById(createUserId('123'));
+```
 
 ## Best Practices
 
-1. Type Inference
+1. **Type Safety**
 
-   ```typescript
-   // ✅ DO: Let TypeScript infer when obvious
-   const numbers = [1, 2, 3]; // Type: number[]
-   const doubled = numbers.map((n) => n * 2); // Type: number[]
+   - Enable strict mode
+   - Avoid `any` type
+   - Use type guards
+   - Leverage utility types
 
-   // ✅ DO: Explicitly type when needed
-   const config: Config = {
-     api: 'https://api.example.com',
-     timeout: 5000,
-   };
-   ```
+2. **Code Quality**
 
-2. Null Handling
+   - Follow ESLint rules
+   - Use Prettier formatting
+   - Write descriptive types
+   - Document complex types
 
-   ```typescript
-   // ✅ DO: Handle null explicitly
-   function getName(user: User | null): string {
-     if (!user) return 'Guest';
-     return user.name;
-   }
-   ```
+3. **Error Prevention**
 
-3. Type Assertions
+   - Check null/undefined
+   - Handle edge cases
+   - Use exhaustive checks
+   - Validate input types
 
-   ```typescript
-   // ✅ DO: Use type assertions sparingly
-   const canvas = document.getElementById('canvas') as HTMLCanvasElement;
+4. **Performance**
+   - Optimize type imports
+   - Use type-only imports
+   - Avoid type recursion
+   - Minimize union types
 
-   // ❌ DON'T: Use type assertions to silence errors
-   const value = data as any; // Error: Avoid type assertions to any
-   ```
+For shared testing patterns and guidelines, see:
+
+- [Testing Strategy](./README.md)
+- [Unit Testing](./unit.md) for runtime type checking
+- [Integration Testing](./integration.md) for API type safety
 
 ## Resources
 
 - [TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/intro.html)
-- [ESLint Rules](https://eslint.org/docs/rules/)
-- [TypeScript ESLint](https://typescript-eslint.io/)
-- [React TypeScript Cheatsheet](https://react-typescript-cheatsheet.netlify.app/)
+- [ESLint Documentation](https://eslint.org/docs/user-guide/getting-started)
+- [Prettier Documentation](https://prettier.io/docs/en/)

@@ -1,67 +1,89 @@
 # Integration Testing
 
-Integration tests verify that multiple units work together correctly. They test component interactions, data flow, and feature functionality as a whole.
+Integration tests verify how multiple components and services work together. They focus on testing component interactions, data flow, and feature functionality.
 
-## Core Principles
+## Integration Test Types
 
-- Test component interactions
-- Test data flow between components
-- Test feature functionality
-- Use realistic data scenarios
-- Mock external dependencies
+1. **Component Integration**
 
-## Component Integration
+   - Parent-child component interactions
+   - Context providers and consumers
+   - Component composition
+
+2. **Data Flow Integration**
+
+   - Form submissions
+   - State management
+   - Context updates
+   - Data fetching
+
+3. **API Integration**
+
+   - API calls and responses
+   - Error handling
+   - Loading states
+   - Data transformation
+
+4. **Feature Integration**
+   - Complete features
+   - User workflows
+   - Complex interactions
+
+## Component Integration Examples
 
 ```tsx
-// features/TodoList/TodoList.tsx
-type Todo = {
-  id: string;
-  title: string;
-  completed: boolean;
-};
-
-const TodoList = () => {
-  const [todos, setTodos] = useState<Todo[]>([]);
-
-  const addTodo = (text: string) => {
-    setTodos([...todos, { id: uuid(), title: text, completed: false }]);
-  };
-
+// Testing parent-child interaction
+function ParentComponent() {
+  const [value, setValue] = useState('');
   return (
     <div>
-      <AddTodo onAdd={addTodo} />
-      <TodoItems
-        items={todos}
-        onToggle={(id) => {
-          /* ... */
-        }}
-      />
+      <ChildInput onChange={setValue} />
+      <ChildDisplay value={value} />
     </div>
   );
-};
+}
 
-// features/TodoList/TodoList.test.tsx
-test('adds and displays new todo', async () => {
-  const user = userEvent.setup();
-  render(<TodoList />);
+test('parent-child interaction', async () => {
+  render(<ParentComponent />);
+  await userEvent.type(screen.getByRole('textbox'), 'test');
+  expect(screen.getByText('test')).toBeInTheDocument();
+});
 
-  await user.type(screen.getByRole('textbox'), 'New todo');
-  await user.click(screen.getByRole('button', { name: /add/i }));
+// Testing context integration
+function TodoList() {
+  const { todos, addTodo } = useTodoContext();
+  return (
+    <div>
+      <AddTodoForm onAdd={addTodo} />
+      <TodoItems items={todos} />
+    </div>
+  );
+}
 
-  expect(screen.getByText('New todo')).toBeInTheDocument();
+test('todo context integration', async () => {
+  render(
+    <TodoProvider>
+      <TodoList />
+    </TodoProvider>,
+  );
+
+  await userEvent.type(screen.getByRole('textbox'), 'New Todo');
+  await userEvent.click(screen.getByRole('button', { name: /add/i }));
+
+  expect(screen.getByText('New Todo')).toBeInTheDocument();
 });
 ```
 
-## Form Integration
+## Data Flow Examples
 
 ```tsx
-// features/Registration/RegistrationForm.tsx
-const RegistrationForm = () => {
+// Form with validation and submission
+function RegistrationForm() {
   const form = useForm({
     resolver: zodResolver(registrationSchema),
   });
 
-  const onSubmit = async (data: RegistrationData) => {
+  const onSubmit = async (data) => {
     await api.register(data);
   };
 
@@ -72,13 +94,11 @@ const RegistrationForm = () => {
       <Button type="submit">Register</Button>
     </Form>
   );
-};
+}
 
-// features/Registration/RegistrationForm.test.tsx
-test('submits registration form with valid data', async () => {
+test('form submission flow', async () => {
   const user = userEvent.setup();
 
-  // Mock API
   server.use(
     http.post('/api/register', () => {
       return HttpResponse.json({ success: true });
@@ -95,51 +115,18 @@ test('submits registration form with valid data', async () => {
 });
 ```
 
-## Data Flow Testing
+## API Integration Examples
 
 ```tsx
-// features/Cart/CartContext.tsx
-const CartContext = createContext<CartContextType>(null!);
-
-export const CartProvider = ({ children }: PropsWithChildren) => {
-  const [items, setItems] = useState<CartItem[]>([]);
-
-  const addItem = (item: CartItem) => {
-    setItems([...items, item]);
-  };
-
-  return <CartContext.Provider value={{ items, addItem }}>{children}</CartContext.Provider>;
-};
-
-// features/Cart/Cart.test.tsx
-test('adds item to cart and updates total', async () => {
-  const user = userEvent.setup();
-
-  render(
-    <CartProvider>
-      <ProductList />
-      <CartSummary />
-    </CartProvider>,
-  );
-
-  await user.click(screen.getByRole('button', { name: /add to cart/i }));
-
-  expect(screen.getByText('1 item')).toBeInTheDocument();
-  expect(screen.getByText('$10.00')).toBeInTheDocument();
-});
-```
-
-## API Integration
-
-```tsx
-// features/Users/UserList.tsx
-const UserList = () => {
-  const { data, isLoading } = useQuery({
+// Data fetching and display
+function UserList() {
+  const { data, isLoading, error } = useQuery({
     queryKey: ['users'],
     queryFn: () => api.getUsers(),
   });
 
   if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
 
   return (
     <ul>
@@ -148,11 +135,9 @@ const UserList = () => {
       ))}
     </ul>
   );
-};
+}
 
-// features/Users/UserList.test.tsx
-test('loads and displays users', async () => {
-  // Mock API response
+test('fetches and displays users', async () => {
   server.use(
     http.get('/api/users', () => {
       return HttpResponse.json([
@@ -168,12 +153,8 @@ test('loads and displays users', async () => {
   expect(await screen.findByText('John')).toBeInTheDocument();
   expect(screen.getByText('Jane')).toBeInTheDocument();
 });
-```
 
-## Error Handling
-
-```tsx
-test('displays error message on API failure', async () => {
+test('handles API errors', async () => {
   server.use(
     http.get('/api/users', () => {
       return new HttpResponse(null, { status: 500 });
@@ -181,81 +162,75 @@ test('displays error message on API failure', async () => {
   );
 
   render(<UserList />);
-
   expect(await screen.findByText(/error/i)).toBeInTheDocument();
-});
-
-test('validates form submission', async () => {
-  const user = userEvent.setup();
-
-  render(<RegistrationForm />);
-
-  await user.click(screen.getByRole('button', { name: /register/i }));
-
-  expect(await screen.findByText(/email is required/i)).toBeInTheDocument();
 });
 ```
 
-## Best Practices
+## Feature Integration Examples
 
-1. Test Setup
+```tsx
+// Complete checkout flow
+test('completes checkout process', async () => {
+  const user = userEvent.setup();
 
-   ```tsx
-   // Wrap components with necessary providers
-   const wrapper = ({ children }: PropsWithChildren) => (
-     <QueryClientProvider client={queryClient}>
-       <CartProvider>{children}</CartProvider>
-     </QueryClientProvider>
-   );
+  render(
+    <CartProvider>
+      <CheckoutFlow />
+    </CartProvider>,
+  );
 
-   beforeEach(() => {
-     queryClient.clear();
-   });
-   ```
+  // Add items to cart
+  await user.click(screen.getByRole('button', { name: /add to cart/i }));
+  expect(screen.getByText('1 item')).toBeInTheDocument();
 
-2. API Mocking
+  // Go to checkout
+  await user.click(screen.getByRole('link', { name: /checkout/i }));
 
-   ```tsx
-   // Create reusable handlers
-   const handlers = [
-     http.get('/api/users', () => {
-       return HttpResponse.json(mockUsers);
-     }),
-   ];
+  // Fill shipping info
+  await user.type(screen.getByLabelText(/address/i), '123 Main St');
+  await user.click(screen.getByRole('button', { name: /continue/i }));
 
-   const server = setupServer(...handlers);
+  // Complete payment
+  await user.type(screen.getByLabelText(/card/i), '4242424242424242');
+  await user.click(screen.getByRole('button', { name: /pay/i }));
 
-   beforeAll(() => server.listen());
-   afterEach(() => server.resetHandlers());
-   afterAll(() => server.close());
-   ```
+  expect(await screen.findByText(/order confirmed/i)).toBeInTheDocument();
+});
+```
 
-3. Complex Interactions
+## Integration Testing Best Practices
 
-   ```tsx
-   test('completes checkout flow', async () => {
-     const user = userEvent.setup();
+1. **Test Real Interactions**
 
-     render(<CheckoutFlow />);
+   - Use realistic user interactions
+   - Test complete workflows
+   - Verify state changes
 
-     // Step 1: Add items
-     await user.click(screen.getByRole('button', { name: /add/i }));
+2. **Mock Wisely**
 
-     // Step 2: Fill shipping
-     await user.type(screen.getByLabelText(/address/i), '123 Main St');
+   - Mock external services
+   - Use MSW for API mocking
+   - Keep internal logic real
 
-     // Step 3: Payment
-     await user.type(screen.getByLabelText(/card/i), '4242424242424242');
+3. **Handle Async Operations**
 
-     // Complete
-     await user.click(screen.getByRole('button', { name: /pay/i }));
+   - Use proper async utilities
+   - Test loading states
+   - Verify error states
 
-     expect(await screen.findByText(/success/i)).toBeInTheDocument();
-   });
-   ```
+4. **Maintain Test Independence**
+   - Reset state between tests
+   - Clean up subscriptions
+   - Restore mocks
+
+For shared testing patterns and guidelines, see:
+
+- [Testing Strategy](./README.md)
+- [Unit Testing](./unit.md) for individual component tests
+- [E2E Testing](./e2e.md) for full user flow tests
 
 ## Resources
 
-- [Testing Library Integration Testing](https://testing-library.com/docs/react-testing-library/example-intro)
-- [MSW API Mocking](https://mswjs.io/docs/getting-started/mocks/rest-api)
+- [MSW Documentation](https://mswjs.io)
 - [TanStack Query Testing](https://tanstack.com/query/latest/docs/react/guides/testing)
+- [Testing Library Integration Guide](https://testing-library.com/docs/react-testing-library/example-intro)
