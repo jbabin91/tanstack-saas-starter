@@ -102,3 +102,36 @@ globs: ['src/**/*.ts', 'src/**/*.tsx']
 - Use early returns
 - Keep code DRY but not at the expense of clarity
 - Follow the principle of least surprise
+
+## File Naming
+
+- Use kebab-case for all regular files and directories
+- Special cases for routes:
+  - Root layout: `__root.tsx`
+  - Index pages: `index.tsx`
+  - Layout/parent routes: `route.tsx`
+  - Pathless directories: Prefix with `_` (e.g., `_app`, `_public`)
+  - Dynamic parameters: Use `$` prefix (e.g., `users.$userId.tsx`)
+- Test files match their implementation file's case with `.test` or `.spec` suffix
+- Always use kebab-case in import paths
+- See docs/core/code-style.md for detailed examples
+
+Example structure:
+
+```sh
+src/
+  components/
+    user-profile/
+      user-avatar.tsx
+      user-details.tsx
+  routes/
+    __root.tsx
+    index.tsx
+    _app/
+      route.tsx
+      dashboard.tsx
+    users/
+      $userId.tsx
+  utils/
+    string-helpers.ts
+```

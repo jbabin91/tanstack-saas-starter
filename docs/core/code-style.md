@@ -513,3 +513,64 @@ apiUtils.ts
 - Use proper formatting (Prettier)
 - Follow linting rules (ESLint)
 - Write tests for critical functionality
+
+# File Naming
+
+## Use kebab-case for Files and Directories
+
+Use kebab-case for file and directory names to ensure consistency across different operating systems.
+
+```tsx
+// ✅ Good
+src / components / user - profile / user - avatar.tsx;
+user - details.tsx;
+forms / login - form.tsx;
+registration - form.tsx;
+utils / string - helpers.ts;
+date - formatters.ts;
+
+// ❌ Avoid
+src / components / UserProfile / UserAvatar.tsx;
+UserDetails.tsx;
+Forms / LoginForm.tsx;
+RegistrationForm.tsx;
+utils / StringHelpers.ts;
+DateFormatters.ts;
+```
+
+### Special Cases
+
+1. **Tanstack Router Routes**: Route files follow Tanstack Router's file-based routing conventions
+
+   ```tsx
+   // Route files can use special casing
+   src / routes / _index.tsx;
+   users.$userId.tsx;
+   posts.$postId.tsx;
+   ```
+
+2. **Test Files**: Keep the same case as the file being tested, but with the test suffix
+
+   ```tsx
+   user - profile.tsx;
+   user - profile.test.tsx;
+   ```
+
+3. **Component Imports**: Always use the kebab-case path in imports
+
+   ```tsx
+   // ✅ Good
+   import { UserProfile } from './user-profile';
+   import { LoginForm } from './forms/login-form';
+
+   // ❌ Avoid
+   import { UserProfile } from './UserProfile';
+   import { LoginForm } from './Forms/LoginForm';
+   ```
+
+### Benefits
+
+- Consistent behavior across Windows and Unix-based systems
+- Avoids case-sensitivity issues in git
+- Improves readability in URLs and imports
+- Reduces cognitive load with a single naming convention

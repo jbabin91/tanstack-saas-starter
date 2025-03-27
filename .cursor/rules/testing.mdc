@@ -37,10 +37,24 @@ Query variants:
 
 ## File Organization
 
-- Place test files next to implementation
-- Name pattern: `Component.test.tsx` or `Component.spec.tsx`
+- Place test files next to implementation using kebab-case
+- Name pattern: `component-name.test.tsx` or `component-name.spec.tsx`
 - Group test utilities in `__tests__/utils`
 - Group factories in `__tests__/factories`
+
+Example:
+
+```sh
+src/
+  components/
+    user-profile.tsx
+    user-profile.test.tsx
+  __tests__/
+    utils/
+      test-helpers.ts
+    factories/
+      user-factory.ts
+```
 
 ## Testing Patterns
 
