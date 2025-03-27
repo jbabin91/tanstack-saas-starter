@@ -50,12 +50,55 @@ See docs/core/react.md for detailed examples and implementation guidelines.
 
 ## JavaScript/TypeScript Standards
 
+See [TypeScript Guide](../docs/core/typescript.md) for detailed implementation guidelines.
+
+### Core TypeScript Rules
+
+1. Type Safety
+
+   - Enable strict mode in tsconfig
+   - Use `unknown` over `any`
+   - Use type guards with type predicates
+   - Use schema validation at boundaries
+   - Never use type assertions without guards
+
+2. Type Organization
+
+   - Prefer types over interfaces
+   - Keep types simple and composable
+   - Group related types in feature modules
+   - Export shared types from feature modules
+
+3. Type Inference
+
+   - Let TypeScript infer return types
+   - Let TypeScript infer array/object types
+   - Let TypeScript infer hook types
+   - Explicitly type function parameters
+   - Explicitly type complex objects
+
+4. Event Handling
+
+   - Use uppercase constants for events
+   - Define event types with Zod schemas
+   - Always clean up event listeners
+   - Handle errors with type safety
+   - Follow event naming conventions
+
+5. Naming Conventions
+   - Use English for all names
+   - Follow A/HC/LC pattern for functions
+   - Use camelCase for variables/functions
+   - Use PascalCase for types/components
+   - Keep names Short, Intuitive, Descriptive
+
 ### Variables and References
 
-- Use `const` by default, `let` only when reassignment is needed
+- Use `const` by default
+- Use `let` only when needed
 - Never use `var`
-- Use descriptive, clear names that explain purpose
-- Use uppercase with underscores for true constants (e.g., `BASE_URL`)
+- Use descriptive names
+- Use uppercase for constants
 
 ### Objects and Arrays
 
@@ -78,18 +121,7 @@ See docs/core/react.md for detailed examples and implementation guidelines.
 - Use async/await over promise chains
 - Use arrow functions for inline callbacks
 
-### TypeScript Specifics
-
-- Enable strict mode in tsconfig
-- Use proper type annotations
-- Avoid `any` type, prefer `unknown`
-- Let TypeScript infer return types when possible
-- Use type guards with type predicates
-- Use schema validation (Zod) for external data
-- Avoid type assertions (`as`)
-- Use Array generic syntax (e.g., `Array<string>` over `string[]`)
-
-## Code Style
+### Code Style
 
 - Use Prettier for code formatting
 - Follow ESLint rules
