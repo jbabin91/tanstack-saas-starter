@@ -15,10 +15,38 @@ globs: ['src/**/*.ts', 'src/**/*.tsx']
 
 ## React Guidelines
 
+DO:
+
 - Use functional components with TypeScript
-- Implement proper error boundaries
-- Follow React 19 best practices
-- Use hooks for state management and side effects
+- Handle side effects in event handlers
+- Use ref callbacks for DOM interactions
+- Derive values from state directly
+- Use ternaries for conditional rendering
+- Use null for conditional rendering
+- Keep components focused and pure
+- Use proper TypeScript types
+- Follow accessibility best practices
+
+DON'T:
+
+- Use class components
+- Use unnecessary useEffect
+- Sync state when it can be derived
+- Use falsy values in JSX conditionals
+- Mutate state directly
+- Use type assertions without guards
+- Write deeply nested JSX
+
+PATTERNS:
+
+- Event Handling: Prefer direct handlers over useEffect
+- State Management: Derive state over syncing
+- Rendering: Use ternaries and null for conditionals
+- Components: Keep focused and single-responsibility
+- Props: Use proper TypeScript types and defaults
+- Testing: Focus on user interactions
+
+See docs/core/react.md for detailed examples and implementation guidelines.
 
 ## JavaScript/TypeScript Standards
 

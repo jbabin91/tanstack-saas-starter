@@ -46,202 +46,353 @@ function MyComponent({ initialData }) {
 
 ## Core Principles
 
+### Component Structure
+
 - Use functional components with TypeScript
-- Avoid unnecessary `useEffect`
-- Don't sync state, derive it
-- Test user interactions, not implementation details
 - Keep components focused and single-responsibility
-
-## Modern React Patterns
-
-### Custom Hooks
-
-Extract reusable logic into custom hooks:
+- Follow proper naming conventions
+- Implement error boundaries
+- Handle loading and error states
 
 ```tsx
-// ✅ Good
-function useDebounce<T>(value: T, delay: number): T {
-  const [debouncedValue, setDebouncedValue] = useState(value);
+// ✅ Good: Functional component with proper structure
+function ProductCard({ product }: ProductCardProps) {
+  if (!product) return null;
 
+  return (
+    <div>
+      <h2>{product.name}</h2>
+      <p>{product.description}</p>
+    </div>
+  );
+}
+
+// ❌ Avoid: Class components
+class ProductCard extends React.Component<ProductCardProps> {
+  render() {
+    return <div>{/* ... */}</div>;
+  }
+}
+```
+
+### Event Handling
+
+- Handle side effects in event handlers
+- Use proper event typing
+- Follow consistent naming (handle\*)
+- Use ref callbacks for DOM interactions
+
+```tsx
+// ✅ Good: Event handling
+function SearchForm() {
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  function handleSubmit(event: FormEvent) {
+    event.preventDefault();
+    // Handle form submission
+  }
+
+  function handleInputRef(element: HTMLInputElement) {
+    if (element) element.focus();
+  }
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <input ref={handleInputRef} />
+    </form>
+  );
+}
+```
+
+### State Management
+
+- Derive values from state directly
+- Avoid unnecessary state
+- Use proper context patterns
+- Implement proper state updates
+
+```tsx
+// ✅ Good: Derived state
+function Cart({ items }: CartProps) {
+  const totalPrice = items.reduce((sum, item) => sum + item.price, 0);
+  const itemCount = items.length;
+  const hasItems = items.length > 0;
+
+  return (
+    <div>
+      <p>Items: {itemCount}</p>
+      <p>Total: ${totalPrice}</p>
+      {hasItems ?
+        <CheckoutButton />
+      : null}
+    </div>
+  );
+}
+```
+
+### Rendering Patterns
+
+- Use ternaries for conditional rendering
+- Use null for conditional rendering
+- Keep JSX expressions simple
+- Follow proper list rendering
+
+```tsx
+// ✅ Good: Conditional rendering
+function UserProfile({ user, isAdmin }: UserProfileProps) {
+  return (
+    <div>
+      <h1>{user.name}</h1>
+      {isAdmin ?
+        <AdminControls />
+      : null}
+      {user.posts.map((post) => (
+        <PostCard key={post.id} post={post} />
+      ))}
+    </div>
+  );
+}
+```
+
+### Effects and Lifecycle
+
+- Avoid unnecessary useEffect
+- Use proper cleanup in effects
+- Handle async operations correctly
+- Use proper dependencies
+
+```tsx
+// ✅ Good: Necessary effect with cleanup
+function KeyboardShortcuts() {
   useEffect(() => {
-    const handler = setTimeout(() => {
-      setDebouncedValue(value);
-    }, delay);
+    const controller = new AbortController();
 
-    return () => {
-      clearTimeout(handler);
-    };
-  }, [value, delay]);
+    window.addEventListener(
+      'keydown',
+      (event: KeyboardEvent) => {
+        if (event.key === 'Escape') {
+          // Handle escape
+        }
+      },
+      { signal: controller.signal },
+    );
 
-  return debouncedValue;
-}
+    return () => controller.abort();
+  }, []);
 
-// Usage
-function SearchInput() {
-  const [search, setSearch] = useState('');
-  const debouncedSearch = useDebounce(search, 500);
-
-  // Use debouncedSearch for API calls
+  return null;
 }
 ```
 
-### Compound Components
+### Testing
 
-Use compound components for flexible, composable interfaces:
+- Test user interactions
+- Use proper queries
+- Test error states
+- Follow accessibility in tests
 
 ```tsx
-// ✅ Good
-function Select({ children }: { children: React.ReactNode }) {
-  const [value, setValue] = useState<string>()
-  return (
-    <SelectContext.Provider value={{ value, setValue }}>
-      {children}
-    </SelectContext.Provider>
-  )
-}
+// ✅ Good: User interaction testing
+test('submits form with user data', async () => {
+  render(<UserForm />);
 
-Select.Option = function Option({ value, children }: OptionProps) {
-  const { setValue } = useSelectContext()
-  return (
-    <button onClick={() => setValue(value)}>
-      {children}
-    </button>
-  )
-}
+  await userEvent.type(screen.getByLabelText(/name/i), 'John Doe');
 
-// Usage
-<Select>
-  <Select.Option value="1">Option 1</Select.Option>
-  <Select.Option value="2">Option 2</Select.Option>
-</Select>
+  await userEvent.click(screen.getByRole('button', { name: /submit/i }));
+
+  expect(screen.getByText(/success/i)).toBeInTheDocument();
+});
 ```
 
-### Render Props
+### Performance
 
-Use render props for flexible component composition:
+- Use proper memoization
+- Implement code splitting
+- Optimize re-renders
+- Handle large lists properly
 
 ```tsx
-// ✅ Good
-function List<T>({ items, renderItem }: { items: T[]; renderItem: (item: T) => React.ReactNode }) {
-  return <div>{items.map(renderItem)}</div>;
-}
+// ✅ Good: Memoization
+const MemoizedExpensiveComponent = memo(function ExpensiveComponent({ data }: Props) {
+  return <div>{/* Complex rendering */}</div>;
+});
 
-// Usage
-<List items={users} renderItem={(user) => <UserCard key={user.id} user={user} />} />;
+function ParentComponent() {
+  const memoizedValue = useMemo(() => expensiveCalculation(props), [props]);
+
+  return <MemoizedExpensiveComponent data={memoizedValue} />;
+}
 ```
 
-## Component Structure
+## Best Practices
 
-### Function Components
+1. Component Design
+
+   - Single responsibility
+   - Proper prop types
+   - Clear component API
+   - Consistent naming
+
+2. State Management
+
+   - Minimal state
+   - Derived calculations
+   - Proper context usage
+   - Immutable updates
+
+3. Performance
+
+   - Proper dependencies
+   - Controlled re-renders
+   - Code splitting
+   - Resource cleanup
+
+4. Testing
+
+   - User-centric tests
+   - Proper queries
+   - Error handling
+   - Accessibility checks
+
+5. TypeScript Integration
+   - Proper types
+   - Type guards
+   - Generic components
+   - Proper inference
+
+## Resources
+
+- [React Documentation](https://react.dev/)
+- [TypeScript Guidelines](https://www.typescriptlang.org/docs/)
+- [Testing Library](https://testing-library.com/)
+- [React Performance](https://react.dev/learn/render-and-commit)
+
+# React Best Practices
+
+## Core Principles
+
+### Avoid useEffect When Possible
+
+[You Might Not Need `useEffect`](https://react.dev/learn/you-might-not-need-an-effect)
+
+Instead of using `useEffect`, prefer:
+
+- Event handlers with `flushSync`
+- Ref callbacks
+- CSS transitions
+- `useSyncExternalStore`
+- Derived state calculations
 
 ```tsx
-// ✅ Good
-function ProductPage({ product, addToCart }: ProductPageProps) {
+// ✅ Good: Handle side effects in event handlers
+function ProductPage({ product, addToCart }) {
   function buyProduct() {
     addToCart(product);
     showNotification(`Added ${product.name} to the shopping cart!`);
   }
 
+  return <button onClick={buyProduct}>Buy {product.name}</button>;
+}
+
+// ❌ Avoid: Unnecessary useEffect
+function ProductPage({ product, addToCart }) {
+  useEffect(() => {
+    if (product.isInCart) {
+      showNotification(`Added ${product.name} to the shopping cart!`);
+    }
+  }, [product]);
+
+  return <button onClick={() => addToCart(product)}>Buy {product.name}</button>;
+}
+```
+
+Valid useEffect use cases:
+
+```tsx
+// ✅ Good: Event listeners with cleanup
+useEffect(() => {
+  const controller = new AbortController();
+
+  window.addEventListener(
+    'keydown',
+    (event: KeyboardEvent) => {
+      if (event.key !== 'Escape') return;
+      // Handle escape key
+    },
+    { signal: controller.signal },
+  );
+
+  return () => {
+    controller.abort();
+  };
+}, []);
+```
+
+### Don't Sync State, Derive It
+
+[Don't Sync State, Derive It](https://kentcdodds.com/blog/dont-sync-state-derive-it)
+
+Calculate values directly from state instead of syncing them with useEffect.
+
+```tsx
+// ✅ Good: Derive state directly
+function Counter() {
+  const [count, setCount] = useState(0);
+  const isEven = count % 2 === 0;
+
   return (
     <div>
-      <h1>{product.name}</h1>
-      <button onClick={buyProduct}>Buy Now</button>
+      <p>Count: {count}</p>
+      <p>Is even: {isEven}</p>
+    </div>
+  );
+}
+
+// ❌ Avoid: Syncing state unnecessarily
+function Counter() {
+  const [count, setCount] = useState(0);
+  const [isEven, setIsEven] = useState(false);
+
+  useEffect(() => {
+    setIsEven(count % 2 === 0);
+  }, [count]);
+
+  return (
+    <div>
+      <p>Count: {count}</p>
+      <p>Is even: {isEven}</p>
+    </div>
+  );
+}
+```
+
+### JSX Rendering Patterns
+
+#### Avoid Rendering Falsy Values
+
+In JSX, use `null` for conditional rendering instead of relying on falsy values.
+
+```tsx
+// ✅ Good
+function ContactList({ contacts }) {
+  return (
+    <div>
+      {contacts.length ?
+        <div>You have {contacts.length} contacts</div>
+      : null}
     </div>
   );
 }
 
 // ❌ Avoid
-class ProductPage extends React.Component<ProductPageProps> {
-  buyProduct() {
-    this.props.addToCart(this.props.product);
-    showNotification(`Added ${this.props.product.name} to the shopping cart!`);
-  }
-
-  render() {
-    return (
-      <div>
-        <h1>{this.props.product.name}</h1>
-        <button onClick={this.buyProduct}>Buy Now</button>
-      </div>
-    );
-  }
+function ContactList({ contacts }) {
+  return <div>{contacts.length && <div>You have {contacts.length} contacts</div>}</div>;
 }
 ```
 
-## State Management
+#### Use Ternaries for Conditionals
 
-### Derive State
-
-```tsx
-// ✅ Good
-const [items, setItems] = useState<Item[]>([]);
-const totalPrice = items.reduce((sum, item) => sum + item.price, 0);
-const itemCount = items.length;
-const hasItems = items.length > 0;
-
-// ❌ Avoid
-const [items, setItems] = useState<Item[]>([]);
-const [totalPrice, setTotalPrice] = useState(0);
-const [itemCount, setItemCount] = useState(0);
-const [hasItems, setHasItems] = useState(false);
-
-useEffect(() => {
-  setTotalPrice(items.reduce((sum, item) => sum + item.price, 0));
-  setItemCount(items.length);
-  setHasItems(items.length > 0);
-}, [items]);
-```
-
-### Context Best Practices
-
-```tsx
-// ✅ Good
-const CartContext = createContext<CartContextType | null>(null);
-
-function useCart() {
-  const context = useContext(CartContext);
-  if (!context) {
-    throw new Error('useCart must be used within CartProvider');
-  }
-  return context;
-}
-
-function CartProvider({ children }: { children: React.ReactNode }) {
-  const [items, setItems] = useState<Item[]>([]);
-  const totalPrice = items.reduce((sum, item) => sum + item.price, 0);
-
-  const value = useMemo(
-    () => ({
-      items,
-      setItems,
-      totalPrice,
-    }),
-    [items],
-  );
-
-  return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
-}
-```
-
-## Rendering
-
-### Conditional Rendering
-
-```tsx
-// ✅ Good
-<div>
-  {contacts.length ? (
-    <div>You have {contacts.length} contacts</div>
-  ) : null}
-</div>
-
-// ❌ Avoid
-<div>
-  {contacts.length && <div>You have {contacts.length} contacts</div>}
-</div>
-```
-
-### Use Ternaries
+Use ternary operators for conditional rendering. They're expressions and can be used anywhere expressions are allowed.
 
 ```tsx
 // ✅ Good
@@ -255,7 +406,7 @@ function App({ user }: { user: User }) {
   );
 }
 
-// ❌ Avoid
+// ❌ Avoid if statements in JSX
 function App({ user }: { user: User }) {
   if (user.role === 'admin') {
     return <AdminPanel />;
@@ -263,134 +414,3 @@ function App({ user }: { user: User }) {
   return <UserPanel />;
 }
 ```
-
-## Event Handling
-
-### Event Handler Naming
-
-```tsx
-// ✅ Good
-function SearchForm() {
-  function handleSubmit(event: FormEvent) {
-    event.preventDefault();
-    // ...
-  }
-
-  return <form onSubmit={handleSubmit}>...</form>;
-}
-
-// ❌ Avoid
-function SearchForm() {
-  function submitForm(e: FormEvent) {
-    e.preventDefault();
-    // ...
-  }
-
-  return <form onSubmit={submitForm}>...</form>;
-}
-```
-
-### Inline Event Handlers
-
-```tsx
-// ✅ Good
-function Counter() {
-  const [count, setCount] = useState(0);
-  return <button onClick={() => setCount((c) => c + 1)}>Count: {count}</button>;
-}
-
-// ❌ Avoid
-function Counter() {
-  const [count, setCount] = useState(0);
-  function increment() {
-    setCount((c) => c + 1);
-  }
-  return <button onClick={increment}>Count: {count}</button>;
-}
-```
-
-## Props
-
-### Props Destructuring
-
-```tsx
-// ✅ Good
-function UserProfile({ name, avatar, email }: UserProfileProps) {
-  return (
-    <div>
-      <img src={avatar} alt={name} />
-      <h2>{name}</h2>
-      <p>{email}</p>
-    </div>
-  );
-}
-
-// ❌ Avoid
-function UserProfile(props: UserProfileProps) {
-  return (
-    <div>
-      <img src={props.avatar} alt={props.name} />
-      <h2>{props.name}</h2>
-      <p>{props.email}</p>
-    </div>
-  );
-}
-```
-
-### Default Props
-
-```tsx
-// ✅ Good
-function Button({ variant = 'primary', children }: ButtonProps) {
-  return <button className={variant}>{children}</button>;
-}
-
-// ❌ Avoid
-function Button({ variant, children }: ButtonProps) {
-  return <button className={variant ?? 'primary'}>{children}</button>;
-}
-```
-
-## Testing
-
-### Test User Interactions
-
-```tsx
-// ✅ Good
-test('User can add items to cart', async () => {
-  render(<ProductList />);
-  await userEvent.click(screen.getByRole('button', { name: /add to cart/i }));
-  await expect(screen.getByText(/1 item in cart/i)).toBeInTheDocument();
-});
-
-// ❌ Avoid
-test('Cart state updates when addToCart is called', () => {
-  const { container } = render(<ProductList />);
-  const addButton = container.querySelector('[data-testid="add-button"]');
-  fireEvent.click(addButton);
-  expect(container.querySelector('[data-testid="cart-count"]')).toHaveTextContent('1');
-});
-```
-
-## Best Practices
-
-- Keep components focused and single-responsibility
-- Use TypeScript for better type safety
-- Avoid unnecessary state
-- Derive values from state when possible
-- Use proper event handling
-- Test user interactions
-- Use proper prop types
-- Follow consistent naming conventions
-- Write descriptive component names
-- Document complex logic
-- Use proper error boundaries
-- Handle loading and error states
-- Follow accessibility best practices
-- Use proper form handling
-- Keep components pure when possible
-- Use code splitting for large applications
-- Implement proper error handling
-- Follow performance best practices
-- Use proper state management patterns
-- Implement proper testing strategies
