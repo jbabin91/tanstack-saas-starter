@@ -18,6 +18,9 @@ import { Route as PublicIndexImport } from './routes/_public/index';
 import { Route as AppDemosStartServerFuncsImport } from './routes/_app/demos/start/server-funcs';
 import { Route as AppDemosStartApiRequestImport } from './routes/_app/demos/start/api-request';
 import { Route as AppDemosFormsSimpleImport } from './routes/_app/demos/forms/simple';
+import { Route as AppDemosFormsDateRangePickerImport } from './routes/_app/demos/forms/date-range-picker';
+import { Route as AppDemosFormsDatePickerImport } from './routes/_app/demos/forms/date-picker';
+import { Route as AppDemosFormsCalendarImport } from './routes/_app/demos/forms/calendar';
 import { Route as AppDemosFormsAddressImport } from './routes/_app/demos/forms/address';
 import { Route as AppDemosDataTableImport } from './routes/_app/demos/data/table';
 import { Route as AppDemosDataQueryImport } from './routes/_app/demos/data/query';
@@ -60,6 +63,25 @@ const AppDemosStartApiRequestRoute = AppDemosStartApiRequestImport.update({
 const AppDemosFormsSimpleRoute = AppDemosFormsSimpleImport.update({
   id: '/demos/forms/simple',
   path: '/demos/forms/simple',
+  getParentRoute: () => AppRouteRoute,
+} as any);
+
+const AppDemosFormsDateRangePickerRoute =
+  AppDemosFormsDateRangePickerImport.update({
+    id: '/demos/forms/date-range-picker',
+    path: '/demos/forms/date-range-picker',
+    getParentRoute: () => AppRouteRoute,
+  } as any);
+
+const AppDemosFormsDatePickerRoute = AppDemosFormsDatePickerImport.update({
+  id: '/demos/forms/date-picker',
+  path: '/demos/forms/date-picker',
+  getParentRoute: () => AppRouteRoute,
+} as any);
+
+const AppDemosFormsCalendarRoute = AppDemosFormsCalendarImport.update({
+  id: '/demos/forms/calendar',
+  path: '/demos/forms/calendar',
   getParentRoute: () => AppRouteRoute,
 } as any);
 
@@ -134,6 +156,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppDemosFormsAddressImport;
       parentRoute: typeof AppRouteImport;
     };
+    '/_app/demos/forms/calendar': {
+      id: '/_app/demos/forms/calendar';
+      path: '/demos/forms/calendar';
+      fullPath: '/demos/forms/calendar';
+      preLoaderRoute: typeof AppDemosFormsCalendarImport;
+      parentRoute: typeof AppRouteImport;
+    };
+    '/_app/demos/forms/date-picker': {
+      id: '/_app/demos/forms/date-picker';
+      path: '/demos/forms/date-picker';
+      fullPath: '/demos/forms/date-picker';
+      preLoaderRoute: typeof AppDemosFormsDatePickerImport;
+      parentRoute: typeof AppRouteImport;
+    };
+    '/_app/demos/forms/date-range-picker': {
+      id: '/_app/demos/forms/date-range-picker';
+      path: '/demos/forms/date-range-picker';
+      fullPath: '/demos/forms/date-range-picker';
+      preLoaderRoute: typeof AppDemosFormsDateRangePickerImport;
+      parentRoute: typeof AppRouteImport;
+    };
     '/_app/demos/forms/simple': {
       id: '/_app/demos/forms/simple';
       path: '/demos/forms/simple';
@@ -164,6 +207,9 @@ interface AppRouteRouteChildren {
   AppDemosDataQueryRoute: typeof AppDemosDataQueryRoute;
   AppDemosDataTableRoute: typeof AppDemosDataTableRoute;
   AppDemosFormsAddressRoute: typeof AppDemosFormsAddressRoute;
+  AppDemosFormsCalendarRoute: typeof AppDemosFormsCalendarRoute;
+  AppDemosFormsDatePickerRoute: typeof AppDemosFormsDatePickerRoute;
+  AppDemosFormsDateRangePickerRoute: typeof AppDemosFormsDateRangePickerRoute;
   AppDemosFormsSimpleRoute: typeof AppDemosFormsSimpleRoute;
   AppDemosStartApiRequestRoute: typeof AppDemosStartApiRequestRoute;
   AppDemosStartServerFuncsRoute: typeof AppDemosStartServerFuncsRoute;
@@ -173,6 +219,9 @@ const AppRouteRouteChildren: AppRouteRouteChildren = {
   AppDemosDataQueryRoute: AppDemosDataQueryRoute,
   AppDemosDataTableRoute: AppDemosDataTableRoute,
   AppDemosFormsAddressRoute: AppDemosFormsAddressRoute,
+  AppDemosFormsCalendarRoute: AppDemosFormsCalendarRoute,
+  AppDemosFormsDatePickerRoute: AppDemosFormsDatePickerRoute,
+  AppDemosFormsDateRangePickerRoute: AppDemosFormsDateRangePickerRoute,
   AppDemosFormsSimpleRoute: AppDemosFormsSimpleRoute,
   AppDemosStartApiRequestRoute: AppDemosStartApiRequestRoute,
   AppDemosStartServerFuncsRoute: AppDemosStartServerFuncsRoute,
@@ -200,6 +249,9 @@ export interface FileRoutesByFullPath {
   '/demos/data/query': typeof AppDemosDataQueryRoute;
   '/demos/data/table': typeof AppDemosDataTableRoute;
   '/demos/forms/address': typeof AppDemosFormsAddressRoute;
+  '/demos/forms/calendar': typeof AppDemosFormsCalendarRoute;
+  '/demos/forms/date-picker': typeof AppDemosFormsDatePickerRoute;
+  '/demos/forms/date-range-picker': typeof AppDemosFormsDateRangePickerRoute;
   '/demos/forms/simple': typeof AppDemosFormsSimpleRoute;
   '/demos/start/api-request': typeof AppDemosStartApiRequestRoute;
   '/demos/start/server-funcs': typeof AppDemosStartServerFuncsRoute;
@@ -211,6 +263,9 @@ export interface FileRoutesByTo {
   '/demos/data/query': typeof AppDemosDataQueryRoute;
   '/demos/data/table': typeof AppDemosDataTableRoute;
   '/demos/forms/address': typeof AppDemosFormsAddressRoute;
+  '/demos/forms/calendar': typeof AppDemosFormsCalendarRoute;
+  '/demos/forms/date-picker': typeof AppDemosFormsDatePickerRoute;
+  '/demos/forms/date-range-picker': typeof AppDemosFormsDateRangePickerRoute;
   '/demos/forms/simple': typeof AppDemosFormsSimpleRoute;
   '/demos/start/api-request': typeof AppDemosStartApiRequestRoute;
   '/demos/start/server-funcs': typeof AppDemosStartServerFuncsRoute;
@@ -225,6 +280,9 @@ export interface FileRoutesById {
   '/_app/demos/data/query': typeof AppDemosDataQueryRoute;
   '/_app/demos/data/table': typeof AppDemosDataTableRoute;
   '/_app/demos/forms/address': typeof AppDemosFormsAddressRoute;
+  '/_app/demos/forms/calendar': typeof AppDemosFormsCalendarRoute;
+  '/_app/demos/forms/date-picker': typeof AppDemosFormsDatePickerRoute;
+  '/_app/demos/forms/date-range-picker': typeof AppDemosFormsDateRangePickerRoute;
   '/_app/demos/forms/simple': typeof AppDemosFormsSimpleRoute;
   '/_app/demos/start/api-request': typeof AppDemosStartApiRequestRoute;
   '/_app/demos/start/server-funcs': typeof AppDemosStartServerFuncsRoute;
@@ -238,6 +296,9 @@ export interface FileRouteTypes {
     | '/demos/data/query'
     | '/demos/data/table'
     | '/demos/forms/address'
+    | '/demos/forms/calendar'
+    | '/demos/forms/date-picker'
+    | '/demos/forms/date-range-picker'
     | '/demos/forms/simple'
     | '/demos/start/api-request'
     | '/demos/start/server-funcs';
@@ -248,6 +309,9 @@ export interface FileRouteTypes {
     | '/demos/data/query'
     | '/demos/data/table'
     | '/demos/forms/address'
+    | '/demos/forms/calendar'
+    | '/demos/forms/date-picker'
+    | '/demos/forms/date-range-picker'
     | '/demos/forms/simple'
     | '/demos/start/api-request'
     | '/demos/start/server-funcs';
@@ -260,6 +324,9 @@ export interface FileRouteTypes {
     | '/_app/demos/data/query'
     | '/_app/demos/data/table'
     | '/_app/demos/forms/address'
+    | '/_app/demos/forms/calendar'
+    | '/_app/demos/forms/date-picker'
+    | '/_app/demos/forms/date-range-picker'
     | '/_app/demos/forms/simple'
     | '/_app/demos/start/api-request'
     | '/_app/demos/start/server-funcs';
@@ -299,6 +366,9 @@ export const routeTree = rootRoute
         "/_app/demos/data/query",
         "/_app/demos/data/table",
         "/_app/demos/forms/address",
+        "/_app/demos/forms/calendar",
+        "/_app/demos/forms/date-picker",
+        "/_app/demos/forms/date-range-picker",
         "/_app/demos/forms/simple",
         "/_app/demos/start/api-request",
         "/_app/demos/start/server-funcs"
@@ -327,6 +397,18 @@ export const routeTree = rootRoute
     },
     "/_app/demos/forms/address": {
       "filePath": "_app/demos/forms/address.tsx",
+      "parent": "/_app"
+    },
+    "/_app/demos/forms/calendar": {
+      "filePath": "_app/demos/forms/calendar.tsx",
+      "parent": "/_app"
+    },
+    "/_app/demos/forms/date-picker": {
+      "filePath": "_app/demos/forms/date-picker.tsx",
+      "parent": "/_app"
+    },
+    "/_app/demos/forms/date-range-picker": {
+      "filePath": "_app/demos/forms/date-range-picker.tsx",
       "parent": "/_app"
     },
     "/_app/demos/forms/simple": {
