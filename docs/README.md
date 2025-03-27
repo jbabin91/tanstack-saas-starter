@@ -8,6 +8,7 @@ This directory contains comprehensive documentation for the TanStack SaaS Starte
 - [Project Structure](./core/project-structure.md) - Project organization and architecture
 - [Conventional Commits](./core/conventional-commits.md) - Commit message conventions
 - [Code Style](./core/code-style.md) - Code formatting and style guidelines
+- [Comments](./core/comments.md) - Code commenting standards and best practices
 - [Vinxi](./core/vinxi.md) - Vinxi configuration and usage
 - [Markdown](./core/markdown.md) - Markdown formatting guidelines
 - [React](./core/react.md) - React patterns and best practices

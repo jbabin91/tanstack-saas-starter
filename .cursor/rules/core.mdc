@@ -131,6 +131,54 @@ See [TypeScript Guide](../docs/core/typescript.md) for detailed implementation g
 - Don't use semicolons unless necessary
 - Use kebab-case for file names
 
+### Comments
+
+1. Purpose
+
+   - Comments explain WHY not WHAT
+   - Document complex business logic
+   - Link to relevant resources/issues
+   - Avoid redundant comments
+
+2. Special Comments
+
+   - Use TODO for future improvements
+   - Use FIXME for immediate problems
+   - Use @ts-expect-error with explanation
+   - Never use @ts-ignore
+
+3. JSDoc
+
+   - Required for public APIs
+   - Include parameters and return types
+   - Document exceptions/errors
+   - Keep descriptions concise
+
+4. Examples
+
+   ```typescript
+   // ✅ Good - Explains why
+   // Sanitize input to prevent win32 exploits
+   validateInput(value);
+
+   // ✅ Good - Links to resource
+   // Implementation: https://example.com/spec
+   parseConfig(config);
+
+   // ✅ Good - Documents API
+   /**
+    * @param {Config} config
+    * @throws {ValidationError}
+    */
+   export function process(config: Config);
+
+   // ❌ Avoid - Redundant
+   // Calculate total
+   calculateTotal(items);
+   ```
+
+See [TypeScript Guide](../docs/core/typescript.md) for detailed commenting examples and guidelines.
+
 ## File Organization
 
 - Group related components in feature directories

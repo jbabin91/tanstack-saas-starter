@@ -169,75 +169,81 @@ const [value, setValue] = useState<string>('');
 const { data } = useQuery<User>(['user', id]);
 ```
 
-## Event Handling
+## Comments and Documentation
 
-### Event Types
+See [Comments Guide](./comments.md) for our general commenting standards and best practices.
 
-```typescript
-// ✅ Good - Event constants
-export const EVENTS = {
-  USER_CODE_RECEIVED: 'USER_CODE_RECEIVED',
-  AUTH_RESOLVED: 'AUTH_RESOLVED',
-  AUTH_REJECTED: 'AUTH_REJECTED',
-} as const;
+### TypeScript-Specific Comments
 
-// ✅ Good - Event type safety
-type EventTypes = keyof typeof EVENTS;
+1. **Type Documentation**
 
-const CodeReceivedEventSchema = z.object({
-  type: z.literal(EVENTS.USER_CODE_RECEIVED),
-  code: z.string(),
-  url: z.string(),
-});
+   ```typescript
+   // ✅ Good - Documents type constraints
+   type Status = 'pending' | 'success' | 'error';
 
-type CodeReceivedEvent = z.infer<typeof CodeReceivedEventSchema>;
-```
+   // ✅ Good - Explains complex type
+   // We use branded types to ensure type safety across API boundaries
+   type UserId = string & { readonly __brand: unique symbol };
+   ```
 
-### Event Patterns
+2. **Type Assertions**
 
-```typescript
-// ✅ Good - Event cleanup
-useEffect(() => {
-  authEmitter.on(EVENTS.USER_CODE_RECEIVED, handleCodeReceived);
-  return () => {
-    authEmitter.off(EVENTS.USER_CODE_RECEIVED, handleCodeReceived);
-  };
-}, []);
+   ```typescript
+   // ✅ Good - Explains necessity of type assertion
+   // We know this element exists because it's created in initialization
+   const root = document.getElementById('root') as HTMLElement;
 
-// ✅ Good - Error handling
-try {
-  await handleEvent(event);
-} catch (error) {
-  authEmitter.emit(EVENTS.AUTH_REJECTED, {
-    error: getErrorMessage(error),
-  });
-}
-```
+   // ❌ Avoid - Unexplained type assertion
+   const element = someElement as HTMLDivElement;
+   ```
 
-## Naming Conventions
+3. **Generic Constraints**
 
-Follow the A/HC/LC pattern for functions:
+   ```typescript
+   // ✅ Good - Documents constraint purpose
+   // Ensure we only accept objects with a string ID
+   function getById<T extends { id: string }>(items: T[], id: string): T | undefined {
+     return items.find((item) => item.id === id);
+   }
+   ```
 
-- **A**: Action (get, set, handle)
-- **HC**: High Context (what it operates on)
-- **LC**: Low Context (optional)
+4. **Type Guards**
 
-```typescript
-// ✅ Good
-const firstName = 'John';
-const pageCount = 5;
-const hasPagination = true;
-function getUserMessages() {}
-function handleClickOutside() {}
+   ```typescript
+   // ✅ Good - Documents type guard logic
+   // Check all required user properties exist and are of correct type
+   function isUser(value: unknown): value is User {
+     return typeof value === 'object' && value !== null && 'id' in value && 'name' in value;
+   }
+   ```
 
-// ❌ Avoid
-const nombre = 'John';
-const p_count = 5;
-const isPaginatable = true;
-function getUsrMsgs() {}
-```
+5. **TSDoc for Public APIs**
 
-For detailed naming guidelines, see [Naming Cheatsheet](https://github.com/kettanaito/naming-cheatsheet).
+   ````typescript
+   /**
+    * Processes user data with strict type checking.
+    * Throws if data doesn't match {@link UserSchema}.
+    *
+    * @typeParam T - The expected return type
+    * @param data - Raw user data
+    * @returns Processed user data of type T
+    *
+    * @example
+    * ```ts
+    * const user = processUserData<User>(rawData);
+    * ```
+    */
+   function processUserData<T>(data: unknown): T {
+     // Implementation
+   }
+   ````
+
+## Related Documentation
+
+- [Comments Guide](./comments.md) - General commenting standards
+- [Static Analysis](../testing/static.md) - TypeScript configuration and linting
+- [Validation](../validation/zod.md) - Schema validation with Zod
+- [React](./react.md) - React patterns and TypeScript integration
 
 ## Resources
 
