@@ -1,6 +1,7 @@
 ---
 description: UI and styling standards using TailwindCSS, Radix UI, and component utilities
-globs: ['src/components/**/*', 'src/styles/**/*']
+globs: src/components/**/*,src/styles/**/*
+alwaysApply: false
 ---
 
 # UI and Styling Rules

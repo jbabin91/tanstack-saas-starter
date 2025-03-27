@@ -1,6 +1,7 @@
 ---
 description: Core technology rules and standards for the TanStack SaaS Starter project
-globs: ['src/**/*.ts', 'src/**/*.tsx']
+globs: src/**/*.ts,src/**/*.tsx
+alwaysApply: false
 ---
 
 # Core Technology Rules
