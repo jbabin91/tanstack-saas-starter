@@ -203,528 +203,115 @@ pnpm prettier --write "src/**/*.{js,jsx,ts,tsx}"
 - [Prettier Plugin for Tailwind CSS](https://github.com/tailwindlabs/prettier-plugin-tailwindcss)
 - [Prettier Plugin for package.json](https://github.com/matzkoh/prettier-plugin-packagejson)
 
-# Code Style Guidelines
+# Code Style Guide
+
+This guide covers universal code style principles for the TanStack SaaS Starter project.
 
 ## Core Principles
 
-- Write code that is easy to understand, maintain, and scale
-- Follow the principle of least surprise
-- Keep code DRY but not at the expense of clarity
-- Use descriptive names that explain purpose
-- Write self-documenting code
+1. **Consistency** - Follow established patterns
+2. **Clarity** - Write self-documenting code
+3. **Simplicity** - Avoid unnecessary complexity
+4. **Maintainability** - Write code that's easy to change
+5. **Performance** - Consider runtime implications
 
-## Variables
+## Naming
 
-### References
+### General Rules
 
-```ts
-// ✅ Good
-const workshopTitle = 'Web App Fundamentals';
-const instructorName = 'Kent C. Dodds';
-const isEnabled = true;
+1. Be descriptive and unambiguous
+2. Use meaningful distinctions
+3. Make names pronounceable
+4. Use searchable names
+5. Avoid encodings or type information in names
 
-// ❌ Avoid
-const t = 'Web App Fundamentals';
-const n = 'Kent C. Dodds';
-const e = true;
-```
+### Casing Conventions
 
-### Constants
+- PascalCase: Classes, interfaces, types, enums, decorators
+- camelCase: Variables, functions, methods, properties
+- UPPER_CASE: Constants, enum values
+- kebab-case: Files, URLs
 
-For truly constant values used across files:
+## Code Organization
 
-```ts
-// ✅ Good
-const BASE_URL = 'https://epicweb.dev';
-const DEFAULT_PORT = 3000;
-```
+### File Structure
 
-## Objects
+- One concept per file
+- Related code stays together
+- Consistent file naming
+- Clear directory structure
 
-### Literal Syntax
+### Code Layout
 
-```ts
-// ✅ Good
-const name = 'Kent';
-const age = 36;
-const person = { name, age };
-
-// ❌ Avoid
-const name = 'Kent';
-const age = 36;
-const person = { name: name, age: age };
-```
-
-### Computed Properties
-
-```ts
-// ✅ Good
-const key = 'name';
-const obj = {
-  [key]: 'Kent',
-};
-
-// ❌ Avoid
-const key = 'name';
-const obj = {};
-obj[key] = 'Kent';
-```
-
-### Method Shorthand
-
-```ts
-// ✅ Good
-const obj = {
-  method() {
-    // ...
-  },
-  async asyncMethod() {
-    // ...
-  },
-};
-
-// ❌ Avoid
-const obj = {
-  method: function () {
-    // ...
-  },
-  asyncMethod: async function () {
-    // ...
-  },
-};
-```
-
-## Arrays
-
-### Array Methods
-
-Use array methods over loops for transformations:
-
-```ts
-// ✅ Good
-const items = [1, 2, 3];
-const doubledItems = items.map((n) => n * 2);
-
-// ❌ Avoid
-const doubledItems = [];
-for (const n of items) {
-  doubledItems.push(n * 2);
-}
-```
-
-### Filtering Falsey Values
-
-```ts
-// ✅ Good
-const items = [1, null, 2, undefined, 3];
-const filteredItems = items.filter(Boolean);
-
-// ❌ Avoid
-const filteredItems = items.filter((item) => item != null);
-```
-
-### Non-mutative Methods
-
-```ts
-// ✅ Good
-const reversedItems = items.toReversed();
-const sortedItems = items.toSorted();
-
-// ❌ Avoid
-const reversedItems = items.reverse();
-const sortedItems = items.sort();
-```
-
-## Functions
-
-### Function Declarations
-
-```ts
-// ✅ Good
-function calculateTotal(items: Array<number>) {
-  return items.reduce((sum, item) => sum + item, 0);
-}
-
-// ❌ Avoid
-const calculateTotal = function (items: Array<number>) {
-  return items.reduce((sum, item) => sum + item, 0);
-};
-```
-
-### Early Returns
-
-```ts
-// ✅ Good
-function getMinResolutionValue(resolution: number | undefined) {
-  if (!resolution) return undefined;
-  if (resolution <= 480) return MinResolution.noLessThan480p;
-  if (resolution <= 540) return MinResolution.noLessThan540p;
-  return MinResolution.noLessThan1080p;
-}
-
-// ❌ Avoid
-function getMinResolutionValue(resolution: number | undefined) {
-  if (resolution) {
-    if (resolution <= 480) {
-      return MinResolution.noLessThan480p;
-    } else if (resolution <= 540) {
-      return MinResolution.noLessThan540p;
-    } else {
-      return MinResolution.noLessThan1080p;
-    }
-  } else {
-    return undefined;
-  }
-}
-```
-
-### Async/Await
-
-```ts
-// ✅ Good
-async function fetchUserData(userId: string) {
-  const user = await getUser(userId);
-  const posts = await getUserPosts(user.id);
-  return { user, posts };
-}
-
-// ❌ Avoid
-function fetchUserData(userId: string) {
-  return getUser(userId).then((user) => {
-    return getUserPosts(user.id).then((posts) => ({ user, posts }));
-  });
-}
-```
-
-## Modules
-
-### Import Order
-
-```ts
-// Group imports in this order:
-import 'node:fs'; // Built-in
-import 'match-sorter'; // external packages
-import '#app/components'; // Internal absolute imports
-import '../other-folder'; // Internal relative imports
-import './local-file'; // Local imports
-```
-
-### File Extensions
-
-```ts
-// ✅ Good
-import { redirect } from 'react-router';
-import { add } from './math.ts';
-
-// ❌ Avoid
-import { add } from './math';
-```
-
-### Export Location
-
-```ts
-// ✅ Good
-export function add(a: number, b: number) {
-  return a + b;
-}
-
-// ❌ Avoid
-function add(a: number, b: number) {
-  return a + b;
-}
-export { add };
-```
+- Logical grouping of related code
+- Consistent ordering of imports
+- Clear separation of concerns
+- Reasonable file lengths
 
 ## Comments
 
-### Explain Why, Not What
-
-```ts
-// ✅ Good
-// We need to sanitize lineNumber to prevent malicious use on win32
-// via: https://example.com/link-to-issue
-if (lineNumber && !(Number.isInteger(lineNumber) && lineNumber > 0)) {
-  return { status: 'error', message: 'lineNumber must be a positive integer' };
-}
-
-// ❌ Avoid
-// Check if lineNumber is valid
-if (lineNumber && !(Number.isInteger(lineNumber) && lineNumber > 0)) {
-  return { status: 'error', message: 'lineNumber must be a positive integer' };
-}
-```
-
-### TODO Comments
-
-```ts
-// ✅ Good
-// TODO: figure out how to send error messages as JSX from here...
-function getErrorMessage() {
-  // ...
-}
-
-// ❌ Avoid
-// FIXME: this is broken
-function getErrorMessage() {
-  // ...
-}
-```
-
-### TypeScript Comments
-
-```ts
-// ✅ Good
-// @ts-expect-error no idea why this started being an issue suddenly 🤷‍♂️
-if (jsxEl.name !== 'EpicVideo') return;
-
-// ❌ Avoid
-// @ts-ignore
-if (jsxEl.name !== 'EpicVideo') return;
-```
-
-## File Naming
-
-Use kebab-case for file names:
-
-```sh
-// ✅ Good
-highlight-button.tsx
-user-profile.ts
-api-utils.ts
-
-// ❌ Avoid
-HighlightButton.tsx
-userProfile.ts
-apiUtils.ts
-```
-
-## Best Practices
-
-- Write self-documenting code with clear variable and function names
-- Keep functions focused and single-purpose
-- Use early returns to reduce nesting
-- Follow the principle of least surprise
-- Keep code DRY but not at the expense of clarity
-- Use proper error handling
-- Write descriptive error messages
-- Document complex logic with comments
-- Use proper TypeScript types
-- Follow consistent naming conventions
-- Use proper formatting (Prettier)
-- Follow linting rules (ESLint)
-- Write tests for critical functionality
-
-# File Naming
-
-## Use kebab-case for Files and Directories
-
-Use kebab-case for file and directory names to ensure consistency across different operating systems.
-
-```tsx
-// ✅ Good
-src / components / user - profile / user - avatar.tsx;
-user - details.tsx;
-forms / login - form.tsx;
-registration - form.tsx;
-utils / string - helpers.ts;
-date - formatters.ts;
-
-// ❌ Avoid
-src / components / UserProfile / UserAvatar.tsx;
-UserDetails.tsx;
-Forms / LoginForm.tsx;
-RegistrationForm.tsx;
-utils / StringHelpers.ts;
-DateFormatters.ts;
-```
-
-### Special Cases
+See [Comments Guide](./comments.md) for detailed guidelines.
 
-1. **Tanstack Router Routes**: Route files follow Tanstack Router's file-based routing conventions
+### When to Comment
 
-   ```tsx
-   // Route files can use special casing
-   src / routes / _index.tsx;
-   users.$userId.tsx;
-   posts.$postId.tsx;
-   ```
+- Explain "why" not "what"
+- Document non-obvious decisions
+- Provide context for complex logic
+- Mark TODO items and technical debt
 
-2. **Test Files**: Keep the same case as the file being tested, but with the test suffix
+### When Not to Comment
 
-   ```tsx
-   user - profile.tsx;
-   user - profile.test.tsx;
-   ```
+- Obvious operations
+- Self-documenting code
+- Redundant information
+- Commented-out code
 
-3. **Component Imports**: Always use the kebab-case path in imports
+## Error Handling
 
-   ```tsx
-   // ✅ Good
-   import { UserProfile } from './user-profile';
-   import { LoginForm } from './forms/login-form';
+### Principles
 
-   // ❌ Avoid
-   import { UserProfile } from './UserProfile';
-   import { LoginForm } from './Forms/LoginForm';
-   ```
+- Be explicit about errors
+- Handle errors at appropriate levels
+- Provide meaningful error messages
+- Maintain type safety in error handling
 
-### Benefits
+### Patterns
 
-- Consistent behavior across Windows and Unix-based systems
-- Avoids case-sensitivity issues in git
-- Improves readability in URLs and imports
-- Reduces cognitive load with a single naming convention
+- Use try/catch appropriately
+- Avoid swallowing errors
+- Return early from errors
+- Validate inputs early
 
-# Code Style Guide
+## Performance
 
-This guide outlines our code style standards and best practices for the TanStack SaaS Starter project.
+### Guidelines
 
-## Property Access
+- Avoid premature optimization
+- Profile before optimizing
+- Consider memory usage
+- Be mindful of bundle size
 
-### Use Dot Notation
+### Common Pitfalls
 
-Use dot notation for property access unless syntactically impossible:
+- Unnecessary re-renders
+- Memory leaks
+- Excessive network requests
+- Large bundle sizes
 
-```typescript
-const user = { name: 'Brittany', 'data-id': '123' };
+## Language-Specific Guidelines
 
-// ✅ Good
-const name = user.name;
-const id = user['data-id'];
-function getUserProperty(user: User, property: string) {
-  return user[property];
-}
+- [JavaScript](./javascript.md) - JavaScript patterns and practices
+- [TypeScript](./typescript.md) - TypeScript patterns and types
+- [React](./react.md) - React components and hooks
 
-// ❌ Avoid
-const name = user['name'];
-```
-
-## Comparison and Equality
-
-### Triple Equals
-
-Use triple equals (`===` and `!==`) for comparisons to avoid type coercion:
-
-```typescript
-// ✅ Good
-const user = { id: '123' };
-if (user.id === '123') {
-  // ...
-}
-
-// Exception: Comparing with null/undefined
-const a = null;
-if (a === null) {
-  // ...
-}
-if (b != null) {
-  // ...
-}
-
-// ❌ Avoid
-if (a == null) {
-  // ...
-}
-if (b !== null && b !== undefined) {
-  // ...
-}
-```
-
-### Use Truthiness
-
-Rely on truthiness instead of explicit comparisons:
-
-```typescript
-// ✅ Good
-if (user) {
-  // ...
-}
-
-// ❌ Avoid
-if (user === true) {
-  // ...
-}
-```
-
-### Avoid Unnecessary Ternaries
-
-```typescript
-// ✅ Good
-const isAdmin = user.role === 'admin';
-const value = input ?? defaultValue;
-
-// ❌ Avoid
-const isAdmin = user.role === 'admin' ? true : false;
-const value = input != null ? input : defaultValue;
-```
-
-## Code Blocks
-
-### Use Braces for Multi-line Blocks
-
-Use braces for multi-line blocks, even for single statements:
-
-```typescript
-// ✅ Good
-if (!user) return;
-if (user.role === 'admin') {
-  abilities = ['add', 'remove', 'edit', 'create', 'modify', 'fly', 'sing'];
-}
-
-// ❌ Avoid
-if (user.role === 'admin') abilities = ['add', 'remove', 'edit', 'create', 'modify', 'fly', 'sing'];
-```
-
-### Switch Statement Braces
-
-Use braces in switch statements to clarify scope and prevent variable leakage:
-
-```typescript
-// ✅ Good
-switch (action.type) {
-  case 'add': {
-    const { amount } = action;
-    add(amount);
-    break;
-  }
-  case 'remove': {
-    const { removal } = action;
-    remove(removal);
-    break;
-  }
-}
-
-// ❌ Avoid
-switch (action.type) {
-  case 'add':
-    const { amount } = action;
-    add(amount);
-    break;
-  case 'remove':
-    const { removal } = action;
-    remove(removal);
-    break;
-}
-```
-
-## Control Statements
-
-### Use Statements Over Expressions
-
-Use statements instead of expressions unless you need the value:
-
-```typescript
-// ✅ Good
-if (user) {
-  makeUserHappy(user);
-}
-
-// ❌ Avoid
-user && makeUserHappy(user);
-```
+## Tools and Configuration
+
+- [Formatting](./formatting.md) - Prettier and EditorConfig setup
+- [Project Structure](./project-structure.md) - Directory organization
+- [Modules](./modules.md) - Module system usage
 
 ## Related Documentation
 
-- [TypeScript](./typescript.md) - TypeScript-specific guidelines
-- [Modules](./modules.md) - Module organization guidelines
-- [Comments](./comments.md) - Code commenting guidelines
+- [Comments](./comments.md) - Commenting standards
+- [Conventional Commits](./conventional-commits.md) - Git workflow
+- [Testing](../testing/README.md) - Testing practices

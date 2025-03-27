@@ -11,6 +11,14 @@ This project follows the Testing Trophy approach, emphasizing different types of
 🔍 Static Analysis (TypeScript + ESLint)
 ```
 
+## Quick Reference
+
+- [Testing Patterns](./patterns.md) - Common testing patterns and examples
+- [Unit Testing](./unit.md) - Component and function testing
+- [Integration Testing](./integration.md) - Component interaction testing
+- [End-to-End Testing](./e2e.md) - Full user flow testing
+- [Static Analysis](./static.md) - Type checking and linting
+
 ## Testing Philosophy
 
 Our testing strategy focuses on:
@@ -77,6 +85,17 @@ Validates complete flows:
 - Payments
 
 [Learn more about end-to-end testing](./e2e.md)
+
+## Common Patterns
+
+Our [Testing Patterns](./patterns.md) guide provides examples and best practices for:
+
+- Component testing
+- Data fetching
+- Form testing
+- Error handling
+- Route testing
+- Authentication testing
 
 ## Tools
 
@@ -163,6 +182,7 @@ src/
 
 See our detailed guides:
 
+- [Testing Patterns](./patterns.md) - Common testing patterns and examples
 - [Static Analysis Guide](./static.md)
 - [Unit Testing Guide](./unit.md)
 - [Integration Testing Guide](./integration.md)
