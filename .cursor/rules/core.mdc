@@ -1,0 +1,66 @@
+---
+description: Core technology rules and standards for the TanStack SaaS Starter project
+globs: ['src/**/*.ts', 'src/**/*.tsx']
+---
+
+# Core Technology Rules
+
+## Project Structure
+
+- Follow the established directory structure in `/src`
+- Use kebab-case for component files
+- Use kebab-case with dots for route files
+- Use kebab-case for utility files
+- Prefix demo files with `demo.`
+
+## React Guidelines
+
+- Use functional components with TypeScript
+- Implement proper error boundaries
+- Follow React 19 best practices
+- Use hooks for state management and side effects
+
+## TypeScript Standards
+
+- Enable strict mode in tsconfig
+- Use proper type annotations for all functions and variables
+- Avoid `any` type unless absolutely necessary
+- Prefer types over interface
+- Use type for unions and intersections
+
+## Code Style
+
+- Use Prettier for code formatting
+- Follow ESLint rules
+- Use meaningful variable and function names
+- Keep components focused and single-responsibility
+- Document complex logic with comments
+
+## File Organization
+
+- Group related components in feature directories
+- Keep assets in `src/assets`
+- Place reusable components in `src/components`
+- Place reusable ui components in `src/components/ui`
+- Place reusable contexts in `src/contexts`
+- Place reusable hooks in `/src/hooks`
+- Keep utility functions in `/src/lib`
+- Keep global providers in `src/providers`
+- Store API routes in `/src/routes/api`
+
+### Feature File Organization
+
+- Feature server functions in `src/features/feature-name/api`
+- Feature components in `src/features/feature-name/components`
+- Feature hooks in `src/feature/feature-name/hooks`
+- Feature utility functions in `src/features/feature-name/lib`
+- Feature providers/contexts in `src/features/feature-name/providers`
+- Feature validation in `src/features/feature-name/validations`
+
+## Best Practices
+
+- Write unit tests for critical functionality
+- Use proper error handling
+- Implement proper TypeScript types
+- Follow conventional commits
+- Document public APIs and components

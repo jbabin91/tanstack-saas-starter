@@ -1,0 +1,50 @@
+---
+description: TanStack ecosystem rules and patterns for Router, Query, Form, and Table components
+globs: ['src/routes/**/*', 'src/components/**/*', 'src/hooks/**/*']
+---
+
+# TanStack Ecosystem Rules
+
+## TanStack Router
+
+- Use file-based routing structure
+- Follow the pathless directory pattern (\_app, \_public, \_auth)
+- Implement proper route guards for protected routes
+- Use type-safe route parameters
+- Handle loading and error states appropriately
+
+## TanStack Query
+
+- Implement proper query keys following the array structure
+- Use appropriate stale times and cache configurations
+- Handle error states with error boundaries
+- Implement proper mutation handlers
+- Use suspense mode where appropriate
+- Implement proper prefetching strategies
+
+## TanStack Form
+
+- Use Zod for form validation schemas
+- Implement proper form state management
+- Handle form submission states properly
+- Use proper error handling and display
+- Implement proper field validation
+- Use controlled components for complex forms
+
+## TanStack Table
+
+- Use proper column definitions with TypeScript
+- Implement sorting and filtering where needed
+- Handle pagination appropriately
+- Use virtual scrolling for large datasets
+- Implement proper row selection handling
+- Use proper column resizing when needed
+
+## API Integration
+
+- Use proper error handling for API calls
+- Implement proper loading states
+- Use proper TypeScript types for API responses
+- Handle authentication properly
+- Implement proper retry logic
+- Use proper caching strategies

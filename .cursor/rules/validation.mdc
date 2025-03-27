@@ -1,0 +1,60 @@
+---
+description: Data validation standards and practices using Zod
+globs: ['src/**/*.ts', 'src/**/*.tsx']
+---
+
+# Validation Rules
+
+## Zod Schema Design
+
+- Create reusable schema definitions
+- Use proper type inference
+- Implement proper error messages
+- Use proper schema composition
+- Handle optional fields properly
+- Implement proper defaults
+
+## Form Validation
+
+- Use Zod with TanStack Form
+- Implement proper field validation
+- Handle async validation properly
+- Show proper error messages
+- Implement proper validation timing
+- Handle form submission validation
+
+## API Validation
+
+- Validate request payloads
+- Validate response data
+- Implement proper error handling
+- Use proper type inference
+- Handle validation errors properly
+- Document validation rules
+
+## Data Validation
+
+- Validate user input
+- Validate external data
+- Implement proper sanitization
+- Handle edge cases properly
+- Validate data transformations
+- Document validation rules
+
+## Type Safety
+
+- Use proper TypeScript integration
+- Implement proper type inference
+- Handle unknown data properly
+- Use proper type guards
+- Implement proper runtime checks
+- Document type constraints
+
+## Best Practices
+
+- Keep schemas maintainable
+- Use proper error messages
+- Handle validation timing properly
+- Implement proper error recovery
+- Use proper validation strategies
+- Document validation patterns
