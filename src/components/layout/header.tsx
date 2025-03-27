@@ -1,8 +1,10 @@
 import { Link } from '@tanstack/react-router';
 
+import { ModeToggle } from '@/components/mode-toggle';
+
 export default function Header() {
   return (
-    <header className="flex justify-between gap-2 bg-white p-2 text-black">
+    <header className="flex justify-between gap-2 border-b p-2">
       <nav className="flex flex-row">
         <div className="px-2 font-bold">
           <Link to="/">Home</Link>
@@ -32,6 +34,7 @@ export default function Header() {
           <Link to="/demos/data/table">TanStack Table</Link>
         </div>
       </nav>
+      <ModeToggle />
     </header>
   );
 }
