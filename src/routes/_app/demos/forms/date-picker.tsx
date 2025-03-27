@@ -9,7 +9,7 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { DatePicker } from '@/components/ui/date-picker';
-import { useAppForm } from '@/hooks/demo.form';
+import { useAppForm } from '@/hooks/use-app-form';
 
 export const Route = createFileRoute('/_app/demos/forms/date-picker')({
   component: DatePickerForm,
