@@ -46,9 +46,9 @@ Contains comprehensive documentation of the tech stack:
 
 ## File Naming Conventions
 
-- **Components**: PascalCase (e.g., `Button.tsx`)
+- **Components**: kebab-case (e.g., `date-range-picker.tsx`)
 - **Routes**: kebab-case with dots for nesting (e.g., `demo.form.simple.tsx`)
-- **Utilities**: camelCase (e.g., `utils.ts`)
+- **Utilities**: kebab-case (e.g., `utils.ts`)
 - **Demo files**: prefixed with `demo.` (e.g., `demo.form.ts`)
 
 ## Routing Structure

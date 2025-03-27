@@ -26,12 +26,12 @@ TypeScript is a strongly typed programming language that builds on JavaScript, g
 Here's an example of utility types in action:
 
 ```typescript
-interface User {
+type User = {
   id: string;
   name: string;
   email: string;
   password: string;
-}
+};
 
 // Using Pick to create a login form type
 type LoginForm = Pick<User, 'email' | 'password'>;
@@ -47,7 +47,7 @@ type UserUpdate = Partial<User>;
 
 - Static type checking
 - Type inference
-- Interface definitions
+- Type definitions
 - Generic types
 - Advanced type utilities
 - Enhanced IDE support with IntelliSense
@@ -60,12 +60,12 @@ In this project, TypeScript is used throughout the codebase for type safety and 
 
 ```tsx
 // Type definitions
-interface User {
+type User = {
   id: string;
   name: string;
   email: string;
   role: 'admin' | 'user' | 'editor';
-}
+};
 
 // Type inference
 const users: User[] = [{ id: '1', name: 'John', email: 'john@example.com', role: 'admin' }];
@@ -78,6 +78,17 @@ function getFirst<T>(items: T[]): T | undefined {
 // Type utilities
 type UserWithoutId = Omit<User, 'id'>;
 type UserKeys = keyof User;
+
+// Extending types
+type BaseUser = {
+  id: string;
+  name: string;
+};
+
+type ExtendedUser = BaseUser & {
+  email: string;
+  role: 'admin' | 'user';
+};
 ```
 
 ## Integration with React
@@ -86,12 +97,12 @@ TypeScript integrates seamlessly with React:
 
 ```tsx
 // Component props typing
-interface ButtonProps {
+type ButtonProps = {
   label: string;
   onClick: () => void;
   disabled?: boolean;
   variant?: 'primary' | 'secondary' | 'danger';
-}
+};
 
 // React component with TypeScript
 const Button: React.FC<ButtonProps> = ({ label, onClick, disabled = false, variant = 'primary' }) => {

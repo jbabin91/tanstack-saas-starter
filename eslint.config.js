@@ -59,7 +59,9 @@ export default tseslint.config(
         'error',
         {
           cases: {
+            camelCase: false,
             kebabCase: true,
+            pascalCase: false,
           },
           ignore: [String.raw`^\$.*\.tsx?$`], // Allow parameter files starting with $
         },
