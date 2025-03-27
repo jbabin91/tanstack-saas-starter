@@ -138,6 +138,7 @@ export default tseslint.config(
       '@eslint-react/no-nested-component-definitions': 'off',
       '@eslint-react/no-unstable-context-value': 'off',
       '@eslint-react/no-unstable-default-props': 'off',
+      '@eslint-react/no-use-context': 'off',
       'react-hooks/exhaustive-deps': 'off',
       'react/jsx-no-bind': 'off',
       'react/jsx-no-constructed-context-values': 'off',
