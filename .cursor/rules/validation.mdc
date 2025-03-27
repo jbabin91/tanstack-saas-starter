@@ -1,0 +1,94 @@
+---
+description: Data validation standards and practices using Zod
+globs: ['src/**/*.ts', 'src/**/*.tsx']
+---
+
+# Validation Rules
+
+## Schema Design
+
+- Create reusable schema definitions
+- Use proper type inference with Zod
+- Implement descriptive error messages
+- Use proper schema composition
+- Handle optional fields properly
+- Use schema validation for external data boundaries
+- Prefer schema inference over manual type definitions
+- Use constants for shared validation patterns
+
+## Type Safety
+
+- Use proper TypeScript integration
+- Let TypeScript infer types from schemas
+- Handle unknown data with `unknown` type
+- Use type guards with type predicates
+- Implement proper runtime checks
+- Document type constraints
+- Use schema validation over type assertions
+- Use Zod's type inference capabilities
+
+## Form Validation
+
+- Use Zod with form libraries (TanStack Form)
+- Implement proper field validation
+- Handle async validation properly
+- Show descriptive error messages
+- Implement proper validation timing
+- Handle form submission validation
+- Use schema parsing over type assertions
+- Validate on blur for better UX
+
+## API Validation
+
+- Validate request payloads
+- Validate response data
+- Implement proper error handling
+- Use proper type inference
+- Handle validation errors properly
+- Document validation rules
+- Use schema validation for API boundaries
+- Return typed validation errors
+
+## Data Validation
+
+- Validate user input
+- Validate external data
+- Implement proper sanitization
+- Handle edge cases properly
+- Validate data transformations
+- Document validation patterns
+- Use type guards for runtime safety
+- Implement proper error recovery
+
+## Schema Best Practices
+
+- Keep schemas maintainable and focused
+- Use descriptive error messages
+- Handle validation timing properly
+- Implement proper error recovery
+- Use proper validation strategies
+- Document validation patterns
+- Prefer schema validation over manual checks
+- Use schema composition for complex types
+
+## Error Handling
+
+- Return descriptive error messages
+- Handle validation errors gracefully
+- Implement proper error recovery
+- Use proper error types
+- Document error patterns
+- Handle edge cases properly
+- Provide user-friendly error messages
+- Use consistent error formats
+
+## Performance
+
+- Cache compiled schemas
+- Use proper validation timing
+- Implement async validation properly
+- Handle large datasets efficiently
+- Use proper validation strategies
+- Document performance patterns
+- Implement proper error recovery
+- Use schema composition efficiently

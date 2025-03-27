@@ -1,36 +1,81 @@
 # TanStack SaaS Starter Documentation
 
-This directory contains documentation for the technologies used in the TanStack SaaS Starter project.
+Welcome to the TanStack SaaS Starter documentation. This guide will help you understand and work with the project effectively.
 
-## Core Technologies
+## Quick Links
 
-- [Vinxi](./core/vinxi.md) - Meta-framework built on Vite and Nitro
-- [React](./core/react.md) - UI library (v19)
-- [TypeScript](./core/typescript.md) - Type-safe JavaScript
-- [Conventional Commits](./core/conventional-commits.md) - Git commit message conventions
-- [Code Style](./core/code-style.md) - Code formatting and style guidelines
-- [Markdown](./core/markdown.md) - Documentation formatting guidelines
+- [Project Setup](./core/setup.md)
+- [Getting Started with TanStack](./tanstack/getting-started.md)
+- [Testing Guide](./testing/README.md)
+- [UI Guidelines](./ui/guidelines.md)
+- [Validation Patterns](./validation/patterns.md)
 
-## TanStack Ecosystem
+## Core Documentation
 
-- [TanStack Router](./tanstack/router.md) - Type-safe routing
-- [TanStack Query](./tanstack/query.md) - Data fetching and state management
-- [TanStack Form](./tanstack/form.md) - Form state management
-- [TanStack Table](./tanstack/table.md) - Headless table components
-- [TanStack Start](./tanstack/start.md) - Full-stack framework with SSR and API routes
+### Project Setup
 
-## UI and Styling
+- [Project Structure](./core/structure.md) - Project organization and architecture
+- [Setup Guide](./core/setup.md) - Getting started with development
+- [Environment](./core/environment.md) - Environment configuration
+- [Dependencies](./core/dependencies.md) - Project dependencies
 
-- [TailwindCSS](./ui/tailwindcss.md) - Utility-first CSS framework
-- [Radix UI](./ui/radix-ui.md) - Unstyled, accessible UI primitives
-- [Component Utilities](./ui/component-utilities.md) - Styling utilities (cva, clsx, etc.)
+### Language & Framework
 
-## Validation and Testing
+- [TypeScript](./core/typescript.md) - TypeScript patterns and practices
+- [JavaScript](./core/javascript.md) - JavaScript patterns and practices
+- [React](./core/react.md) - React patterns and best practices
+- [Modules](./core/modules.md) - Module system and imports
 
-- [Zod](./validation/zod.md) - Schema validation
-- [Vitest](./testing/vitest.md) - Testing framework
-- [Faker.js](./testing/faker.md) - Mock data generation
+### Development Workflow
 
-## Project Structure
+- [Code Style](./core/code-style.md) - Code style guidelines
+- [Formatting](./core/formatting.md) - Code formatting tools and configuration
+- [Error Handling](./core/error-handling.md) - Error handling patterns
+- [Comments](./core/comments.md) - Code documentation guidelines
+- [Conventional Commits](./core/commits.md) - Commit message guidelines
 
-- [Project Structure](./project-structure.md) - Overview of the project organization
+## Testing Documentation
+
+- [Testing Overview](./testing/README.md) - Testing strategy and tools
+- [Testing Patterns](./testing/patterns.md) - Common testing patterns
+- [Unit Testing](./testing/unit.md) - Component and function testing
+- [Integration Testing](./testing/integration.md) - Component interaction testing
+- [End-to-End Testing](./testing/e2e.md) - Full user flow testing
+- [Static Analysis](./testing/static.md) - Type checking and linting
+
+## TanStack Documentation
+
+### Getting Started
+
+- [Getting Started](./tanstack/getting-started.md) - Introduction to TanStack libraries
+
+### Data Management
+
+- [Query](./tanstack/query.md) - Data fetching and caching
+- [Form](./tanstack/form.md) - Form state management
+
+### User Interface
+
+- [Router](./tanstack/router.md) - Type-safe routing
+- [Table](./tanstack/table.md) - Table and data grid functionality
+
+## UI Documentation
+
+- [UI Guidelines](./ui/guidelines.md) - Component design principles
+- [Component Utilities](./ui/component-utilities.md) - Shared component utilities
+- [Tailwind CSS](./ui/tailwindcss.md) - Styling patterns
+- [Radix UI](./ui/radix-ui.md) - Accessible primitives
+
+## Validation Documentation
+
+- [Validation Patterns](./validation/patterns.md) - Common validation patterns
+- [Form Validation](./validation/forms.md) - Form validation patterns
+- [API Validation](./validation/api.md) - API validation patterns
+
+## Contributing
+
+Please read our [Contributing Guide](./CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.

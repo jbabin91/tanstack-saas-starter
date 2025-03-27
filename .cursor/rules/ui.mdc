@@ -1,0 +1,60 @@
+---
+description: UI and styling standards using TailwindCSS, Radix UI, and component utilities
+globs: ['src/components/**/*', 'src/styles/**/*']
+---
+
+# UI and Styling Rules
+
+## TailwindCSS Usage
+
+- Follow utility-first CSS approach
+- Use proper responsive design patterns
+- Implement proper dark mode support
+- Use proper color palette
+- Follow consistent spacing patterns
+- Use proper typography scale
+
+## Radix UI Implementation
+
+- Use proper accessibility patterns
+- Implement proper keyboard navigation
+- Use proper ARIA attributes
+- Handle focus management properly
+- Implement proper animations
+- Use proper theming support
+
+## Component Architecture
+
+- Create reusable components
+- Follow atomic design principles
+- Implement proper component composition
+- Use proper prop types
+- Handle component variants properly
+- Document component APIs
+
+## Styling Utilities
+
+- Use proper className merging (clsx/cn)
+- Implement proper variant handling (cva)
+- Use proper style composition
+- Follow consistent naming patterns
+- Implement proper style overrides
+- Use proper style inheritance
+
+## Design System
+
+- Follow consistent design tokens
+- Use proper spacing scale
+- Implement proper color system
+- Follow typography system
+- Use proper animation patterns
+- Implement proper icon system
+
+## Accessibility
+
+- Follow WCAG guidelines
+- Implement proper focus management
+- Use proper semantic HTML
+- Provide proper aria labels
+- Handle keyboard navigation
+- Test with screen readers

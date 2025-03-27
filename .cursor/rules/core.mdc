@@ -1,0 +1,245 @@
+---
+description: Core technology rules and standards for the TanStack SaaS Starter project
+globs: ['src/**/*.ts', 'src/**/*.tsx']
+---
+
+# Core Technology Rules
+
+## Project Structure
+
+- Follow the established directory structure in `/src`
+- Use kebab-case for component files
+- Use kebab-case with dots for route files
+- Use kebab-case for utility files
+- Prefix demo files with `demo.`
+
+## React Guidelines
+
+DO:
+
+- Use functional components with TypeScript
+- Handle side effects in event handlers
+- Use ref callbacks for DOM interactions
+- Derive values from state directly
+- Use ternaries for conditional rendering
+- Use null for conditional rendering
+- Keep components focused and pure
+- Use proper TypeScript types
+- Follow accessibility best practices
+
+DON'T:
+
+- Use class components
+- Use unnecessary useEffect
+- Sync state when it can be derived
+- Use falsy values in JSX conditionals
+- Mutate state directly
+- Use type assertions without guards
+- Write deeply nested JSX
+
+PATTERNS:
+
+- Event Handling: Prefer direct handlers over useEffect
+- State Management: Derive state over syncing
+- Rendering: Use ternaries and null for conditionals
+- Components: Keep focused and single-responsibility
+- Props: Use proper TypeScript types and defaults
+- Testing: Focus on user interactions
+
+See docs/core/react.md for detailed examples and implementation guidelines.
+
+## JavaScript/TypeScript Standards
+
+See [TypeScript Guide](../docs/core/typescript.md) for detailed implementation guidelines.
+
+### Core TypeScript Rules
+
+1. Type Safety
+
+   - Enable strict mode in tsconfig
+   - Use `unknown` over `any`
+   - Use type guards with type predicates
+   - Use schema validation at boundaries
+   - Never use type assertions without guards
+
+2. Type Organization
+
+   - Prefer types over interfaces
+   - Keep types simple and composable
+   - Group related types in feature modules
+   - Export shared types from feature modules
+
+3. Type Inference
+
+   - Let TypeScript infer return types
+   - Let TypeScript infer array/object types
+   - Let TypeScript infer hook types
+   - Explicitly type function parameters
+   - Explicitly type complex objects
+
+4. Event Handling
+
+   - Use uppercase constants for events
+   - Define event types with Zod schemas
+   - Always clean up event listeners
+   - Handle errors with type safety
+   - Follow event naming conventions
+
+5. Naming Conventions
+   - Use English for all names
+   - Follow A/HC/LC pattern for functions
+   - Use camelCase for variables/functions
+   - Use PascalCase for types/components
+   - Keep names Short, Intuitive, Descriptive
+
+### Variables and References
+
+- Use `const` by default
+- Use `let` only when needed
+- Never use `var`
+- Use descriptive names
+- Use uppercase for constants
+
+### Objects and Arrays
+
+- Use object/array literal syntax
+- Use property shorthand when possible
+- Use computed property names for dynamic properties
+- Use object method shorthand
+- Avoid accessors (getters/setters)
+- Use `.filter(Boolean)` to remove falsey values
+- Use array methods over loops
+- Use non-mutative array methods when available
+- Use spread operator for copying
+
+### Functions
+
+- Use function declarations over expressions
+- Limit single-use functions
+- Use default parameters over short-circuiting
+- Return early to avoid deep nesting
+- Use async/await over promise chains
+- Use arrow functions for inline callbacks
+
+### Code Style
+
+- Use Prettier for code formatting
+- Follow ESLint rules
+- Use meaningful variable and function names
+- Keep components focused and single-responsibility
+- Document complex logic with comments
+- Don't use semicolons unless necessary
+- Use kebab-case for file names
+
+### Comments
+
+1. Purpose
+
+   - Comments explain WHY not WHAT
+   - Document complex business logic
+   - Link to relevant resources/issues
+   - Avoid redundant comments
+
+2. Special Comments
+
+   - Use TODO for future improvements
+   - Use FIXME for immediate problems
+   - Use @ts-expect-error with explanation
+   - Never use @ts-ignore
+
+3. JSDoc
+
+   - Required for public APIs
+   - Include parameters and return types
+   - Document exceptions/errors
+   - Keep descriptions concise
+
+4. Examples
+
+   ```typescript
+   // ✅ Good - Explains why
+   // Sanitize input to prevent win32 exploits
+   validateInput(value);
+
+   // ✅ Good - Links to resource
+   // Implementation: https://example.com/spec
+   parseConfig(config);
+
+   // ✅ Good - Documents API
+   /**
+    * @param {Config} config
+    * @throws {ValidationError}
+    */
+   export function process(config: Config);
+
+   // ❌ Avoid - Redundant
+   // Calculate total
+   calculateTotal(items);
+   ```
+
+See [TypeScript Guide](../docs/core/typescript.md) for detailed commenting examples and guidelines.
+
+## File Organization
+
+- Group related components in feature directories
+- Keep assets in `src/assets`
+- Place reusable components in `src/components`
+- Place reusable ui components in `src/components/ui`
+- Place reusable contexts in `src/contexts`
+- Place reusable hooks in `/src/hooks`
+- Keep utility functions in `/src/lib`
+- Keep global providers in `src/providers`
+- Store API routes in `/src/routes/api`
+
+### Feature File Organization
+
+- Feature server functions in `src/features/feature-name/api`
+- Feature components in `src/features/feature-name/components`
+- Feature hooks in `src/feature/feature-name/hooks`
+- Feature utility functions in `src/features/feature-name/lib`
+- Feature providers/contexts in `src/features/feature-name/providers`
+- Feature validation in `src/features/feature-name/validations`
+
+## Best Practices
+
+- Write unit tests for critical functionality
+- Use proper error handling
+- Implement proper TypeScript types
+- Follow conventional commits
+- Document public APIs and components
+- Use early returns
+- Keep code DRY but not at the expense of clarity
+- Follow the principle of least surprise
+
+## File Naming
+
+- Use kebab-case for all regular files and directories
+- Special cases for routes:
+  - Root layout: `__root.tsx`
+  - Index pages: `index.tsx`
+  - Layout/parent routes: `route.tsx`
+  - Pathless directories: Prefix with `_` (e.g., `_app`, `_public`)
+  - Dynamic parameters: Use `$` prefix (e.g., `users.$userId.tsx`)
+- Test files match their implementation file's case with `.test` or `.spec` suffix
+- Always use kebab-case in import paths
+- See docs/core/code-style.md for detailed examples
+
+Example structure:
+
+```sh
+src/
+  components/
+    user-profile/
+      user-avatar.tsx
+      user-details.tsx
+  routes/
+    __root.tsx
+    index.tsx
+    _app/
+      route.tsx
+      dashboard.tsx
+    users/
+      $userId.tsx
+  utils/
+    string-helpers.ts
+```

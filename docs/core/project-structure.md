@@ -46,10 +46,43 @@ Contains comprehensive documentation of the tech stack:
 
 ## File Naming Conventions
 
-- **Components**: PascalCase (e.g., `Button.tsx`)
-- **Routes**: kebab-case with dots for nesting (e.g., `demo.form.simple.tsx`)
-- **Utilities**: camelCase (e.g., `utils.ts`)
-- **Demo files**: prefixed with `demo.` (e.g., `demo.form.ts`)
+- **Components**: kebab-case (e.g., `user-profile.tsx`, `date-picker.tsx`)
+- **Utilities**: kebab-case (e.g., `string-helpers.ts`, `date-utils.ts`)
+- **Test Files**: Same kebab-case as the file being tested with `.test` or `.spec` suffix (e.g., `user-profile.test.tsx`)
+- **Route Files**: Special conventions for Tanstack Router:
+  - Root layout: `__root.tsx`
+  - Index pages: `index.tsx`
+  - Layout/parent routes: `route.tsx`
+  - Pathless directories: Prefix with `_` (e.g., `_app`, `_public`, `_auth`)
+  - Dynamic parameters: Use `$` prefix (e.g., `users.$userId.tsx`)
+  - API routes: kebab-case (e.g., `user-profile.ts` in `routes/api` directory)
+
+### Examples
+
+```sh
+src/
+  components/
+    user-profile/
+      user-avatar.tsx
+      user-details.tsx
+  routes/
+    __root.tsx
+    index.tsx
+    _app/
+      route.tsx
+      dashboard.tsx
+      settings/
+        route.tsx
+        profile.tsx
+    api/
+      user-profile.ts
+  utils/
+    string-helpers.ts
+    date-formatters.ts
+  __tests__/
+    factories/
+      user-factory.ts
+```
 
 ## Routing Structure
 

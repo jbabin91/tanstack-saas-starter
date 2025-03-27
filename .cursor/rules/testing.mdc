@@ -1,0 +1,128 @@
+---
+description: Testing standards and practices using Vitest and related testing tools
+globs: ['**/*.test.ts', '**/*.test.tsx', '**/*.spec.ts', '**/*.spec.tsx']
+docs_path: 'docs/testing'
+---
+
+# Testing Rules
+
+## Query Selection Rules
+
+PRIORITY (highest to lowest):
+
+1. Role-based: `getByRole`
+2. Label-based: `getByLabelText`
+3. Text-based: `getByText`
+4. Semantic: `getByAltText`, `getByTitle`
+5. Test ID (last resort): `getByTestId`
+
+VARIANTS:
+
+- Use `queryBy` for non-existence
+- Use `findBy` for async elements
+- Use `getAllBy` for lists
+
+## Test Structure Rules
+
+```tsx
+// Template for test structure
+describe('ComponentName', () => {
+  it('should [expected behavior] when [condition]', () => {
+    // 1. ARRANGE: Setup test data and conditions
+    // 2. ACT: Perform the action
+    // 3. ASSERT: Verify the outcome
+  });
+});
+```
+
+## Naming Conventions
+
+FILES:
+
+- Test files: `component-name.test.tsx`
+- Utils: `__tests__/utils/helper-name.ts`
+- Factories: `__tests__/factories/model-name.ts`
+- Mocks: `__mocks__/module-name.ts`
+
+TESTS:
+
+- Describe: Component/Hook/Function name
+- Test: "should [expected] when [condition]"
+
+## Pattern Rules
+
+COMPONENTS:
+
+```tsx
+// ✅ DO: Test user interactions
+test('should submit form when valid', async () => {
+  render(<Form />);
+  await userEvent.type(getByLabelText(/name/i), 'John');
+  await userEvent.click(getByRole('button', { name: /submit/i }));
+  expect(getByText(/success/i)).toBeInTheDocument();
+});
+
+// ❌ DON'T: Test implementation
+test('should call submitHandler', () => {
+  const submitHandler = vi.fn();
+  render(<Form onSubmit={submitHandler} />);
+  fireEvent.submit(form);
+  expect(submitHandler).toHaveBeenCalled();
+});
+```
+
+HOOKS:
+
+```tsx
+// ✅ DO: Test observable behavior
+test('should update count', () => {
+  const { result } = renderHook(() => useCounter());
+  act(() => result.current.increment());
+  expect(result.current.count).toBe(1);
+});
+
+// ❌ DON'T: Test internal state
+test('should set internal loading state', () => {
+  const { result } = renderHook(() => useData());
+  expect(result.current.internalLoadingState).toBe(true);
+});
+```
+
+API:
+
+```tsx
+// ✅ DO: Test response handling
+test('should handle API error', async () => {
+  server.use(rest.get('/api/data', (_, res, ctx) => res(ctx.status(500))));
+  render(<DataComponent />);
+  expect(await findByText(/error/i)).toBeInTheDocument();
+});
+
+// ❌ DON'T: Test MSW implementation
+test('should make correct API call', async () => {
+  const handler = rest.get('/api/data', (_, res, ctx) => {});
+  server.use(handler);
+  expect(handler).toHaveBeenCalled();
+});
+```
+
+## Validation Rules
+
+REQUIRED:
+
+- Error states
+- Loading states
+- Empty states
+- Edge cases
+- Accessibility
+- Proper cleanup
+
+FORBIDDEN:
+
+- Implementation details
+- Internal state
+- Library internals
+- Shared setup
+- Snapshot tests
+
+See docs/testing/\* for detailed examples and implementation guidelines.

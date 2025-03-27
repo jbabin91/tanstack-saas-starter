@@ -202,3 +202,116 @@ pnpm prettier --write "src/**/*.{js,jsx,ts,tsx}"
 - [Prettier Documentation](https://prettier.io/docs/en/)
 - [Prettier Plugin for Tailwind CSS](https://github.com/tailwindlabs/prettier-plugin-tailwindcss)
 - [Prettier Plugin for package.json](https://github.com/matzkoh/prettier-plugin-packagejson)
+
+# Code Style Guide
+
+This guide covers universal code style principles for the TanStack SaaS Starter project.
+
+## Core Principles
+
+1. **Consistency** - Follow established patterns
+2. **Clarity** - Write self-documenting code
+3. **Simplicity** - Avoid unnecessary complexity
+4. **Maintainability** - Write code that's easy to change
+5. **Performance** - Consider runtime implications
+
+## Naming
+
+### General Rules
+
+1. Be descriptive and unambiguous
+2. Use meaningful distinctions
+3. Make names pronounceable
+4. Use searchable names
+5. Avoid encodings or type information in names
+
+### Casing Conventions
+
+- PascalCase: Classes, interfaces, types, enums, decorators
+- camelCase: Variables, functions, methods, properties
+- UPPER_CASE: Constants, enum values
+- kebab-case: Files, URLs
+
+## Code Organization
+
+### File Structure
+
+- One concept per file
+- Related code stays together
+- Consistent file naming
+- Clear directory structure
+
+### Code Layout
+
+- Logical grouping of related code
+- Consistent ordering of imports
+- Clear separation of concerns
+- Reasonable file lengths
+
+## Comments
+
+See [Comments Guide](./comments.md) for detailed guidelines.
+
+### When to Comment
+
+- Explain "why" not "what"
+- Document non-obvious decisions
+- Provide context for complex logic
+- Mark TODO items and technical debt
+
+### When Not to Comment
+
+- Obvious operations
+- Self-documenting code
+- Redundant information
+- Commented-out code
+
+## Error Handling
+
+### Principles
+
+- Be explicit about errors
+- Handle errors at appropriate levels
+- Provide meaningful error messages
+- Maintain type safety in error handling
+
+### Patterns
+
+- Use try/catch appropriately
+- Avoid swallowing errors
+- Return early from errors
+- Validate inputs early
+
+## Performance
+
+### Guidelines
+
+- Avoid premature optimization
+- Profile before optimizing
+- Consider memory usage
+- Be mindful of bundle size
+
+### Common Pitfalls
+
+- Unnecessary re-renders
+- Memory leaks
+- Excessive network requests
+- Large bundle sizes
+
+## Language-Specific Guidelines
+
+- [JavaScript](./javascript.md) - JavaScript patterns and practices
+- [TypeScript](./typescript.md) - TypeScript patterns and types
+- [React](./react.md) - React components and hooks
+
+## Tools and Configuration
+
+- [Formatting](./formatting.md) - Prettier and EditorConfig setup
+- [Project Structure](./project-structure.md) - Directory organization
+- [Modules](./modules.md) - Module system usage
+
+## Related Documentation
+
+- [Comments](./comments.md) - Commenting standards
+- [Conventional Commits](./conventional-commits.md) - Git workflow
+- [Testing](../testing/README.md) - Testing practices
