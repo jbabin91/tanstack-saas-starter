@@ -41,7 +41,7 @@ function ErrorMessages({
   );
 }
 
-export function TextField({
+export function FormTextField({
   label,
   placeholder,
 }: {
@@ -67,7 +67,7 @@ export function TextField({
   );
 }
 
-export function TextArea({
+export function FormTextArea({
   label,
   rows = 3,
 }: {
@@ -94,7 +94,7 @@ export function TextArea({
   );
 }
 
-export function Select({
+export function FormSelect({
   label,
   values,
   placeholder,
@@ -132,7 +132,7 @@ export function Select({
   );
 }
 
-export function Slider({ label }: { label: string }) {
+export function FormSlider({ label }: { label: string }) {
   const field = useFieldContext<number>();
   const errors = useStore(field.store, (state) => state.meta.errors);
 
@@ -152,7 +152,7 @@ export function Slider({ label }: { label: string }) {
   );
 }
 
-export function Switch({ label }: { label: string }) {
+export function FormSwitch({ label }: { label: string }) {
   const field = useFieldContext<boolean>();
   const errors = useStore(field.store, (state) => state.meta.errors);
 
