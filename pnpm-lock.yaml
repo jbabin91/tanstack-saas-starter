@@ -201,9 +201,6 @@ importers:
       '@tanstack/eslint-plugin-router':
         specifier: ^1.114.29
         version: 1.114.29(eslint@9.23.0(jiti@2.4.2))(typescript@5.8.2)
-      '@tanstack/router-cli':
-        specifier: ^1.114.29
-        version: 1.114.29(@tanstack/react-router@1.114.29(react-dom@19.0.0(react@19.0.0))(react@19.0.0))
       '@types/eslint':
         specifier: ^9.6.1
         version: 9.6.1
@@ -2273,11 +2270,6 @@ packages:
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
       react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
-
-  '@tanstack/router-cli@1.114.29':
-    resolution: {integrity: sha512-MKecUCxs18w711bewBl5YGTJqT8HfJVv4Pr8K4rv6E6bznJOy0CvXwmrJV1bVzV2MPXMAxUUObHb9KrL8KT7TQ==}
-    engines: {node: '>=12'}
-    hasBin: true
 
   '@tanstack/router-core@1.114.29':
     resolution: {integrity: sha512-CLf7HhHNiTz3cW1uB+DGyxiVwkEY+2YO36MXjtTLLtt5tQozDe3Kp7Dtb6B7aacMpvnLLwWtfmgptOce4Y8TQQ==}
@@ -8217,14 +8209,6 @@ snapshots:
       react: 19.0.0
       react-dom: 19.0.0(react@19.0.0)
 
-  '@tanstack/router-cli@1.114.29(@tanstack/react-router@1.114.29(react-dom@19.0.0(react@19.0.0))(react@19.0.0))':
-    dependencies:
-      '@tanstack/router-generator': 1.114.29(@tanstack/react-router@1.114.29(react-dom@19.0.0(react@19.0.0))(react@19.0.0))
-      chokidar: 3.6.0
-      yargs: 17.7.2
-    transitivePeerDependencies:
-      - '@tanstack/react-router'
-
   '@tanstack/router-core@1.114.29':
     dependencies:
       '@tanstack/history': 1.114.29
@@ -8698,7 +8682,7 @@ snapshots:
       consola: 3.4.2
       defu: 6.1.4
       get-port-please: 3.1.2
-      h3: 1.15.1
+      h3: 1.13.0
       http-shutdown: 1.2.2
       jiti: 1.21.7
       mlly: 1.7.4
