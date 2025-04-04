@@ -7,7 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import DateRangePicker from '@/components/ui/date-range-picker';
+import { DateRangePicker } from '@/components/ui/date-range-picker';
 import { useAppForm } from '@/hooks/use-app-form';
 
 export const Route = createFileRoute('/_app/demos/forms/date-range-picker')({
