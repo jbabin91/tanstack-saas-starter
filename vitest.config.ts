@@ -4,6 +4,7 @@ import { fileURLToPath } from 'node:url';
 import { storybookTest } from '@storybook/experimental-addon-test/vitest-plugin';
 import { defineConfig } from 'vitest/config';
 
+// Determine the directory name, falling back to fileURLToPath for ESM environments
 const dirname =
   typeof __dirname !== 'undefined' ? __dirname : (
     path.dirname(fileURLToPath(import.meta.url))
