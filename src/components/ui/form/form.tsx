@@ -2,7 +2,7 @@ import { useStore } from '@tanstack/react-form';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label/label';
+import { Label } from '@/components/ui/label';
 import * as ShadcnSelect from '@/components/ui/select';
 import { Slider as ShadcnSlider } from '@/components/ui/slider';
 import { Switch as ShadcnSwitch } from '@/components/ui/switch';
