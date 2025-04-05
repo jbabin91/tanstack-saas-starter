@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { expect } from '@storybook/test';
+import { expect, waitFor } from '@storybook/test';
 import {
   Area,
   AreaChart,
@@ -22,14 +22,6 @@ import {
   ChartLegendContent,
   ChartTooltipContent,
 } from './chart';
-
-// Helper function to test chart rendering
-function testChartRendering(canvasElement: HTMLElement) {
-  // Simple check to ensure the chart renders
-  const svg = canvasElement.querySelector('.recharts-surface');
-  expect(svg).toBeTruthy();
-  expect(svg?.tagName.toLowerCase()).toBe('svg');
-}
 
 // Sample data
 const lineData = [
@@ -199,8 +191,24 @@ export const BarChartDemo: Story = {
 };
 
 export const PieChartDemo: Story = {
-  play: ({ canvasElement }) => {
-    testChartRendering(canvasElement);
+  play: async ({ canvasElement }) => {
+    // Wait for chart to be ready
+    await waitFor(
+      () => {
+        const sectors = canvasElement.querySelectorAll('.recharts-pie-sector');
+        expect(sectors.length).toBe(pieData.length);
+      },
+      { timeout: 2000 },
+    );
+
+    // Additional assertions after sectors are found
+    const legend = canvasElement.querySelector('.recharts-legend-wrapper');
+    expect(legend).toBeTruthy();
+
+    // Verify the SVG surface
+    const svg = canvasElement.querySelector('.recharts-surface');
+    expect(svg).toBeTruthy();
+    expect(svg?.tagName.toLowerCase()).toBe('svg');
   },
   render: () => (
     <ChartContainer config={chartConfig}>
