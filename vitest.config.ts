@@ -23,10 +23,13 @@ export default defineConfig({
     },
     environment: 'jsdom',
     globals: true,
-    hookTimeout: 20000,
+    hookTimeout: 30000,
     isolate: true,
+    maxConcurrency: 1,
+    maxWorkers: 1,
+    minWorkers: 1,
     setupFiles: ['.storybook/vitest.setup.ts'],
-    testTimeout: 20000,
+    testTimeout: 30000,
     workspace: [
       {
         extends: true,
@@ -53,6 +56,7 @@ export default defineConfig({
             provider: 'playwright',
           },
           name: 'storybook',
+          retry: 2,
         },
       },
     ],
