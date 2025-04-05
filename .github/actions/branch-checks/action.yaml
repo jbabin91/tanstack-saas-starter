@@ -17,4 +17,4 @@ runs:
       run: pnpm typecheck
 
     # Add additional branch checks here.
-    # i.e. Tests, Translations, security, and any other additional check
+    # i.e. Translations, security, and any other additional check

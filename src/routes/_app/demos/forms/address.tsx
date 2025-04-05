@@ -1,7 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router';
 
 import { Card, CardContent } from '@/components/ui/card';
-import { useAppForm } from '@/hooks/use-app-form';
+import { useAppForm } from '@/components/ui/form';
 
 export const Route = createFileRoute('/_app/demos/forms/address')({
   component: AddressForm,
