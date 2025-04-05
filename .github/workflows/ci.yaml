@@ -25,5 +25,8 @@ jobs:
       - name: Branch Checks
         uses: ./.github/actions/branch-checks
 
+      - name: Unit Tests
+        uses: ./.github/actions/unit-tests
+
       - name: Build App
         uses: ./.github/actions/build-app
