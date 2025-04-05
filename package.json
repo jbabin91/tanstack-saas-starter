@@ -16,6 +16,8 @@
     "start": "vinxi start",
     "storybook": "storybook dev -p 6006",
     "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "test:storybook": "test-storybook --maxWorkers=1 --ci",
     "test:watch": "vitest",
     "typecheck": "tsc --noEmit"
   },
