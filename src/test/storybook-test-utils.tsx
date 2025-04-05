@@ -35,7 +35,7 @@ export function renderWithTheme(ui: React.ReactElement): RenderResult {
 /**
  * Enhanced waitFor utility that properly handles React state updates
  */
-export async function enhancedWaitFor<T>(
+export function enhancedWaitFor<T>(
   callback: () => T | Promise<T>,
   options?: { timeout?: number; interval?: number },
 ): Promise<T> {

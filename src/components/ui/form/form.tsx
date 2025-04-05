@@ -50,25 +50,59 @@ function ErrorMessages({
 export function FormTextField({
   label,
   placeholder,
+  type = 'text',
+  inputMode,
+  'aria-label': ariaLabel,
+  'aria-required': ariaRequired,
+  'aria-describedby': ariaDescribedBy,
+  id,
 }: {
   label: string;
   placeholder?: string;
+  type?: 'text' | 'search' | 'tel' | 'url' | 'email' | 'number';
+  inputMode?:
+    | 'text'
+    | 'search'
+    | 'none'
+    | 'tel'
+    | 'url'
+    | 'email'
+    | 'numeric'
+    | 'decimal';
+  'aria-label'?: string;
+  'aria-required'?: boolean;
+  'aria-describedby'?: string;
+  id?: string;
 }) {
   const field = useFieldContext<string>();
   const errors = useStore(field.store, (state) => state.meta.errors);
+  const fieldId = id ?? `field-${field.name}`;
+  const errorId = `${fieldId}-error`;
 
   return (
     <div>
-      <Label className="mb-2 text-xl font-bold" htmlFor={label}>
+      <Label className="mb-2 text-xl font-bold" htmlFor={fieldId}>
         {label}
       </Label>
       <Input
+        aria-describedby={errors?.length ? errorId : ariaDescribedBy}
+        aria-invalid={errors?.length > 0}
+        aria-label={ariaLabel}
+        aria-required={ariaRequired}
+        className="placeholder:text-muted-foreground/70 hover:bg-accent/10"
+        id={fieldId}
+        inputMode={inputMode}
         placeholder={placeholder}
+        type={type}
         value={field.state.value}
         onBlur={field.handleBlur}
         onChange={(e) => field.handleChange(e.target.value)}
       />
-      {field.state.meta.isTouched && <ErrorMessages errors={errors} />}
+      {field.state.meta.isTouched && errors?.length > 0 && (
+        <div className="text-destructive text-sm" id={errorId}>
+          <ErrorMessages errors={errors} />
+        </div>
+      )}
     </div>
   );
 }
@@ -76,26 +110,48 @@ export function FormTextField({
 export function FormTextArea({
   label,
   rows = 3,
+  placeholder,
+  'aria-label': ariaLabel,
+  'aria-required': ariaRequired,
+  'aria-describedby': ariaDescribedBy,
+  id,
 }: {
   label: string;
   rows?: number;
+  placeholder?: string;
+  'aria-label'?: string;
+  'aria-required'?: boolean;
+  'aria-describedby'?: string;
+  id?: string;
 }) {
   const field = useFieldContext<string>();
   const errors = useStore(field.store, (state) => state.meta.errors);
+  const fieldId = id ?? `field-${field.name}`;
+  const errorId = `${fieldId}-error`;
 
   return (
     <div>
-      <Label className="mb-2 text-xl font-bold" htmlFor={label}>
+      <Label className="mb-2 text-xl font-bold" htmlFor={fieldId}>
         {label}
       </Label>
       <ShadcnTextarea
-        id={label}
+        aria-describedby={errors?.length ? errorId : ariaDescribedBy}
+        aria-invalid={errors?.length > 0}
+        aria-label={ariaLabel}
+        aria-required={ariaRequired}
+        className="placeholder:text-muted-foreground/70 hover:bg-accent/10"
+        id={fieldId}
+        placeholder={placeholder}
         rows={rows}
         value={field.state.value}
         onBlur={field.handleBlur}
         onChange={(e) => field.handleChange(e.target.value)}
       />
-      {field.state.meta.isTouched && <ErrorMessages errors={errors} />}
+      {field.state.meta.isTouched && errors?.length > 0 && (
+        <div className="text-destructive text-sm" id={errorId}>
+          <ErrorMessages errors={errors} />
+        </div>
+      )}
     </div>
   );
 }
@@ -104,36 +160,67 @@ export function FormSelect({
   label,
   values,
   placeholder,
+  'aria-label': ariaLabel,
+  'aria-required': ariaRequired,
+  'aria-describedby': ariaDescribedBy,
+  id,
 }: {
   label: string;
   values: { label: string; value: string }[];
   placeholder?: string;
+  'aria-label'?: string;
+  'aria-required'?: boolean;
+  'aria-describedby'?: string;
+  id?: string;
 }) {
   const field = useFieldContext<string>();
   const errors = useStore(field.store, (state) => state.meta.errors);
+  const fieldId = id ?? `field-${field.name}`;
+  const errorId = `${fieldId}-error`;
 
   return (
     <div>
+      <Label className="mb-2 text-xl font-bold" htmlFor={fieldId}>
+        {label}
+      </Label>
       <ShadcnSelect.Select
         name={field.name}
         value={field.state.value}
         onValueChange={(value) => field.handleChange(value)}
       >
-        <ShadcnSelect.SelectTrigger className="w-full">
-          <ShadcnSelect.SelectValue placeholder={placeholder} />
+        <ShadcnSelect.SelectTrigger
+          aria-describedby={errors?.length ? errorId : ariaDescribedBy}
+          aria-invalid={errors?.length > 0}
+          aria-label={ariaLabel}
+          aria-required={ariaRequired}
+          className="placeholder:text-muted-foreground/70 hover:bg-accent/10 w-full"
+          id={fieldId}
+        >
+          <ShadcnSelect.SelectValue
+            className="text-muted-foreground"
+            placeholder={placeholder}
+          />
         </ShadcnSelect.SelectTrigger>
         <ShadcnSelect.SelectContent>
           <ShadcnSelect.SelectGroup>
             <ShadcnSelect.SelectLabel>{label}</ShadcnSelect.SelectLabel>
             {values.map((value) => (
-              <ShadcnSelect.SelectItem key={value.value} value={value.value}>
+              <ShadcnSelect.SelectItem
+                key={value.value}
+                className="hover:bg-accent/20"
+                value={value.value}
+              >
                 {value.label}
               </ShadcnSelect.SelectItem>
             ))}
           </ShadcnSelect.SelectGroup>
         </ShadcnSelect.SelectContent>
       </ShadcnSelect.Select>
-      {field.state.meta.isTouched && <ErrorMessages errors={errors} />}
+      {field.state.meta.isTouched && errors?.length > 0 && (
+        <div className="text-destructive text-sm" id={errorId}>
+          <ErrorMessages errors={errors} />
+        </div>
+      )}
     </div>
   );
 }
@@ -158,22 +245,41 @@ export function FormSlider({ label }: { label: string }) {
   );
 }
 
-export function FormSwitch({ label }: { label: string }) {
+export function FormSwitch({
+  label,
+  'aria-label': ariaLabel,
+  'aria-describedby': ariaDescribedBy,
+  id,
+}: {
+  label: string;
+  'aria-label'?: string;
+  'aria-describedby'?: string;
+  id?: string;
+}) {
   const field = useFieldContext<boolean>();
   const errors = useStore(field.store, (state) => state.meta.errors);
+  const fieldId = id ?? `field-${field.name}`;
+  const errorId = `${fieldId}-error`;
 
   return (
     <div>
       <div className="flex items-center gap-2">
         <ShadcnSwitch
+          aria-describedby={errors?.length ? errorId : ariaDescribedBy}
+          aria-invalid={errors?.length > 0}
+          aria-label={ariaLabel}
           checked={field.state.value}
-          id={label}
+          id={fieldId}
           onBlur={field.handleBlur}
           onCheckedChange={(checked) => field.handleChange(checked)}
         />
-        <Label htmlFor={label}>{label}</Label>
+        <Label htmlFor={fieldId}>{label}</Label>
       </div>
-      {field.state.meta.isTouched && <ErrorMessages errors={errors} />}
+      {field.state.meta.isTouched && errors?.length > 0 && (
+        <div className="text-destructive text-sm" id={errorId}>
+          <ErrorMessages errors={errors} />
+        </div>
+      )}
     </div>
   );
 }
@@ -181,6 +287,7 @@ export function FormSwitch({ label }: { label: string }) {
 export const { useAppForm } = createFormHook({
   fieldComponents: {
     Select: FormSelect,
+    Switch: FormSwitch,
     TextArea: FormTextArea,
     TextField: FormTextField,
   },

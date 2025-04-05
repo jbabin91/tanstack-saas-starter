@@ -101,43 +101,43 @@ export const WithCustomColor: Story = {
 
     // Test color classes
     const fallbacks = canvas.getAllByTestId('avatar-fallback');
-    await expect(fallbacks[0]).toHaveClass('bg-blue-500', 'text-white');
-    await expect(fallbacks[1]).toHaveClass('bg-green-500', 'text-white');
-    await expect(fallbacks[2]).toHaveClass('bg-purple-500', 'text-white');
-    await expect(fallbacks[3]).toHaveClass('bg-amber-500', 'text-white');
+    await expect(fallbacks[0]).toHaveClass('bg-blue-600', 'text-white');
+    await expect(fallbacks[1]).toHaveClass('bg-green-600', 'text-white');
+    await expect(fallbacks[2]).toHaveClass('bg-purple-600', 'text-white');
+    await expect(fallbacks[3]).toHaveClass('bg-amber-600', 'text-white');
   },
   render: () => (
     <div className="flex items-center gap-4">
       <Avatar>
         <AvatarFallback
-          className="bg-blue-500 text-white"
+          className="bg-blue-600 text-white"
           data-testid="avatar-fallback"
         >
-          BL
+          JD
         </AvatarFallback>
       </Avatar>
       <Avatar>
         <AvatarFallback
-          className="bg-green-500 text-white"
+          className="bg-green-600 text-white"
           data-testid="avatar-fallback"
         >
-          GR
+          AB
         </AvatarFallback>
       </Avatar>
       <Avatar>
         <AvatarFallback
-          className="bg-purple-500 text-white"
+          className="bg-purple-600 text-white"
           data-testid="avatar-fallback"
         >
-          PR
+          CD
         </AvatarFallback>
       </Avatar>
       <Avatar>
         <AvatarFallback
-          className="bg-amber-500 text-white"
+          className="bg-amber-600 text-white"
           data-testid="avatar-fallback"
         >
-          AM
+          EF
         </AvatarFallback>
       </Avatar>
     </div>

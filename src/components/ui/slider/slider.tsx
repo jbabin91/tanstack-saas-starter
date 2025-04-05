@@ -9,6 +9,9 @@ function Slider({
   value,
   min = 0,
   max = 100,
+  'aria-label': ariaLabel,
+  'aria-labelledby': ariaLabelledby,
+  orientation = 'horizontal',
   ...props
 }: React.ComponentProps<typeof SliderPrimitive.Root>) {
   const _values = React.useMemo(
@@ -18,6 +21,8 @@ function Slider({
       : [min, max],
     [value, defaultValue, min, max],
   );
+
+  const isRange = _values.length === 2;
 
   return (
     <SliderPrimitive.Root
@@ -29,6 +34,7 @@ function Slider({
       defaultValue={defaultValue}
       max={max}
       min={min}
+      orientation={orientation}
       value={value}
       {...props}
     >
@@ -48,6 +54,27 @@ function Slider({
       {Array.from({ length: _values.length }, (_, index) => (
         <SliderPrimitive.Thumb
           key={index}
+          aria-label={
+            ariaLabel ?
+              isRange ?
+                index === 0 ?
+                  `${ariaLabel} minimum value`
+                : `${ariaLabel} maximum value`
+              : ariaLabel
+            : undefined
+          }
+          aria-labelledby={ariaLabelledby}
+          aria-orientation={orientation}
+          aria-valuemax={max}
+          aria-valuemin={min}
+          aria-valuenow={_values[index]}
+          aria-valuetext={
+            isRange ?
+              index === 0 ?
+                `Minimum value: ${_values[index]}`
+              : `Maximum value: ${_values[index]}`
+            : `Value: ${_values[index]}`
+          }
           className="border-primary bg-background ring-ring/50 block size-4 shrink-0 rounded-full border shadow-sm transition-[color,box-shadow] hover:ring-4 focus-visible:ring-4 focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50"
           data-slot="slider-thumb"
         />

@@ -212,20 +212,30 @@ export const PieChartDemo: Story = {
   },
   render: () => (
     <ChartContainer config={chartConfig}>
-      <PieChart margin={{ bottom: 10, left: 10, right: 10, top: 10 }}>
+      <PieChart
+        aria-label="Distribution of groups by value"
+        margin={{ bottom: 10, left: 10, right: 10, top: 10 }}
+        role="img"
+      >
         <Pie
+          aria-label="Pie chart showing distribution of values across groups"
           cx="50%"
           cy="50%"
           data={pieData}
           dataKey="value"
           labelLine={false}
           outerRadius={80}
+          role="graphics-document"
         >
           {pieData.map((entry) => (
             <Cell
               key={`cell-${entry.name}`}
+              aria-label={`${entry.name}: ${entry.value}`}
               fill={`var(--color-${entry.name.replace(/\s+/g, '-')})`}
-            />
+              role="graphics-symbol"
+            >
+              <title>{`${entry.name}: ${entry.value}`}</title>
+            </Cell>
           ))}
         </Pie>
         <Tooltip content={<ChartTooltipContent />} />

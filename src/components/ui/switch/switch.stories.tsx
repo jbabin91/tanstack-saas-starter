@@ -31,18 +31,21 @@ type Story = StoryObj<typeof Switch>;
 
 export const Default: Story = {
   args: {},
+  render: (args) => <Switch aria-label="Toggle feature" {...args} />,
 };
 
 export const Checked: Story = {
   args: {
     checked: true,
   },
+  render: (args) => <Switch aria-label="Toggle feature" {...args} />,
 };
 
 export const Disabled: Story = {
   args: {
     disabled: true,
   },
+  render: (args) => <Switch aria-label="Toggle feature (disabled)" {...args} />,
 };
 
 export const CheckedDisabled: Story = {
@@ -50,13 +53,20 @@ export const CheckedDisabled: Story = {
     checked: true,
     disabled: true,
   },
+  render: (args) => <Switch aria-label="Toggle feature (disabled)" {...args} />,
 };
 
 export const WithLabel: Story = {
   render: (args) => (
     <div className="flex items-center space-x-2">
-      <Switch id="airplane-mode" {...args} />
-      <Label htmlFor="airplane-mode">Airplane Mode</Label>
+      <Switch
+        aria-labelledby="airplane-mode-label"
+        id="airplane-mode"
+        {...args}
+      />
+      <Label htmlFor="airplane-mode" id="airplane-mode-label">
+        Airplane Mode
+      </Label>
     </div>
   ),
 };
@@ -65,20 +75,32 @@ export const FormGroup: Story = {
   render: () => (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <Label htmlFor="airplane">Airplane Mode</Label>
-        <Switch id="airplane" />
+        <Label htmlFor="airplane" id="airplane-label">
+          Airplane Mode
+        </Label>
+        <Switch aria-labelledby="airplane-label" id="airplane" />
       </div>
       <div className="flex items-center justify-between">
-        <Label htmlFor="wifi">Wi-Fi</Label>
-        <Switch defaultChecked id="wifi" />
+        <Label htmlFor="wifi" id="wifi-label">
+          Wi-Fi
+        </Label>
+        <Switch defaultChecked aria-labelledby="wifi-label" id="wifi" />
       </div>
       <div className="flex items-center justify-between">
-        <Label htmlFor="bluetooth">Bluetooth</Label>
-        <Switch id="bluetooth" />
+        <Label htmlFor="bluetooth" id="bluetooth-label">
+          Bluetooth
+        </Label>
+        <Switch aria-labelledby="bluetooth-label" id="bluetooth" />
       </div>
       <div className="flex items-center justify-between">
-        <Label htmlFor="notifications">Notifications</Label>
-        <Switch defaultChecked id="notifications" />
+        <Label htmlFor="notifications" id="notifications-label">
+          Notifications
+        </Label>
+        <Switch
+          defaultChecked
+          aria-labelledby="notifications-label"
+          id="notifications"
+        />
       </div>
     </div>
   ),

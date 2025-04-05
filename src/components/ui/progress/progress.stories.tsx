@@ -17,12 +17,14 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
+    'aria-label': 'Progress indicator',
     value: 45,
   },
 };
 
 export const Small: Story = {
   args: {
+    'aria-label': 'Small progress indicator',
     className: 'h-1',
     value: 60,
   },
@@ -30,6 +32,7 @@ export const Small: Story = {
 
 export const Large: Story = {
   args: {
+    'aria-label': 'Large progress indicator',
     className: 'h-3',
     value: 80,
   },
@@ -57,8 +60,17 @@ export const Loading: Story = {
 
     return (
       <div className="w-full max-w-sm">
-        <Progress className="mb-2" value={progress} />
-        <div className="text-center text-sm">{progress}% complete</div>
+        <Progress
+          aria-label="Loading progress"
+          aria-valuemax={100}
+          aria-valuemin={0}
+          aria-valuenow={progress}
+          className="mb-2"
+          value={progress}
+        />
+        <div aria-live="polite" className="text-center text-sm">
+          {progress}% complete
+        </div>
       </div>
     );
   },
@@ -66,6 +78,7 @@ export const Loading: Story = {
 
 export const CustomColors: Story = {
   args: {
+    'aria-label': 'Custom colored progress indicator',
     className: 'bg-gray-200 [&>div]:bg-blue-500',
     value: 50,
   },
@@ -74,11 +87,17 @@ export const CustomColors: Story = {
 export const WithLabel: Story = {
   render: () => (
     <div className="w-full max-w-sm">
-      <div className="mb-1 flex justify-between text-sm">
+      <div className="mb-1 flex justify-between text-sm" id="progress-label">
         <span>Progress</span>
         <span>75%</span>
       </div>
-      <Progress value={75} />
+      <Progress
+        aria-labelledby="progress-label"
+        aria-valuemax={100}
+        aria-valuemin={0}
+        aria-valuenow={75}
+        value={75}
+      />
     </div>
   ),
 };

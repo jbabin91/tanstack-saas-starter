@@ -140,8 +140,10 @@ export const WithImage: Story = {
   render: () => (
     <Card className="w-[350px] overflow-hidden">
       <div className="bg-muted aspect-video w-full">
-        <div className="flex h-full items-center justify-center bg-slate-200">
-          <p className="text-sm text-slate-500">Card Image</p>
+        <div className="bg-muted flex h-full items-center justify-center">
+          <p className="text-muted-foreground text-sm font-medium">
+            Card Image
+          </p>
         </div>
       </div>
       <CardHeader>

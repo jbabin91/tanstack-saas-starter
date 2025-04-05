@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { z } from 'zod';
 
+import { Button } from '@/components/ui/button';
+
 import { useAppForm } from './form';
 
 const meta = {
@@ -90,7 +92,7 @@ export const AllFieldTypes: Story = {
         description: '',
         isActive: false,
         name: '',
-        priority: 50,
+        priority: 0,
       },
       onSubmit: ({ value }) => {
         console.log('Form submitted:', value);
@@ -103,6 +105,8 @@ export const AllFieldTypes: Story = {
     return (
       <div className="w-[400px] space-y-6">
         <form
+          aria-label="Example form with all field types"
+          className="space-y-2"
           onSubmit={(e) => {
             e.preventDefault();
             e.stopPropagation();
@@ -111,23 +115,35 @@ export const AllFieldTypes: Story = {
         >
           <form.AppField name="name">
             {(field) => (
-              <field.TextField label="Name" placeholder="Enter name" />
+              <field.TextField
+                aria-required={true}
+                label="Name"
+                placeholder="Enter your name"
+                type="text"
+              />
             )}
           </form.AppField>
 
           <form.AppField name="description">
-            {(field) => <field.TextArea label="Description" rows={3} />}
+            {(field) => (
+              <field.TextArea
+                label="Description"
+                placeholder="Enter a description"
+                rows={4}
+              />
+            )}
           </form.AppField>
 
           <form.AppField name="category">
             {(field) => (
               <field.Select
+                aria-required={true}
                 label="Category"
                 placeholder="Select a category"
                 values={[
-                  { label: 'Personal', value: 'personal' },
-                  { label: 'Work', value: 'work' },
-                  { label: 'Shopping', value: 'shopping' },
+                  { label: 'Category 1', value: 'cat1' },
+                  { label: 'Category 2', value: 'cat2' },
+                  { label: 'Category 3', value: 'cat3' },
                 ]}
               />
             )}
@@ -135,23 +151,34 @@ export const AllFieldTypes: Story = {
 
           <form.AppField name="priority">
             {(field) => (
-              <field.TextField
+              <field.Select
                 label="Priority"
-                placeholder="Enter priority (1-100)"
+                placeholder="Select priority level"
+                values={[
+                  { label: 'Low', value: '1' },
+                  { label: 'Medium', value: '2' },
+                  { label: 'High', value: '3' },
+                ]}
               />
             )}
           </form.AppField>
 
           <form.AppField name="isActive">
             {(field) => (
-              <field.TextField label="Active" placeholder="true or false" />
+              <field.Switch
+                aria-label="Toggle active status"
+                label="Active status"
+              />
             )}
           </form.AppField>
 
-          <div className="mt-6">
-            <form.AppForm>
-              <form.SubscribeButton label="Submit" />
-            </form.AppForm>
+          <div className="flex gap-2">
+            <Button aria-label="Submit form" type="submit">
+              Submit
+            </Button>
+            <Button aria-label="Reset form" type="reset" variant="outline">
+              Reset
+            </Button>
           </div>
         </form>
       </div>

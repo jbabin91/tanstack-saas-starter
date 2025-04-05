@@ -30,23 +30,28 @@ export default meta;
 type Story = StoryObj<typeof Checkbox>;
 
 export const Default: Story = {
-  args: {},
+  args: {
+    'aria-label': 'Default checkbox',
+  },
 };
 
 export const Checked: Story = {
   args: {
+    'aria-label': 'Checked checkbox',
     checked: true,
   },
 };
 
 export const Disabled: Story = {
   args: {
+    'aria-label': 'Disabled checkbox',
     disabled: true,
   },
 };
 
 export const CheckedDisabled: Story = {
   args: {
+    'aria-label': 'Checked and disabled checkbox',
     checked: true,
     disabled: true,
   },
@@ -63,7 +68,7 @@ export const WithLabel: Story = {
 
 export const FormGroup: Story = {
   render: (args) => (
-    <div className="space-y-4">
+    <div aria-label="Email preferences" className="space-y-4" role="group">
       <div className="flex items-center space-x-2">
         <Checkbox id="email" {...args} />
         <Label htmlFor="email">Email me about product updates</Label>

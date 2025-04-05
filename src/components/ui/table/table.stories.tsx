@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import { cn } from '@/lib/utils';
 
+import { Label } from '../label';
 import {
   Table,
   TableBody,
@@ -58,22 +59,35 @@ const invoices = [
 export const Basic: Story = {
   render: () => (
     <Table>
-      <TableCaption>A list of your recent invoices.</TableCaption>
+      <TableCaption className="text-muted-foreground">
+        A list of your recent invoices.
+      </TableCaption>
       <TableHeader>
-        <TableRow>
-          <TableHead>Invoice</TableHead>
-          <TableHead>Status</TableHead>
-          <TableHead>Method</TableHead>
-          <TableHead className="text-right">Amount</TableHead>
+        <TableRow className="hover:bg-muted/50">
+          <TableHead className="text-foreground">Invoice</TableHead>
+          <TableHead className="text-foreground">Status</TableHead>
+          <TableHead className="text-foreground">Method</TableHead>
+          <TableHead className="text-foreground text-right">Amount</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
         {invoices.map((invoice) => (
-          <TableRow key={invoice.invoice}>
-            <TableCell className="font-medium">{invoice.invoice}</TableCell>
-            <TableCell>{invoice.paymentStatus}</TableCell>
-            <TableCell>{invoice.paymentMethod}</TableCell>
-            <TableCell className="text-right">{invoice.totalAmount}</TableCell>
+          <TableRow
+            key={invoice.invoice}
+            className="hover:bg-muted/50 data-[state=selected]:bg-muted border-b transition-colors"
+          >
+            <TableCell className="text-foreground font-medium">
+              {invoice.invoice}
+            </TableCell>
+            <TableCell className="text-foreground">
+              {invoice.paymentStatus}
+            </TableCell>
+            <TableCell className="text-foreground">
+              {invoice.paymentMethod}
+            </TableCell>
+            <TableCell className="text-foreground text-right">
+              {invoice.totalAmount}
+            </TableCell>
           </TableRow>
         ))}
       </TableBody>
@@ -85,27 +99,42 @@ export const WithFooter: Story = {
   render: () => (
     <Table>
       <TableHeader>
-        <TableRow>
-          <TableHead>Invoice</TableHead>
-          <TableHead>Status</TableHead>
-          <TableHead>Method</TableHead>
-          <TableHead className="text-right">Amount</TableHead>
+        <TableRow className="hover:bg-muted/50">
+          <TableHead className="text-foreground">Invoice</TableHead>
+          <TableHead className="text-foreground">Status</TableHead>
+          <TableHead className="text-foreground">Method</TableHead>
+          <TableHead className="text-foreground text-right">Amount</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
         {invoices.slice(0, 3).map((invoice) => (
-          <TableRow key={invoice.invoice}>
-            <TableCell className="font-medium">{invoice.invoice}</TableCell>
-            <TableCell>{invoice.paymentStatus}</TableCell>
-            <TableCell>{invoice.paymentMethod}</TableCell>
-            <TableCell className="text-right">{invoice.totalAmount}</TableCell>
+          <TableRow
+            key={invoice.invoice}
+            className="hover:bg-muted/50 data-[state=selected]:bg-muted border-b transition-colors"
+          >
+            <TableCell className="text-foreground font-medium">
+              {invoice.invoice}
+            </TableCell>
+            <TableCell className="text-foreground">
+              {invoice.paymentStatus}
+            </TableCell>
+            <TableCell className="text-foreground">
+              {invoice.paymentMethod}
+            </TableCell>
+            <TableCell className="text-foreground text-right">
+              {invoice.totalAmount}
+            </TableCell>
           </TableRow>
         ))}
       </TableBody>
-      <TableFooter>
-        <TableRow>
-          <TableCell colSpan={3}>Total</TableCell>
-          <TableCell className="text-right">$750.00</TableCell>
+      <TableFooter className="bg-muted/50">
+        <TableRow className="hover:bg-muted data-[state=selected]:bg-muted border-b transition-colors">
+          <TableCell className="text-foreground font-medium" colSpan={3}>
+            Total
+          </TableCell>
+          <TableCell className="text-foreground text-right font-medium">
+            $750.00
+          </TableCell>
         </TableRow>
       </TableFooter>
     </Table>
@@ -116,26 +145,60 @@ export const WithSelection: Story = {
   render: () => (
     <Table>
       <TableHeader>
-        <TableRow>
+        <TableRow className="hover:bg-muted/50">
           <TableHead className="w-[50px]">
-            <input className="size-4" type="checkbox" />
+            <div className="flex items-center">
+              <input
+                aria-label="Select all rows"
+                className="size-4"
+                id="select-all"
+                type="checkbox"
+              />
+              <Label className="sr-only" htmlFor="select-all">
+                Select all rows
+              </Label>
+            </div>
           </TableHead>
-          <TableHead>Invoice</TableHead>
-          <TableHead>Status</TableHead>
-          <TableHead>Method</TableHead>
-          <TableHead className="text-right">Amount</TableHead>
+          <TableHead className="text-foreground">Invoice</TableHead>
+          <TableHead className="text-foreground">Status</TableHead>
+          <TableHead className="text-foreground">Method</TableHead>
+          <TableHead className="text-foreground text-right">Amount</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
         {invoices.map((invoice) => (
-          <TableRow key={invoice.invoice}>
+          <TableRow
+            key={invoice.invoice}
+            className="hover:bg-muted/50 data-[state=selected]:bg-muted border-b transition-colors"
+          >
             <TableCell>
-              <input className="size-4" type="checkbox" />
+              <div className="flex items-center">
+                <input
+                  aria-label={`Select invoice ${invoice.invoice}`}
+                  className="size-4"
+                  id={`select-${invoice.invoice}`}
+                  type="checkbox"
+                />
+                <Label
+                  className="sr-only"
+                  htmlFor={`select-${invoice.invoice}`}
+                >
+                  Select invoice {invoice.invoice}
+                </Label>
+              </div>
             </TableCell>
-            <TableCell className="font-medium">{invoice.invoice}</TableCell>
-            <TableCell>{invoice.paymentStatus}</TableCell>
-            <TableCell>{invoice.paymentMethod}</TableCell>
-            <TableCell className="text-right">{invoice.totalAmount}</TableCell>
+            <TableCell className="text-foreground font-medium">
+              {invoice.invoice}
+            </TableCell>
+            <TableCell className="text-foreground">
+              {invoice.paymentStatus}
+            </TableCell>
+            <TableCell className="text-foreground">
+              {invoice.paymentMethod}
+            </TableCell>
+            <TableCell className="text-foreground text-right">
+              {invoice.totalAmount}
+            </TableCell>
           </TableRow>
         ))}
       </TableBody>
@@ -147,18 +210,23 @@ export const WithStatusIndicator: Story = {
   render: () => (
     <Table>
       <TableHeader>
-        <TableRow>
-          <TableHead>Invoice</TableHead>
-          <TableHead>Status</TableHead>
-          <TableHead>Method</TableHead>
-          <TableHead className="text-right">Amount</TableHead>
+        <TableRow className="hover:bg-muted/50">
+          <TableHead className="text-foreground">Invoice</TableHead>
+          <TableHead className="text-foreground">Status</TableHead>
+          <TableHead className="text-foreground">Method</TableHead>
+          <TableHead className="text-foreground text-right">Amount</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
         {invoices.map((invoice) => (
-          <TableRow key={invoice.invoice}>
-            <TableCell className="font-medium">{invoice.invoice}</TableCell>
-            <TableCell>
+          <TableRow
+            key={invoice.invoice}
+            className="hover:bg-muted/50 border-b transition-colors"
+          >
+            <TableCell className="text-foreground font-medium">
+              {invoice.invoice}
+            </TableCell>
+            <TableCell className="text-foreground">
               <div className="flex items-center gap-2">
                 <div
                   className={cn(
@@ -171,8 +239,12 @@ export const WithStatusIndicator: Story = {
                 {invoice.paymentStatus}
               </div>
             </TableCell>
-            <TableCell>{invoice.paymentMethod}</TableCell>
-            <TableCell className="text-right">{invoice.totalAmount}</TableCell>
+            <TableCell className="text-foreground">
+              {invoice.paymentMethod}
+            </TableCell>
+            <TableCell className="text-foreground text-right">
+              {invoice.totalAmount}
+            </TableCell>
           </TableRow>
         ))}
       </TableBody>

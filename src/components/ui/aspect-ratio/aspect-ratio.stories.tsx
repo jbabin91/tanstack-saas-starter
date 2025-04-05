@@ -63,7 +63,7 @@ export const WithContent: Story = {
         <div className="flex h-full items-center justify-center">
           <div className="text-center">
             <p className="text-muted-foreground">16:9 Aspect Ratio</p>
-            <p className="text-muted-foreground/70 text-xs">
+            <p className="text-muted-foreground-subtle text-xs">
               Content box with fixed aspect ratio
             </p>
           </div>

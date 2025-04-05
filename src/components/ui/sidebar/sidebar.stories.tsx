@@ -63,19 +63,29 @@ export const Default: Story = {
             <SidebarGroupContent>
               <SidebarMenu>
                 <SidebarMenuItem>
-                  <SidebarMenuButton isActive data-testid="dashboard-button">
+                  <SidebarMenuButton
+                    isActive
+                    aria-label="Dashboard"
+                    data-testid="dashboard-button"
+                  >
                     <Home />
                     <span>Dashboard</span>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
                 <SidebarMenuItem>
-                  <SidebarMenuButton data-testid="products-button">
+                  <SidebarMenuButton
+                    aria-label="Products"
+                    data-testid="products-button"
+                  >
                     <Package />
                     <span>Products</span>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
                 <SidebarMenuItem>
-                  <SidebarMenuButton data-testid="analytics-button">
+                  <SidebarMenuButton
+                    aria-label="Analytics"
+                    data-testid="analytics-button"
+                  >
                     <BarChart />
                     <span>Analytics</span>
                   </SidebarMenuButton>
@@ -89,13 +99,19 @@ export const Default: Story = {
             <SidebarGroupContent>
               <SidebarMenu>
                 <SidebarMenuItem>
-                  <SidebarMenuButton data-testid="profile-button">
+                  <SidebarMenuButton
+                    aria-label="Profile"
+                    data-testid="profile-button"
+                  >
                     <User />
                     <span>Profile</span>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
                 <SidebarMenuItem>
-                  <SidebarMenuButton data-testid="settings-button">
+                  <SidebarMenuButton
+                    aria-label="Settings"
+                    data-testid="settings-button"
+                  >
                     <Settings />
                     <span>Settings</span>
                   </SidebarMenuButton>
@@ -149,6 +165,7 @@ export const WithBadgesAndActions: Story = {
                 <SidebarMenuItem>
                   <SidebarMenuButton
                     isActive
+                    aria-label="Dashboard"
                     data-testid="dashboard-button-badges"
                   >
                     <Home />
@@ -156,19 +173,28 @@ export const WithBadgesAndActions: Story = {
                   </SidebarMenuButton>
                 </SidebarMenuItem>
                 <SidebarMenuItem>
-                  <SidebarMenuButton data-testid="messages-button">
+                  <SidebarMenuButton
+                    aria-label="Messages"
+                    data-testid="messages-button"
+                  >
                     <MessageSquare />
                     <span>Messages</span>
                   </SidebarMenuButton>
                   <SidebarMenuBadge data-testid="messages-badge">
                     5
                   </SidebarMenuBadge>
-                  <SidebarMenuAction data-testid="messages-action">
+                  <SidebarMenuAction
+                    aria-label="Like Messages"
+                    data-testid="messages-action"
+                  >
                     <Heart />
                   </SidebarMenuAction>
                 </SidebarMenuItem>
                 <SidebarMenuItem>
-                  <SidebarMenuButton data-testid="analytics-button-badges">
+                  <SidebarMenuButton
+                    aria-label="Analytics"
+                    data-testid="analytics-button-badges"
+                  >
                     <BarChart />
                     <span>Analytics</span>
                   </SidebarMenuButton>
@@ -207,7 +233,7 @@ export const Variants: Story = {
     },
   },
   render: () => (
-    <div className="grid grid-cols-1 gap-6" data-testid="variants-container">
+    <main className="grid grid-cols-1 gap-6" data-testid="variants-container">
       <div className="h-[300px] overflow-hidden rounded-lg border">
         <SidebarProvider data-testid="sidebar-provider-default">
           <Sidebar data-testid="sidebar-default" variant="sidebar">
@@ -219,13 +245,19 @@ export const Variants: Story = {
                 <SidebarGroupContent>
                   <SidebarMenu>
                     <SidebarMenuItem>
-                      <SidebarMenuButton data-testid="home-button-default">
+                      <SidebarMenuButton
+                        aria-label="Home"
+                        data-testid="home-button-default"
+                      >
                         <Home />
                         <span>Home</span>
                       </SidebarMenuButton>
                     </SidebarMenuItem>
                     <SidebarMenuItem>
-                      <SidebarMenuButton data-testid="settings-button-default">
+                      <SidebarMenuButton
+                        aria-label="Settings"
+                        data-testid="settings-button-default"
+                      >
                         <Settings />
                         <span>Settings</span>
                       </SidebarMenuButton>
@@ -235,9 +267,15 @@ export const Variants: Story = {
               </SidebarGroup>
             </SidebarContent>
           </Sidebar>
-          <SidebarInset className="p-4" data-testid="sidebar-inset-default">
-            Content area
-          </SidebarInset>
+          <div
+            aria-label="Default Variant Content"
+            className="bg-background relative flex w-full flex-1 flex-col p-4"
+            data-testid="sidebar-inset-default"
+            role="region"
+          >
+            <div className="text-2xl font-bold">Default Variant</div>
+            <div className="text-muted-foreground">Content area</div>
+          </div>
         </SidebarProvider>
       </div>
 
@@ -252,13 +290,19 @@ export const Variants: Story = {
                 <SidebarGroupContent>
                   <SidebarMenu>
                     <SidebarMenuItem>
-                      <SidebarMenuButton data-testid="home-button-floating">
+                      <SidebarMenuButton
+                        aria-label="Home"
+                        data-testid="home-button-floating"
+                      >
                         <Home />
                         <span>Home</span>
                       </SidebarMenuButton>
                     </SidebarMenuItem>
                     <SidebarMenuItem>
-                      <SidebarMenuButton data-testid="settings-button-floating">
+                      <SidebarMenuButton
+                        aria-label="Settings"
+                        data-testid="settings-button-floating"
+                      >
                         <Settings />
                         <span>Settings</span>
                       </SidebarMenuButton>
@@ -268,9 +312,15 @@ export const Variants: Story = {
               </SidebarGroup>
             </SidebarContent>
           </Sidebar>
-          <SidebarInset className="p-4" data-testid="sidebar-inset-floating">
-            Content area
-          </SidebarInset>
+          <div
+            aria-label="Floating Variant Content"
+            className="bg-background relative flex w-full flex-1 flex-col p-4"
+            data-testid="sidebar-inset-floating"
+            role="region"
+          >
+            <div className="text-2xl font-bold">Floating Variant</div>
+            <div className="text-muted-foreground">Content area</div>
+          </div>
         </SidebarProvider>
       </div>
 
@@ -285,13 +335,19 @@ export const Variants: Story = {
                 <SidebarGroupContent>
                   <SidebarMenu>
                     <SidebarMenuItem>
-                      <SidebarMenuButton data-testid="home-button-inset">
+                      <SidebarMenuButton
+                        aria-label="Home"
+                        data-testid="home-button-inset"
+                      >
                         <Home />
                         <span>Home</span>
                       </SidebarMenuButton>
                     </SidebarMenuItem>
                     <SidebarMenuItem>
-                      <SidebarMenuButton data-testid="settings-button-inset">
+                      <SidebarMenuButton
+                        aria-label="Settings"
+                        data-testid="settings-button-inset"
+                      >
                         <Settings />
                         <span>Settings</span>
                       </SidebarMenuButton>
@@ -301,12 +357,18 @@ export const Variants: Story = {
               </SidebarGroup>
             </SidebarContent>
           </Sidebar>
-          <SidebarInset className="p-4" data-testid="sidebar-inset-inset">
-            Content area
-          </SidebarInset>
+          <div
+            aria-label="Inset Variant Content"
+            className="bg-background relative flex w-full flex-1 flex-col p-4"
+            data-testid="sidebar-inset-inset"
+            role="region"
+          >
+            <div className="text-2xl font-bold">Inset Variant</div>
+            <div className="text-muted-foreground">Content area</div>
+          </div>
         </SidebarProvider>
       </div>
-    </div>
+    </main>
   ),
 };
 
@@ -321,27 +383,42 @@ export const Collapsible: Story = {
     },
   },
   render: () => (
-    <div className="grid grid-cols-1 gap-6">
+    <main className="grid grid-cols-1 gap-6">
       <div className="h-[300px] overflow-hidden rounded-lg border">
         <SidebarProvider defaultOpen={false}>
           <Sidebar collapsible="offcanvas">
             <SidebarHeader>
-              <div className="p-2 font-bold">Offcanvas Collapsible</div>
+              <div className="flex items-center gap-2 p-2">
+                <Package className="text-primary h-8 w-8" />
+                <div className="text-foreground font-bold">
+                  Offcanvas Collapsible
+                </div>
+              </div>
             </SidebarHeader>
             <SidebarContent>
               <SidebarGroup>
                 <SidebarGroupContent>
                   <SidebarMenu>
                     <SidebarMenuItem>
-                      <SidebarMenuButton>
-                        <Home />
-                        <span>Home</span>
+                      <SidebarMenuButton
+                        aria-label="Home"
+                        className="text-foreground hover:text-foreground"
+                      >
+                        <Home className="text-foreground" />
+                        <span className="sidebar-expanded:inline sr-only">
+                          Home
+                        </span>
                       </SidebarMenuButton>
                     </SidebarMenuItem>
                     <SidebarMenuItem>
-                      <SidebarMenuButton>
-                        <Settings />
-                        <span>Settings</span>
+                      <SidebarMenuButton
+                        aria-label="Settings"
+                        className="text-foreground hover:text-foreground"
+                      >
+                        <Settings className="text-foreground" />
+                        <span className="sidebar-expanded:inline sr-only">
+                          Settings
+                        </span>
                       </SidebarMenuButton>
                     </SidebarMenuItem>
                   </SidebarMenu>
@@ -349,12 +426,27 @@ export const Collapsible: Story = {
               </SidebarGroup>
             </SidebarContent>
           </Sidebar>
-          <SidebarInset className="flex flex-col gap-2 p-4">
-            <div>Offcanvas collapsible example</div>
-            <Button className="w-fit" variant="outline">
+          <div
+            aria-label="Offcanvas Content"
+            className="bg-background relative flex w-full flex-1 flex-col gap-4 p-4"
+            role="region"
+          >
+            <div className="flex flex-col gap-2">
+              <h2 className="text-foreground text-2xl font-bold">
+                Offcanvas Example
+              </h2>
+              <p className="text-muted-foreground">
+                Toggle the sidebar using the button below
+              </p>
+            </div>
+            <Button
+              aria-label="Toggle Sidebar"
+              className="bg-background text-foreground hover:bg-muted hover:text-foreground focus-visible:ring-ring w-fit focus-visible:ring-2"
+              variant="outline"
+            >
               Toggle Sidebar
             </Button>
-          </SidebarInset>
+          </div>
         </SidebarProvider>
       </div>
 
@@ -362,22 +454,35 @@ export const Collapsible: Story = {
         <SidebarProvider defaultOpen={false}>
           <Sidebar collapsible="icon">
             <SidebarHeader>
-              <div className="p-2 font-bold">Icon Collapsible</div>
+              <div className="flex items-center gap-2 p-2">
+                <Package className="text-primary h-8 w-8" />
+                <span className="sr-only">Icon Collapsible</span>
+              </div>
             </SidebarHeader>
             <SidebarContent>
               <SidebarGroup>
                 <SidebarGroupContent>
                   <SidebarMenu>
                     <SidebarMenuItem>
-                      <SidebarMenuButton>
-                        <Home />
-                        <span>Home</span>
+                      <SidebarMenuButton
+                        aria-label="Home"
+                        className="text-foreground hover:text-foreground"
+                      >
+                        <Home className="text-foreground" />
+                        <span className="sidebar-expanded:inline sr-only">
+                          Home
+                        </span>
                       </SidebarMenuButton>
                     </SidebarMenuItem>
                     <SidebarMenuItem>
-                      <SidebarMenuButton>
-                        <Settings />
-                        <span>Settings</span>
+                      <SidebarMenuButton
+                        aria-label="Settings"
+                        className="text-foreground hover:text-foreground"
+                      >
+                        <Settings className="text-foreground" />
+                        <span className="sidebar-expanded:inline sr-only">
+                          Settings
+                        </span>
                       </SidebarMenuButton>
                     </SidebarMenuItem>
                   </SidebarMenu>
@@ -385,9 +490,22 @@ export const Collapsible: Story = {
               </SidebarGroup>
             </SidebarContent>
           </Sidebar>
-          <SidebarInset className="p-4">Icon collapsible example</SidebarInset>
+          <div
+            aria-label="Icon Content"
+            className="bg-background relative flex w-full flex-1 flex-col gap-4 p-4"
+            role="region"
+          >
+            <div className="flex flex-col gap-2">
+              <h2 className="text-foreground text-2xl font-bold">
+                Icon Example
+              </h2>
+              <p className="text-muted-foreground">
+                The sidebar collapses to icons only
+              </p>
+            </div>
+          </div>
         </SidebarProvider>
       </div>
-    </div>
+    </main>
   ),
 };

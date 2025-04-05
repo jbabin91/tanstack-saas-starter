@@ -63,7 +63,7 @@ export const Default: Story = {
   },
   render: (args) => (
     <div className="w-[300px]">
-      <Slider {...args} />
+      <Slider aria-label="Default slider" {...args} />
     </div>
   ),
 };
@@ -84,7 +84,7 @@ export const WithSteps: Story = {
   },
   render: (args) => (
     <div className="w-[300px]">
-      <Slider {...args} />
+      <Slider aria-label="Stepped slider" {...args} />
     </div>
   ),
 };
@@ -103,7 +103,7 @@ export const Range: Story = {
   },
   render: (args) => (
     <div className="w-[300px]">
-      <Slider {...args} />
+      <Slider aria-label="Range slider" {...args} />
     </div>
   ),
 };
@@ -127,12 +127,15 @@ export const WithLabel: Story = {
     <div className="w-[300px]">
       <div className="grid gap-4">
         <div className="flex items-center justify-between">
-          <Label htmlFor="slider">Volume</Label>
-          <span className="text-muted-foreground hover:border-border w-12 rounded-md border border-transparent px-2 py-0.5 text-right text-sm">
+          <Label htmlFor="volume-slider">Volume</Label>
+          <span
+            className="text-muted-foreground hover:border-border w-12 rounded-md border border-transparent px-2 py-0.5 text-right text-sm"
+            id="volume-value"
+          >
             {args.defaultValue}
           </span>
         </div>
-        <Slider id="slider" {...args} />
+        <Slider aria-labelledby="volume-value" id="volume-slider" {...args} />
       </div>
     </div>
   ),
@@ -153,7 +156,7 @@ export const Disabled: Story = {
   },
   render: (args) => (
     <div className="w-[300px]">
-      <Slider {...args} />
+      <Slider aria-label="Disabled slider" {...args} />
     </div>
   ),
 };
@@ -172,6 +175,7 @@ export const CustomStyles: Story = {
   render: (args) => (
     <div className="w-[300px]">
       <Slider
+        aria-label="Custom styled slider"
         className="[&_[data-slot=slider-range]]:bg-blue-500"
         data-testid="slider-range"
         {...args}

@@ -13,8 +13,11 @@ import {
 const SelectDemo = () => {
   return (
     <Select>
-      <SelectTrigger className="w-[180px]">
-        <SelectValue placeholder="Select a fruit" />
+      <SelectTrigger aria-label="Select a fruit" className="w-[180px]">
+        <SelectValue
+          className="text-foreground data-[placeholder]:text-foreground/80"
+          placeholder="Select a fruit"
+        />
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
@@ -48,8 +51,14 @@ export const Default: Story = {};
 const DisabledSelectDemo = () => {
   return (
     <Select disabled>
-      <SelectTrigger className="w-[180px]">
-        <SelectValue placeholder="Disabled select" />
+      <SelectTrigger
+        aria-label="Disabled fruit selection"
+        className="w-[180px]"
+      >
+        <SelectValue
+          className="text-foreground data-[placeholder]:text-foreground/80"
+          placeholder="Disabled select"
+        />
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
@@ -70,8 +79,11 @@ export const Disabled: Story = {
 const GroupedSelectDemo = () => {
   return (
     <Select>
-      <SelectTrigger className="w-[180px]">
-        <SelectValue placeholder="Select food" />
+      <SelectTrigger aria-label="Select food category" className="w-[180px]">
+        <SelectValue
+          className="text-foreground data-[placeholder]:text-foreground/80"
+          placeholder="Select food"
+        />
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>

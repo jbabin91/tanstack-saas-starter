@@ -210,29 +210,32 @@ export const WithIcons: Story = {
 export const CustomStyling: Story = {
   render: () => (
     <Tabs className="w-[400px]" defaultValue="music">
-      <TabsList className="bg-blue-900 text-blue-100">
+      <TabsList className="bg-muted flex h-10 items-center justify-center rounded-md p-1">
         <TabsTrigger
-          className="data-[state=active]:bg-blue-700 data-[state=active]:text-white"
+          className="ring-offset-background focus-visible:ring-ring data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=inactive]:text-muted-foreground inline-flex items-center justify-center rounded-sm px-3 py-1.5 text-sm font-medium whitespace-nowrap transition-all focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50"
           value="music"
         >
           Music
         </TabsTrigger>
         <TabsTrigger
-          className="data-[state=active]:bg-blue-700 data-[state=active]:text-white"
+          className="ring-offset-background focus-visible:ring-ring data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=inactive]:text-muted-foreground inline-flex items-center justify-center rounded-sm px-3 py-1.5 text-sm font-medium whitespace-nowrap transition-all focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50"
           value="videos"
         >
           Videos
         </TabsTrigger>
       </TabsList>
-      <TabsContent className="mt-2 rounded-md bg-blue-50 p-4" value="music">
-        <h3 className="font-medium text-blue-900">Music</h3>
-        <p className="mt-2 text-sm text-blue-700">
+      <TabsContent className="bg-card mt-2 rounded-md border p-4" value="music">
+        <h3 className="text-foreground font-medium">Music</h3>
+        <p className="text-muted-foreground mt-2 text-sm">
           Your music collection appears here.
         </p>
       </TabsContent>
-      <TabsContent className="mt-2 rounded-md bg-blue-50 p-4" value="videos">
-        <h3 className="font-medium text-blue-900">Videos</h3>
-        <p className="mt-2 text-sm text-blue-700">
+      <TabsContent
+        className="bg-card mt-2 rounded-md border p-4"
+        value="videos"
+      >
+        <h3 className="text-foreground font-medium">Videos</h3>
+        <p className="text-muted-foreground mt-2 text-sm">
           Your video collection appears here.
         </p>
       </TabsContent>
