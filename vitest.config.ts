@@ -13,8 +13,30 @@ const dirname =
 // CI detection
 const isCI = process.env.CI === 'true';
 
+// Dependencies that need to be pre-optimized
+const optimizeDeps = [
+  'react',
+  'react/jsx-dev-runtime',
+  'react/jsx-runtime',
+  'react-dom',
+  'react-dom/client',
+  '@storybook/react',
+  '@storybook/test',
+  '@testing-library/react',
+  '@testing-library/user-event',
+];
+
 // More info at: https://storybook.js.org/docs/writing-tests/test-addon
 export default defineConfig({
+  optimizeDeps: {
+    // Ensure consistent optimization across environments
+    entries: ['src/**/*.stories.{ts,tsx}'],
+
+    // Force include these dependencies even if they're already optimized
+    force: true,
+
+    include: optimizeDeps,
+  },
   test: {
     coverage: {
       exclude: [
