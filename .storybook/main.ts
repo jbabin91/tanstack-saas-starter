@@ -1,5 +1,13 @@
+import type { AddonOptionsVite } from '@storybook/addon-coverage';
 import type { StorybookConfig } from '@storybook/react-vite';
 import viteTsConfigPaths from 'vite-tsconfig-paths';
+
+const coverageConfig: AddonOptionsVite = {
+  istanbul: {
+    exclude: ['**/routes/**', '**/providers/**', '**/hooks/**', '**/lib/**'],
+    include: ['**/*.stories.tsx'],
+  },
+};
 
 const config: StorybookConfig = {
   addons: [
@@ -9,8 +17,11 @@ const config: StorybookConfig = {
     '@storybook/experimental-addon-test',
     '@storybook/addon-themes',
     '@storybook/addon-a11y',
-    '@storybook/addon-docs',
     '@storybook/theming',
+    {
+      name: '@storybook/addon-coverage',
+      options: coverageConfig,
+    },
   ],
   framework: {
     name: '@storybook/react-vite',

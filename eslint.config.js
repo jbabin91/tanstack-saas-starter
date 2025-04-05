@@ -23,6 +23,7 @@ export default tseslint.config(
       '**/node_modules/**',
       '**/.output/**',
       '**/.vinxi/**',
+      '**/storybook-static/**',
       '**/*.gen.ts',
     ],
   },

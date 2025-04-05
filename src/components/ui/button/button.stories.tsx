@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect, userEvent, within } from '@storybook/test';
 import { Check, ChevronRight, Github, Loader2, Mail } from 'lucide-react';
 
 import { Button } from './button';
@@ -31,7 +32,7 @@ const meta: Meta<typeof Button> = {
   parameters: {
     layout: 'centered',
   },
-  tags: ['autodocs'],
+  tags: ['autodocs', 'test'],
   title: 'UI/Button',
 };
 
@@ -44,6 +45,19 @@ export const Default: Story = {
     size: 'default',
     variant: 'default',
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const button = canvas.getByRole('button');
+
+    // Test initial state
+    await expect(button).toHaveTextContent('Button');
+    expect(button).not.toBeDisabled();
+    expect(button).toHaveClass('bg-primary');
+
+    // Test interaction
+    await userEvent.click(button);
+    expect(button).toHaveFocus();
+  },
 };
 
 export const Destructive: Story = {
@@ -51,6 +65,13 @@ export const Destructive: Story = {
     children: 'Destructive',
     size: 'default',
     variant: 'destructive',
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const button = canvas.getByRole('button');
+
+    await expect(button).toHaveTextContent('Destructive');
+    expect(button).toHaveClass('bg-destructive');
   },
 };
 
@@ -112,6 +133,18 @@ export const Disabled: Story = {
     children: 'Disabled',
     disabled: true,
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const button = canvas.getByRole('button');
+
+    // Test disabled state
+    await expect(button).toBeDisabled();
+    expect(button).toHaveClass('disabled:opacity-50');
+
+    // For disabled buttons, we don't test click interactions
+    // since they are prevented by the browser
+    expect(button).not.toHaveFocus();
+  },
 };
 
 export const WithLeftIcon: Story = {
@@ -121,6 +154,18 @@ export const WithLeftIcon: Story = {
         <Mail className="mr-2 h-4 w-4" /> Login with Email
       </>
     ),
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const button = canvas.getByRole('button');
+
+    // Test icon presence
+    await expect(button.querySelector('svg')).toBeInTheDocument();
+    expect(button).toHaveTextContent('Login with Email');
+
+    // Test icon positioning
+    const icon = button.querySelector('svg');
+    expect(icon).toHaveClass('mr-2');
   },
 };
 
@@ -142,6 +187,16 @@ export const Loading: Story = {
       </>
     ),
     disabled: true,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const button = canvas.getByRole('button');
+
+    // Test loading state
+    await expect(button).toBeDisabled();
+    const loader = button.querySelector('svg');
+    expect(loader).toHaveClass('animate-spin');
+    expect(button).toHaveTextContent('Please wait');
   },
 };
 
@@ -170,6 +225,28 @@ export const WithSocialIcon: Story = {
 };
 
 export const ButtonGroup: Story = {
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const buttons = canvas.getAllByRole('button');
+
+    // Test button group rendering
+    await expect(buttons).toHaveLength(9);
+
+    // Test button group interactions
+    for (const button of buttons) {
+      expect(button).not.toBeDisabled();
+      await userEvent.click(button);
+      expect(button).toHaveFocus();
+    }
+
+    // Test specific button styles
+    const [defaultBtn, deleteBtn, cancelBtn] = buttons;
+    expect(defaultBtn).toHaveTextContent('Default');
+    expect(deleteBtn).toHaveTextContent('Delete');
+    expect(deleteBtn).toHaveClass('bg-destructive');
+    expect(cancelBtn).toHaveTextContent('Cancel');
+    expect(cancelBtn).toHaveClass('bg-background');
+  },
   render: () => (
     <div className="flex flex-col items-center gap-4">
       <div className="flex gap-2">

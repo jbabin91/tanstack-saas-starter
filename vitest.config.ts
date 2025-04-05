@@ -2,7 +2,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { storybookTest } from '@storybook/experimental-addon-test/vitest-plugin';
-import { defineConfig } from 'vitest/config';
+import { coverageConfigDefaults, defineConfig } from 'vitest/config';
 
 // Determine the directory name, falling back to fileURLToPath for ESM environments
 const dirname =
@@ -13,6 +13,14 @@ const dirname =
 // More info at: https://storybook.js.org/docs/writing-tests/test-addon
 export default defineConfig({
   test: {
+    coverage: {
+      exclude: [
+        ...coverageConfigDefaults.exclude,
+        '**/.storybook/**',
+        '**/*.stories.*',
+        '**/storybook-static/*',
+      ],
+    },
     environment: 'jsdom',
     globals: true,
     hookTimeout: 10000,
@@ -27,6 +35,7 @@ export default defineConfig({
           // See options at: https://storybook.js.org/docs/writing-tests/test-addon#storybooktest
           storybookTest({
             configDir: path.join(dirname, '.storybook'),
+            storybookScript: 'pnpm storybook --ci',
             storybookUrl: 'http://localhost:6006',
             tags: {
               exclude: [],
@@ -40,6 +49,7 @@ export default defineConfig({
             enabled: true,
             headless: true,
             instances: [{ browser: 'chromium' }],
+            name: 'chromium',
             provider: 'playwright',
           },
           name: 'storybook',

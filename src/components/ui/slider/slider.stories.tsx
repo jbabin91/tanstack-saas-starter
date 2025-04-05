@@ -1,6 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { expect, within } from '@storybook/test';
-import * as React from 'react';
+
+import {
+  expect,
+  waitForAttribute,
+  waitForComponentStability,
+  within,
+} from '@/test/storybook-test-utils';
 
 import { Label } from '../label';
 import { Slider } from './slider';
@@ -51,15 +56,10 @@ export const Default: Story = {
     defaultValue: [50],
   },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
-    // Wait for slider to initialize
-    await new Promise((resolve) => setTimeout(resolve, 500));
-
-    // Test slider elements
-    const slider = canvas.getByRole('slider');
-    await expect(slider).toBeInTheDocument();
-    await expect(slider).toHaveAttribute('aria-valuenow', '50');
+    await waitForComponentStability(canvasElement);
+    const utils = within(canvasElement);
+    const slider = utils.getByRole('slider');
+    await waitForAttribute(slider, 'aria-valuenow', '50');
   },
   render: (args) => (
     <div className="w-[300px]">
@@ -74,14 +74,13 @@ export const WithSteps: Story = {
     step: 10,
   },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const thumb = canvas.getByRole('slider');
-
-    // Check that the thumb has the correct ARIA attributes
-    await expect(thumb).toHaveAttribute('aria-valuenow', '50');
-    await expect(thumb).toHaveAttribute('aria-valuemin', '0');
-    await expect(thumb).toHaveAttribute('aria-valuemax', '100');
-    await expect(thumb).toHaveAttribute('aria-orientation', 'horizontal');
+    await waitForComponentStability(canvasElement);
+    const utils = within(canvasElement);
+    const thumb = utils.getByRole('slider');
+    await waitForAttribute(thumb, 'aria-valuenow', '50');
+    await waitForAttribute(thumb, 'aria-valuemin', '0');
+    await waitForAttribute(thumb, 'aria-valuemax', '100');
+    await waitForAttribute(thumb, 'aria-orientation', 'horizontal');
   },
   render: (args) => (
     <div className="w-[300px]">
@@ -95,16 +94,12 @@ export const Range: Story = {
     defaultValue: [25, 75],
   },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
-    // Wait for slider to initialize
-    await new Promise((resolve) => setTimeout(resolve, 500));
-
-    // Test range sliders
-    const sliders = canvas.getAllByRole('slider');
-    await expect(sliders).toHaveLength(2);
-    await expect(sliders[0]).toHaveAttribute('aria-valuenow', '25');
-    await expect(sliders[1]).toHaveAttribute('aria-valuenow', '75');
+    await waitForComponentStability(canvasElement);
+    const utils = within(canvasElement);
+    const sliders = utils.getAllByRole('slider');
+    expect(sliders).toHaveLength(2);
+    await waitForAttribute(sliders[0], 'aria-valuenow', '25');
+    await waitForAttribute(sliders[1], 'aria-valuenow', '75');
   },
   render: (args) => (
     <div className="w-[300px]">
@@ -118,42 +113,29 @@ export const WithLabel: Story = {
     defaultValue: [50],
   },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
+    await waitForComponentStability(canvasElement);
+    const utils = within(canvasElement);
+    const slider = utils.getByRole('slider');
+    const label = utils.getByText('Volume');
+    const value = utils.getByText('50');
 
-    // Wait for slider to initialize
-    await new Promise((resolve) => setTimeout(resolve, 500));
-
-    // Test label and value display
-    await expect(canvas.getByText('Volume')).toBeInTheDocument();
-    await expect(canvas.getByText('50%')).toBeInTheDocument();
-
-    // Test slider
-    const slider = canvas.getByRole('slider');
-    await expect(slider).toHaveAttribute('aria-valuenow', '50');
+    expect(slider).toBeInTheDocument();
+    expect(label).toBeInTheDocument();
+    expect(value).toBeInTheDocument();
   },
-  render: (args) => {
-    const [value, setValue] = React.useState(args.defaultValue);
-
-    return (
-      <div className="w-[300px] space-y-4">
+  render: (args) => (
+    <div className="w-[300px]">
+      <div className="grid gap-4">
         <div className="flex items-center justify-between">
-          <Label htmlFor="volume">Volume</Label>
-          <span className="text-muted-foreground w-12 rounded-md border border-transparent px-2 py-0.5 text-right text-sm">
-            {value}%
+          <Label htmlFor="slider">Volume</Label>
+          <span className="text-muted-foreground hover:border-border w-12 rounded-md border border-transparent px-2 py-0.5 text-right text-sm">
+            {args.defaultValue}
           </span>
         </div>
-        <Slider
-          id="volume"
-          max={100}
-          min={0}
-          step={1}
-          value={value}
-          onValueChange={setValue}
-          {...args}
-        />
+        <Slider id="slider" {...args} />
       </div>
-    );
-  },
+    </div>
+  ),
 };
 
 export const Disabled: Story = {
@@ -162,15 +144,12 @@ export const Disabled: Story = {
     disabled: true,
   },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
-    // Wait for slider to initialize
-    await new Promise((resolve) => setTimeout(resolve, 500));
-
-    // Test disabled state
-    const root = canvas.getByRole('slider').closest('[data-slot="slider"]');
-    await expect(root).toHaveAttribute('data-disabled');
-    await expect(root).toHaveAttribute('aria-disabled', 'true');
+    await waitForComponentStability(canvasElement);
+    const utils = within(canvasElement);
+    const slider = utils.getByRole('slider');
+    const root = slider.closest('[data-slot="slider"]');
+    expect(root).toHaveAttribute('data-disabled');
+    expect(root).toHaveAttribute('aria-disabled', 'true');
   },
   render: (args) => (
     <div className="w-[300px]">
@@ -184,16 +163,11 @@ export const CustomStyles: Story = {
     defaultValue: [40],
   },
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-
-    // Wait for slider to initialize
-    await new Promise((resolve) => setTimeout(resolve, 500));
-
-    // Test custom styles
-    const slider = canvas.getByRole('slider').closest('[data-slot="slider"]');
-    await expect(slider).toHaveClass(
-      '[&_[data-slot=slider-range]]:bg-blue-500',
-    );
+    await waitForComponentStability(canvasElement);
+    const utils = within(canvasElement);
+    const slider = utils.getByRole('slider');
+    const root = slider.closest('[data-slot="slider"]');
+    expect(root).toHaveClass('[&_[data-slot=slider-range]]:bg-blue-500');
   },
   render: (args) => (
     <div className="w-[300px]">

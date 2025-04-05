@@ -1,44 +1,34 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 import '../src/styles/globals.css';
 
-import { DocsContainer } from '@storybook/addon-docs';
 import { withThemeByClassName } from '@storybook/addon-themes';
-import { addons } from '@storybook/preview-api';
-import type { Preview, ReactRenderer } from '@storybook/react';
+import { DocsContainer } from '@storybook/blocks';
+import type { Preview } from '@storybook/react';
 import { themes } from '@storybook/theming';
-import { useEffect, useState } from 'react';
-import { DARK_MODE_EVENT_NAME, useDarkMode } from 'storybook-dark-mode';
 
 import { ThemeProvider } from '../src/providers/theme-provider';
 
-const channel = addons.getChannel();
-
 const preview: Preview = {
   decorators: [
-    withThemeByClassName<ReactRenderer>({
-      defaultTheme: 'light',
+    withThemeByClassName({
+      defaultTheme: 'dark',
       themes: {
-        dark: 'dark',
-        light: 'light',
+        dark: 'dark bg-background',
+        light: 'light bg-background',
       },
     }),
-    (Story) => {
-      // Get the current dark mode state
-      const isDarkMode = useDarkMode();
-
-      return (
-        <ThemeProvider forcedTheme={isDarkMode ? 'dark' : 'light'}>
-          <Story />
-        </ThemeProvider>
-      );
-    },
+    (Story) => (
+      <ThemeProvider>
+        <Story />
+      </ThemeProvider>
+    ),
   ],
   parameters: {
-    a11y: {
-      // 'todo' - show a11y violations in the test UI only
-      // 'error' - fail CI on a11y violations
-      // 'off' - skip a11y checks entirely
-      test: 'todo',
+    actions: {
+      // Remove argTypesRegex as it's not recommended with visual test addon
+      // Instead, use explicit actions in your stories with fn from @storybook/test
+    },
+    backgrounds: {
+      disable: true,
     },
     controls: {
       matchers: {
@@ -46,28 +36,18 @@ const preview: Preview = {
         date: /Date$/i,
       },
     },
-    darkMode: {
-      classTarget: 'html',
-      current: 'dark',
-      dark: { ...themes.dark },
-      darkClass: 'dark',
-      light: { ...themes.light },
-      lightClass: 'light',
-      stylePreview: true,
-    },
     docs: {
-      container: (props: any) => {
-        const [, setDark] = useState();
-
-        useEffect(() => {
-          channel.on(DARK_MODE_EVENT_NAME, setDark);
-          return () => channel.removeListener(DARK_MODE_EVENT_NAME, setDark);
-        }, [channel, setDark]);
+      container: ({ children, context }: any) => {
+        // Get the current theme from globals
+        const currentTheme = context?.store?.globals?.globals?.theme ?? 'dark';
 
         return (
-          <div>
-            <DocsContainer {...props} />
-          </div>
+          <DocsContainer
+            context={context}
+            theme={currentTheme === 'dark' ? themes.dark : themes.light}
+          >
+            {children}
+          </DocsContainer>
         );
       },
     },

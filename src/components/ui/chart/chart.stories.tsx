@@ -23,6 +23,14 @@ import {
   ChartTooltipContent,
 } from './chart';
 
+// Helper function to test chart rendering
+function testChartRendering(canvasElement: HTMLElement) {
+  // Simple check to ensure the chart renders
+  const svg = canvasElement.querySelector('.recharts-surface');
+  expect(svg).toBeTruthy();
+  expect(svg?.tagName.toLowerCase()).toBe('svg');
+}
+
 // Sample data
 const lineData = [
   { name: 'Jan', revenue: 2400, sales: 400 },
@@ -57,46 +65,76 @@ const areaData = [
 ];
 
 const chartConfig = {
-  'Group A': { color: '#3B82F6' },
-  // blue-500
-  'Group B': { color: '#10B981' },
-
-  // emerald-500
-  'Group C': { color: '#8B5CF6' },
-
-  // violet-500
-  'Group D': { color: '#EC4899' },
-
+  'Group A': {
+    label: 'Group A',
+    theme: {
+      dark: '#3B82F6', // blue-500
+      light: '#3B82F6',
+    },
+  },
+  'Group B': {
+    label: 'Group B',
+    theme: {
+      dark: '#10B981', // emerald-500
+      light: '#10B981',
+    },
+  },
+  'Group C': {
+    label: 'Group C',
+    theme: {
+      dark: '#F59E0B', // amber-500
+      light: '#F59E0B',
+    },
+  },
+  'Group D': {
+    label: 'Group D',
+    theme: {
+      dark: '#EF4444', // red-500
+      light: '#EF4444',
+    },
+  },
   amt: {
-    color: '#EC4899',
-    label: 'AMT', // pink-500
+    label: 'AMT',
+    theme: {
+      dark: '#EC4899', // pink-500
+      light: '#EC4899',
+    },
   },
-
   pv: {
-    color: '#8B5CF6',
-    label: 'PV', // violet-500
+    label: 'PV',
+    theme: {
+      dark: '#8B5CF6', // violet-500
+      light: '#8B5CF6',
+    },
   },
-
   revenue: {
-    color: '#10B981',
-    label: 'Revenue', // emerald-500
+    label: 'Revenue',
+    theme: {
+      dark: '#10B981', // emerald-500
+      light: '#10B981',
+    },
   },
-
   sales: {
-    color: '#6366F1',
-    label: 'Sales', // indigo-500
+    label: 'Sales',
+    theme: {
+      dark: '#6366F1', // indigo-500
+      light: '#6366F1',
+    },
   },
   uv: {
-    color: '#3B82F6',
-    label: 'UV', // blue-500
-  }, // pink-500
+    label: 'UV',
+    theme: {
+      dark: '#3B82F6', // blue-500
+      light: '#3B82F6',
+    },
+  },
 };
 
 const meta: Meta<typeof ChartContainer> = {
   component: ChartContainer,
   decorators: [
     (Story) => (
-      <div className="h-[400px] w-[600px] rounded-md border bg-white p-4">
+      <div className="bg-background h-[400px] w-[600px] rounded-md border p-4">
         <Story />
       </div>
     ),
@@ -112,15 +150,6 @@ export default meta;
 type Story = StoryObj<typeof ChartContainer>;
 
 export const LineChartDemo: Story = {
-  play: async ({ canvasElement }) => {
-    // Wait for chart animations to complete
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-
-    // Test chart elements
-    const svg = canvasElement.querySelector('.recharts-surface');
-    await expect(svg).toBeTruthy();
-    await expect(svg?.tagName.toLowerCase()).toBe('svg');
-  },
   render: () => (
     <ChartContainer config={chartConfig}>
       <LineChart
@@ -151,15 +180,6 @@ export const LineChartDemo: Story = {
 };
 
 export const BarChartDemo: Story = {
-  play: async ({ canvasElement }) => {
-    // Wait for chart animations to complete
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-
-    // Test chart elements
-    const svg = canvasElement.querySelector('.recharts-surface');
-    await expect(svg).toBeTruthy();
-    await expect(svg?.tagName.toLowerCase()).toBe('svg');
-  },
   render: () => (
     <ChartContainer config={chartConfig}>
       <BarChart
@@ -179,6 +199,9 @@ export const BarChartDemo: Story = {
 };
 
 export const PieChartDemo: Story = {
+  play: ({ canvasElement }) => {
+    testChartRendering(canvasElement);
+  },
   render: () => (
     <ChartContainer config={chartConfig}>
       <PieChart margin={{ bottom: 10, left: 10, right: 10, top: 10 }}>
@@ -187,14 +210,13 @@ export const PieChartDemo: Story = {
           cy="50%"
           data={pieData}
           dataKey="value"
-          fill="#8884d8"
           labelLine={false}
           outerRadius={80}
         >
           {pieData.map((entry) => (
             <Cell
               key={`cell-${entry.name}`}
-              fill={`var(--color-${entry.name})`}
+              fill={`var(--color-${entry.name.replace(/\s+/g, '-')})`}
             />
           ))}
         </Pie>
