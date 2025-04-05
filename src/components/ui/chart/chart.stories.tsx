@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { expect } from '@storybook/test';
 import {
   Area,
   AreaChart,
@@ -111,6 +112,15 @@ export default meta;
 type Story = StoryObj<typeof ChartContainer>;
 
 export const LineChartDemo: Story = {
+  play: async ({ canvasElement }) => {
+    // Wait for chart animations to complete
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+
+    // Test chart elements
+    const svg = canvasElement.querySelector('.recharts-surface');
+    await expect(svg).toBeTruthy();
+    await expect(svg?.tagName.toLowerCase()).toBe('svg');
+  },
   render: () => (
     <ChartContainer config={chartConfig}>
       <LineChart
@@ -141,6 +151,15 @@ export const LineChartDemo: Story = {
 };
 
 export const BarChartDemo: Story = {
+  play: async ({ canvasElement }) => {
+    // Wait for chart animations to complete
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+
+    // Test chart elements
+    const svg = canvasElement.querySelector('.recharts-surface');
+    await expect(svg).toBeTruthy();
+    await expect(svg?.tagName.toLowerCase()).toBe('svg');
+  },
   render: () => (
     <ChartContainer config={chartConfig}>
       <BarChart

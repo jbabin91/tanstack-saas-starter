@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { useState } from 'react';
 
 import { Input } from './input';
 
@@ -64,8 +65,9 @@ export const Disabled: Story = {
 };
 
 export const WithValue: Story = {
-  args: {
-    value: 'Input with value',
+  render: () => {
+    const [value, setValue] = useState('Input with value');
+    return <Input value={value} onChange={(e) => setValue(e.target.value)} />;
   },
 };
 

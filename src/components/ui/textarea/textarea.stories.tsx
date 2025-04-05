@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { useState } from 'react';
 
 import { Label } from '../label';
 import { Textarea } from './textarea';
@@ -36,9 +37,17 @@ export const Default: Story = {
 };
 
 export const WithValue: Story = {
-  args: {
-    placeholder: 'Type your message here.',
-    value: 'This is a textarea with some content already filled in.',
+  render: () => {
+    const [value, setValue] = useState(
+      'This is a textarea with some content already filled in.',
+    );
+    return (
+      <Textarea
+        placeholder="Type your message here."
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+      />
+    );
   },
 };
 

@@ -13,13 +13,27 @@ const dirname =
 // More info at: https://storybook.js.org/docs/writing-tests/test-addon
 export default defineConfig({
   test: {
+    environment: 'jsdom',
+    globals: true,
+    hookTimeout: 10000,
+    setupFiles: ['.storybook/vitest.setup.ts'],
+    // Add test-specific options
+    testTimeout: 10000,
     workspace: [
       {
         extends: true,
         plugins: [
           // The plugin will run tests for the stories defined in your Storybook config
           // See options at: https://storybook.js.org/docs/writing-tests/test-addon#storybooktest
-          storybookTest({ configDir: path.join(dirname, '.storybook') }),
+          storybookTest({
+            configDir: path.join(dirname, '.storybook'),
+            storybookUrl: 'http://localhost:6006',
+            tags: {
+              exclude: [],
+              include: ['test'],
+              skip: [],
+            },
+          }),
         ],
         test: {
           browser: {
@@ -29,7 +43,6 @@ export default defineConfig({
             provider: 'playwright',
           },
           name: 'storybook',
-          setupFiles: ['.storybook/vitest.setup.ts'],
         },
       },
     ],
