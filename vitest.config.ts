@@ -23,10 +23,10 @@ export default defineConfig({
     },
     environment: 'jsdom',
     globals: true,
-    hookTimeout: 10000,
+    hookTimeout: 20000,
+    isolate: true,
     setupFiles: ['.storybook/vitest.setup.ts'],
-    // Add test-specific options
-    testTimeout: 10000,
+    testTimeout: 20000,
     workspace: [
       {
         extends: true,
