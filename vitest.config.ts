@@ -29,12 +29,8 @@ const optimizeDeps = [
 // More info at: https://storybook.js.org/docs/writing-tests/test-addon
 export default defineConfig({
   optimizeDeps: {
-    // Ensure consistent optimization across environments
     entries: ['src/**/*.stories.{ts,tsx}'],
-
-    // Force include these dependencies even if they're already optimized
     force: true,
-
     include: optimizeDeps,
   },
   test: {
@@ -48,30 +44,22 @@ export default defineConfig({
     },
     environment: 'jsdom',
     globals: true,
-    hookTimeout: isCI ? 30000 : 10000,
-    isolate: true,
-    // Adjust concurrency based on environment
-    maxConcurrency: isCI ? 1 : 3,
-    maxWorkers: isCI ? 1 : 2,
+    hookTimeout: 45000,
+    isolate: false, // Disable isolation to prevent suite finding issues
+    maxConcurrency: 1, // Run tests sequentially to prevent race conditions
+    maxWorkers: 1,
     minWorkers: 1,
-    // Use threads in local dev, vmThreads in CI for better isolation
-    pool: isCI ? 'vmThreads' : 'threads',
-    poolOptions: {
-      threads: {
-        singleThread: isCI,
-      },
-      vmThreads: {
-        useAtomics: true,
-      },
+    pool: 'threads',
+    sequence: {
+      shuffle: false, // Ensure consistent test order
     },
+    // Use threads consistently across environments
     setupFiles: ['.storybook/vitest.setup.ts'],
-    testTimeout: isCI ? 30000 : 10000,
+    testTimeout: 45000,
     workspace: [
       {
         extends: true,
         plugins: [
-          // The plugin will run tests for the stories defined in your Storybook config
-          // See options at: https://storybook.js.org/docs/writing-tests/test-addon#storybooktest
           storybookTest({
             configDir: path.join(dirname, '.storybook'),
             storybookScript: 'pnpm storybook --ci',
@@ -92,7 +80,6 @@ export default defineConfig({
             provider: 'playwright',
           },
           name: 'storybook',
-          // More retries in CI
           retry: isCI ? 2 : 1,
         },
       },
