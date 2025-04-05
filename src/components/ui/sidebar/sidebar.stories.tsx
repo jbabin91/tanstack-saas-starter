@@ -42,33 +42,40 @@ type Story = StoryObj<typeof SidebarProvider>;
 
 // Basic sidebar demo
 export const Default: Story = {
+  parameters: {
+    test: {
+      setup: () => {
+        // Add any necessary test setup here
+      },
+    },
+  },
   render: () => (
-    <SidebarProvider>
-      <Sidebar>
-        <SidebarHeader>
+    <SidebarProvider data-testid="sidebar-provider">
+      <Sidebar data-testid="sidebar">
+        <SidebarHeader data-testid="sidebar-header">
           <div className="flex items-center gap-2 p-2">
             <div className="bg-primary h-8 w-8 rounded-md"></div>
             <div className="font-bold">My App</div>
           </div>
         </SidebarHeader>
-        <SidebarContent>
-          <SidebarGroup>
+        <SidebarContent data-testid="sidebar-content">
+          <SidebarGroup data-testid="sidebar-group">
             <SidebarGroupContent>
               <SidebarMenu>
                 <SidebarMenuItem>
-                  <SidebarMenuButton isActive>
+                  <SidebarMenuButton isActive data-testid="dashboard-button">
                     <Home />
                     <span>Dashboard</span>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
                 <SidebarMenuItem>
-                  <SidebarMenuButton>
+                  <SidebarMenuButton data-testid="products-button">
                     <Package />
                     <span>Products</span>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
                 <SidebarMenuItem>
-                  <SidebarMenuButton>
+                  <SidebarMenuButton data-testid="analytics-button">
                     <BarChart />
                     <span>Analytics</span>
                   </SidebarMenuButton>
@@ -82,13 +89,13 @@ export const Default: Story = {
             <SidebarGroupContent>
               <SidebarMenu>
                 <SidebarMenuItem>
-                  <SidebarMenuButton>
+                  <SidebarMenuButton data-testid="profile-button">
                     <User />
                     <span>Profile</span>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
                 <SidebarMenuItem>
-                  <SidebarMenuButton>
+                  <SidebarMenuButton data-testid="settings-button">
                     <Settings />
                     <span>Settings</span>
                   </SidebarMenuButton>
@@ -97,15 +104,19 @@ export const Default: Story = {
             </SidebarGroupContent>
           </SidebarGroup>
         </SidebarContent>
-        <SidebarFooter>
+        <SidebarFooter data-testid="sidebar-footer">
           <div className="p-2">
-            <Button className="w-full" variant="outline">
+            <Button
+              className="w-full"
+              data-testid="logout-button"
+              variant="outline"
+            >
               Logout
             </Button>
           </div>
         </SidebarFooter>
       </Sidebar>
-      <SidebarInset className="p-4">
+      <SidebarInset className="p-4" data-testid="sidebar-inset">
         <div className="text-2xl font-bold">Dashboard</div>
         <p className="text-muted-foreground">Welcome to your dashboard</p>
       </SidebarInset>
@@ -115,48 +126,62 @@ export const Default: Story = {
 
 // Sidebar with badges and actions
 export const WithBadgesAndActions: Story = {
+  parameters: {
+    test: {
+      setup: () => {
+        // Add any necessary test setup here
+      },
+    },
+  },
   render: () => (
-    <SidebarProvider>
-      <Sidebar>
-        <SidebarHeader>
+    <SidebarProvider data-testid="sidebar-provider-badges">
+      <Sidebar data-testid="sidebar-badges">
+        <SidebarHeader data-testid="sidebar-header-badges">
           <div className="flex items-center gap-2 p-2">
             <div className="bg-primary h-8 w-8 rounded-md"></div>
             <div className="font-bold">My App</div>
           </div>
         </SidebarHeader>
-        <SidebarContent>
+        <SidebarContent data-testid="sidebar-content-badges">
           <SidebarGroup>
             <SidebarGroupContent>
               <SidebarMenu>
                 <SidebarMenuItem>
-                  <SidebarMenuButton isActive>
+                  <SidebarMenuButton
+                    isActive
+                    data-testid="dashboard-button-badges"
+                  >
                     <Home />
                     <span>Dashboard</span>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
                 <SidebarMenuItem>
-                  <SidebarMenuButton>
+                  <SidebarMenuButton data-testid="messages-button">
                     <MessageSquare />
                     <span>Messages</span>
                   </SidebarMenuButton>
-                  <SidebarMenuBadge>5</SidebarMenuBadge>
-                  <SidebarMenuAction>
+                  <SidebarMenuBadge data-testid="messages-badge">
+                    5
+                  </SidebarMenuBadge>
+                  <SidebarMenuAction data-testid="messages-action">
                     <Heart />
                   </SidebarMenuAction>
                 </SidebarMenuItem>
                 <SidebarMenuItem>
-                  <SidebarMenuButton>
+                  <SidebarMenuButton data-testid="analytics-button-badges">
                     <BarChart />
                     <span>Analytics</span>
                   </SidebarMenuButton>
-                  <SidebarMenuBadge>New</SidebarMenuBadge>
+                  <SidebarMenuBadge data-testid="analytics-badge">
+                    New
+                  </SidebarMenuBadge>
                 </SidebarMenuItem>
               </SidebarMenu>
             </SidebarGroupContent>
           </SidebarGroup>
         </SidebarContent>
       </Sidebar>
-      <SidebarInset className="p-4">
+      <SidebarInset className="p-4" data-testid="sidebar-inset-badges">
         <div className="text-2xl font-bold">Dashboard</div>
         <p className="text-muted-foreground">
           Sidebar with badges and actions example
@@ -175,27 +200,32 @@ export const Variants: Story = {
           'The sidebar can be configured with different variants: default, floating, or inset.',
       },
     },
+    test: {
+      setup: () => {
+        // Add any necessary test setup here
+      },
+    },
   },
   render: () => (
-    <div className="grid grid-cols-1 gap-6">
+    <div className="grid grid-cols-1 gap-6" data-testid="variants-container">
       <div className="h-[300px] overflow-hidden rounded-lg border">
-        <SidebarProvider>
-          <Sidebar variant="sidebar">
-            <SidebarHeader>
+        <SidebarProvider data-testid="sidebar-provider-default">
+          <Sidebar data-testid="sidebar-default" variant="sidebar">
+            <SidebarHeader data-testid="sidebar-header-default">
               <div className="p-2 font-bold">Default Variant</div>
             </SidebarHeader>
-            <SidebarContent>
+            <SidebarContent data-testid="sidebar-content-default">
               <SidebarGroup>
                 <SidebarGroupContent>
                   <SidebarMenu>
                     <SidebarMenuItem>
-                      <SidebarMenuButton>
+                      <SidebarMenuButton data-testid="home-button-default">
                         <Home />
                         <span>Home</span>
                       </SidebarMenuButton>
                     </SidebarMenuItem>
                     <SidebarMenuItem>
-                      <SidebarMenuButton>
+                      <SidebarMenuButton data-testid="settings-button-default">
                         <Settings />
                         <span>Settings</span>
                       </SidebarMenuButton>
@@ -205,28 +235,30 @@ export const Variants: Story = {
               </SidebarGroup>
             </SidebarContent>
           </Sidebar>
-          <SidebarInset className="p-4">Content area</SidebarInset>
+          <SidebarInset className="p-4" data-testid="sidebar-inset-default">
+            Content area
+          </SidebarInset>
         </SidebarProvider>
       </div>
 
       <div className="h-[300px] overflow-hidden rounded-lg border">
-        <SidebarProvider>
-          <Sidebar variant="floating">
-            <SidebarHeader>
+        <SidebarProvider data-testid="sidebar-provider-floating">
+          <Sidebar data-testid="sidebar-floating" variant="floating">
+            <SidebarHeader data-testid="sidebar-header-floating">
               <div className="p-2 font-bold">Floating Variant</div>
             </SidebarHeader>
-            <SidebarContent>
+            <SidebarContent data-testid="sidebar-content-floating">
               <SidebarGroup>
                 <SidebarGroupContent>
                   <SidebarMenu>
                     <SidebarMenuItem>
-                      <SidebarMenuButton>
+                      <SidebarMenuButton data-testid="home-button-floating">
                         <Home />
                         <span>Home</span>
                       </SidebarMenuButton>
                     </SidebarMenuItem>
                     <SidebarMenuItem>
-                      <SidebarMenuButton>
+                      <SidebarMenuButton data-testid="settings-button-floating">
                         <Settings />
                         <span>Settings</span>
                       </SidebarMenuButton>
@@ -236,28 +268,30 @@ export const Variants: Story = {
               </SidebarGroup>
             </SidebarContent>
           </Sidebar>
-          <SidebarInset className="p-4">Content area</SidebarInset>
+          <SidebarInset className="p-4" data-testid="sidebar-inset-floating">
+            Content area
+          </SidebarInset>
         </SidebarProvider>
       </div>
 
       <div className="h-[300px] overflow-hidden rounded-lg border">
-        <SidebarProvider>
-          <Sidebar variant="inset">
-            <SidebarHeader>
+        <SidebarProvider data-testid="sidebar-provider-inset">
+          <Sidebar data-testid="sidebar-inset-variant" variant="inset">
+            <SidebarHeader data-testid="sidebar-header-inset">
               <div className="p-2 font-bold">Inset Variant</div>
             </SidebarHeader>
-            <SidebarContent>
+            <SidebarContent data-testid="sidebar-content-inset">
               <SidebarGroup>
                 <SidebarGroupContent>
                   <SidebarMenu>
                     <SidebarMenuItem>
-                      <SidebarMenuButton>
+                      <SidebarMenuButton data-testid="home-button-inset">
                         <Home />
                         <span>Home</span>
                       </SidebarMenuButton>
                     </SidebarMenuItem>
                     <SidebarMenuItem>
-                      <SidebarMenuButton>
+                      <SidebarMenuButton data-testid="settings-button-inset">
                         <Settings />
                         <span>Settings</span>
                       </SidebarMenuButton>
@@ -267,7 +301,9 @@ export const Variants: Story = {
               </SidebarGroup>
             </SidebarContent>
           </Sidebar>
-          <SidebarInset className="p-4">Content area</SidebarInset>
+          <SidebarInset className="p-4" data-testid="sidebar-inset-inset">
+            Content area
+          </SidebarInset>
         </SidebarProvider>
       </div>
     </div>

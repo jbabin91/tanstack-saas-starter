@@ -36,6 +36,23 @@ const IntersectionObserverMock = vi.fn(() => ({
 
 vi.stubGlobal('IntersectionObserver', IntersectionObserverMock);
 
+// Mock matchMedia
+if (typeof window !== 'undefined') {
+  Object.defineProperty(window, 'matchMedia', {
+    value: vi.fn().mockImplementation((query) => ({
+      addEventListener: vi.fn(),
+      addListener: vi.fn(),
+      dispatchEvent: vi.fn(),
+      matches: false,
+      media: query,
+      onchange: null,
+      removeEventListener: vi.fn(),
+      removeListener: vi.fn(),
+    })),
+    writable: true,
+  });
+}
+
 // This is an important step to apply the right configuration when testing your stories.
 const project = setProjectAnnotations([
   a11yAddonAnnotations,
@@ -59,9 +76,14 @@ afterAll(() => {
 beforeEach(() => {
   cleanup();
   vi.clearAllMocks();
+  // Reset all mocks
+  vi.clearAllTimers();
+  ResizeObserverMock.mockClear();
+  IntersectionObserverMock.mockClear();
 });
 
 afterEach(() => {
   cleanup();
   vi.clearAllMocks();
+  vi.clearAllTimers();
 });
