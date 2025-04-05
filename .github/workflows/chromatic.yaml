@@ -24,3 +24,9 @@ jobs:
         uses: chromaui/action@latest
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          # Skip Chromatic on renovate PRs
+          skip: ${{ github.actor == 'renovate[bot]' }}
+          # Exit with code 0 even if there are changes
+          exitZeroOnChanges: true
+          # Add branch name to build title
+          branchName: ${{ github.ref_name }}
