@@ -11,6 +11,7 @@ import pluginReactHooks from 'eslint-plugin-react-hooks';
 import pluginSimpleImportSort from 'eslint-plugin-simple-import-sort';
 // @ts-ignore
 import pluginSortKeysFix from 'eslint-plugin-sort-keys-fix';
+import pluginStorybook from 'eslint-plugin-storybook';
 import pluginUnicorn from 'eslint-plugin-unicorn';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
@@ -174,6 +175,13 @@ export default tseslint.config(
     files: ['**/routes/**/*.{ts,tsx}', '**/schema/**/*.ts'],
     rules: {
       'sort-keys-fix/sort-keys-fix': 'off',
+    },
+  },
+  {
+    files: ['**/*.stories.tsx'],
+    rules: {
+      ...pluginStorybook.configs.recommended.rules,
+      'react-hooks/rules-of-hooks': 'off',
     },
   },
   configPrettier,

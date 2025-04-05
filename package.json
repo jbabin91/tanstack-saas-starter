@@ -22,11 +22,6 @@
       "path": "./node_modules/cz-git"
     }
   },
-  "eslintConfig": {
-    "extends": [
-      "plugin:storybook/recommended"
-    ]
-  },
   "dependencies": {
     "@faker-js/faker": "^9.6.0",
     "@radix-ui/react-accordion": "^1.2.3",
