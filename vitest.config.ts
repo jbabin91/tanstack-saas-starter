@@ -44,30 +44,29 @@ export default defineConfig({
     },
     environment: 'jsdom',
     globals: true,
-    hookTimeout: 45000,
-    isolate: false, // Disable isolation to prevent suite finding issues
-    maxConcurrency: 1, // Run tests sequentially to prevent race conditions
-    maxWorkers: 1,
+    // Longer timeouts in CI, shorter locally for faster feedback
+    hookTimeout: isCI ? 45000 : 10000,
+    // Keep isolate false as it fixed the suite discovery issue
+    isolate: false,
+    // Parallel in local, sequential in CI for stability
+    maxConcurrency: isCI ? 1 : 3,
+    maxWorkers: isCI ? 1 : 2,
     minWorkers: 1,
     pool: 'threads',
-    sequence: {
-      shuffle: false, // Ensure consistent test order
-    },
-    // Use threads consistently across environments
     setupFiles: ['.storybook/vitest.setup.ts'],
-    testTimeout: 45000,
+    testTimeout: isCI ? 45000 : 10000,
     workspace: [
       {
         extends: true,
         plugins: [
           storybookTest({
             configDir: path.join(dirname, '.storybook'),
-            storybookScript: 'pnpm storybook --ci',
+            // Keep quiet flag in CI for cleaner logs
+            storybookScript:
+              isCI ? 'pnpm storybook --ci --quiet' : 'pnpm storybook --ci',
             storybookUrl: 'http://localhost:6006',
             tags: {
-              exclude: [],
               include: ['test'],
-              skip: [],
             },
           }),
         ],
@@ -80,7 +79,9 @@ export default defineConfig({
             provider: 'playwright',
           },
           name: 'storybook',
+          // More retries in CI, fewer locally for faster feedback
           retry: isCI ? 2 : 1,
+          testTimeout: isCI ? 45000 : 10000,
         },
       },
     ],
