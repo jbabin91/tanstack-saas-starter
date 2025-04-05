@@ -16,5 +16,9 @@ runs:
       shell: bash
       run: pnpm typecheck
 
+    - name: Tests
+      shell: bash
+      run: pnpm test
+
     # Add additional branch checks here.
     # i.e. Tests, Translations, security, and any other additional check

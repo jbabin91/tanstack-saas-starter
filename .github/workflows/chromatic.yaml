@@ -30,3 +30,7 @@ jobs:
           exitZeroOnChanges: true
           # Add branch name to build title
           branchName: ${{ github.ref_name }}
+          # Speed up builds by using file hashing
+          fileHashing: true
+          # Skip update check to speed up execution
+          skipUpdateCheck: true
