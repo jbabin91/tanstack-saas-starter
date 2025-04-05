@@ -1,122 +1,84 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import * as React from 'react';
+import { useEffect, useState } from 'react';
 
 import { Progress } from './progress';
 
-const meta: Meta<typeof Progress> = {
-  argTypes: {
-    value: {
-      control: { max: 100, min: 0, type: 'number' },
-      description: 'Current progress value (0-100)',
-    },
-  },
+const meta = {
   component: Progress,
   parameters: {
     layout: 'centered',
   },
   tags: ['autodocs'],
   title: 'UI/Progress',
-};
+} satisfies Meta<typeof Progress>;
 
 export default meta;
-type Story = StoryObj<typeof Progress>;
+type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    value: 40,
+    value: 45,
   },
-  render: (args) => (
-    <div className="w-[300px]">
-      <Progress {...args} />
-    </div>
-  ),
 };
 
-export const NoValue: Story = {
+export const Small: Story = {
   args: {
-    value: undefined,
-  },
-  render: (args) => (
-    <div className="w-[300px]">
-      <Progress {...args} />
-    </div>
-  ),
-};
-
-export const Complete: Story = {
-  args: {
-    value: 100,
-  },
-  render: (args) => (
-    <div className="w-[300px]">
-      <Progress {...args} />
-    </div>
-  ),
-};
-
-export const WithLabel: Story = {
-  args: {
+    className: 'h-1',
     value: 60,
   },
-  render: (args) => {
+};
+
+export const Large: Story = {
+  args: {
+    className: 'h-3',
+    value: 80,
+  },
+};
+
+// Interactive example with loading simulation
+export const Loading: Story = {
+  render: function Render() {
+    const [progress, setProgress] = useState(0);
+
+    useEffect(() => {
+      const timer = setTimeout(() => {
+        setProgress((prevProgress) => {
+          if (prevProgress >= 100) {
+            return 0;
+          }
+          return prevProgress + 5;
+        });
+      }, 500);
+
+      return () => {
+        clearTimeout(timer);
+      };
+    }, [progress]);
+
     return (
-      <div className="w-[300px] space-y-2">
-        <div className="flex justify-between">
-          <span className="text-sm font-medium">Progress</span>
-          <span className="text-sm font-medium">{args.value}%</span>
-        </div>
-        <Progress {...args} />
+      <div className="w-full max-w-sm">
+        <Progress className="mb-2" value={progress} />
+        <div className="text-center text-sm">{progress}% complete</div>
       </div>
     );
   },
-};
-
-export const CustomHeight: Story = {
-  args: {
-    className: 'h-4',
-    value: 75,
-  },
-  render: (args) => (
-    <div className="w-[300px]">
-      <Progress {...args} />
-    </div>
-  ),
 };
 
 export const CustomColors: Story = {
   args: {
+    className: 'bg-gray-200 [&>div]:bg-blue-500',
     value: 50,
   },
-  render: (args) => (
-    <div className="w-[300px] space-y-4">
-      <Progress {...args} className="bg-blue-100 [&>div]:bg-blue-600" />
-      <Progress {...args} className="bg-green-100 [&>div]:bg-green-600" />
-      <Progress {...args} className="bg-amber-100 [&>div]:bg-amber-600" />
-      <Progress {...args} className="bg-red-100 [&>div]:bg-red-600" />
-    </div>
-  ),
 };
 
-export const AnimatedProgress: Story = {
-  render: () => {
-    const [progress, setProgress] = React.useState(13);
-
-    React.useEffect(() => {
-      const timer = setTimeout(() => {
-        setProgress(66);
-      }, 1000);
-
-      return () => clearTimeout(timer);
-    }, []);
-
-    return (
-      <div className="w-[300px] space-y-2">
-        <div className="flex justify-between">
-          <span className="text-sm font-medium">Downloading...</span>
-          <span className="text-sm font-medium">{progress}%</span>
-        </div>
-        <Progress value={progress} />
+export const WithLabel: Story = {
+  render: () => (
+    <div className="w-full max-w-sm">
+      <div className="mb-1 flex justify-between text-sm">
+        <span>Progress</span>
+        <span>75%</span>
       </div>
-    );
-  },
+      <Progress value={75} />
+    </div>
+  ),
 };
