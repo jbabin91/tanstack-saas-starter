@@ -4,7 +4,7 @@
     "jsx": "react-jsx",
     "module": "ESNext",
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
-    "types": ["vite/client"],
+    "types": ["vite/client", "vitest/globals"],
 
     /* Bundler mode */
     "moduleResolution": "bundler",
@@ -35,6 +35,8 @@
     ".commitlintrc.ts",
     "eslint.config.*",
     "postcss.config.*",
-    "app.config.*"
+    "app.config.*",
+    ".storybook/**/*",
+    "vitest.config.*"
   ]
 }

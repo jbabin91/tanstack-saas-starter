@@ -2,7 +2,7 @@ import { createFileRoute } from '@tanstack/react-router';
 import { z } from 'zod';
 
 import { Card, CardContent } from '@/components/ui/card';
-import { useAppForm } from '@/hooks/use-app-form';
+import { useAppForm } from '@/components/ui/form';
 
 export const Route = createFileRoute('/_app/demos/forms/simple')({
   component: SimpleForm,
