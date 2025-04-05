@@ -152,7 +152,8 @@
   "packageManager": "pnpm@10.7.1",
   "pnpm": {
     "onlyBuiltDependencies": [
-      "@parcel/watcher"
+      "@parcel/watcher",
+      "@swc/core"
     ],
     "ignoredBuiltDependencies": [
       "esbuild"
