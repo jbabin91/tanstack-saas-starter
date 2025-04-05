@@ -10,6 +10,9 @@ const dirname =
     path.dirname(fileURLToPath(import.meta.url))
   );
 
+// CI detection
+const isCI = process.env.CI === 'true';
+
 // More info at: https://storybook.js.org/docs/writing-tests/test-addon
 export default defineConfig({
   test: {
@@ -23,13 +26,24 @@ export default defineConfig({
     },
     environment: 'jsdom',
     globals: true,
-    hookTimeout: 30000,
+    hookTimeout: isCI ? 30000 : 10000,
     isolate: true,
-    maxConcurrency: 1,
-    maxWorkers: 1,
+    // Adjust concurrency based on environment
+    maxConcurrency: isCI ? 1 : 3,
+    maxWorkers: isCI ? 1 : 2,
     minWorkers: 1,
+    // Use threads in local dev, vmThreads in CI for better isolation
+    pool: isCI ? 'vmThreads' : 'threads',
+    poolOptions: {
+      threads: {
+        singleThread: isCI,
+      },
+      vmThreads: {
+        useAtomics: true,
+      },
+    },
     setupFiles: ['.storybook/vitest.setup.ts'],
-    testTimeout: 30000,
+    testTimeout: isCI ? 30000 : 10000,
     workspace: [
       {
         extends: true,
@@ -56,7 +70,8 @@ export default defineConfig({
             provider: 'playwright',
           },
           name: 'storybook',
-          retry: 2,
+          // More retries in CI
+          retry: isCI ? 2 : 1,
         },
       },
     ],
