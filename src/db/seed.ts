@@ -8,7 +8,7 @@ async function main() {
     schema,
   });
 
-  await seed(db, schema, { seed: 123 }).refine((f) => ({
+  await seed(db, schema, { seed: 1234 }).refine((f) => ({
     users: {
       columns: {
         created_at: f.date({ maxDate: new Date() }),
@@ -17,28 +17,7 @@ async function main() {
           isUnique: false,
           values: ['en', 'es', 'fr', 'de'],
         }),
-        metadata: f.valuesFromArray({
-          values: [
-            {
-              values: [
-                JSON.stringify({
-                  address: {
-                    city: f.city(),
-                    country: f.country(),
-                    state: f.state(),
-                    street: f.streetAddress(),
-                    zip: f.postcode(),
-                  },
-                  avatar: f.string(),
-                  company: f.companyName({ isUnique: true }),
-                  phone: f.phoneNumber(),
-                  title: f.jobTitle(),
-                }),
-              ],
-              weight: 1,
-            },
-          ],
-        }),
+        metadata: f.json(),
         name: f.fullName({ isUnique: true }),
       },
       count: 50,
@@ -46,42 +25,7 @@ async function main() {
     subscriptions: {
       columns: {
         end_date: f.date({ minDate: new Date() }),
-        metadata: f.default({
-          defaultValue: () => {
-            const features = [
-              'api_access',
-              'team_members',
-              'custom_domain',
-              'analytics',
-              'support',
-              'priority_support',
-              'custom_branding',
-              'audit_logs',
-              'sso',
-              'advanced_security',
-            ];
-            // Random number of features between 3 and 7
-            const numFeatures = 3 + Math.floor(Math.random() * 5);
-            const selectedFeatures = features
-              .sort(() => Math.random() - 0.5)
-              .slice(0, numFeatures);
-
-            return JSON.stringify({
-              paymentMethod: ['card', 'paypal', 'bank_transfer'][
-                Math.floor(Math.random() * 3)
-              ],
-              cardLast4: String(Math.floor(Math.random() * 10000)).padStart(
-                4,
-                '0',
-              ),
-              trialEnds: new Date(
-                Date.now()
-                  + (Math.floor(Math.random() * 30) + 1) * 24 * 60 * 60 * 1000,
-              ).toISOString(), // Random 1-30 days from now
-              features: selectedFeatures,
-            });
-          },
-        }),
+        metadata: f.json(),
         plan: f.valuesFromArray({
           isUnique: false,
           values: ['free', 'pro', 'enterprise'],
