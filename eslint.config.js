@@ -173,7 +173,7 @@ export default tseslint.config(
     },
   },
   {
-    files: ['**/routes/**/*.{ts,tsx}', '**/schema/**/*.ts'],
+    files: ['**/routes/**/*.{ts,tsx}', '**/schema/**/*.ts', '**/db/seed.ts'],
     rules: {
       'sort-keys-fix/sort-keys-fix': 'off',
     },
