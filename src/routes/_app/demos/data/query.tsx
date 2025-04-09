@@ -16,7 +16,7 @@ function QueryDemo() {
   });
 
   return (
-    <div className="p-4">
+    <div>
       <h1 className="mb-4 text-2xl">People list from Swapi</h1>
       <ul>
         {data.map((person) => (

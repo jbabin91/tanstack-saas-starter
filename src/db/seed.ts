@@ -1,17 +1,12 @@
-import { drizzle } from 'drizzle-orm/node-postgres';
 import { seed } from 'drizzle-seed';
 
-import * as schema from './schema';
+import { db, schema } from '@/db'; // Import shared db and schema
 
 async function main() {
-  const db = drizzle(process.env.DATABASE_URL!, {
-    schema,
-  });
-
   await seed(db, schema, { seed: 1234 }).refine((f) => ({
     users: {
       columns: {
-        created_at: f.date({ maxDate: new Date() }),
+        // createdAt and updatedAt are omitted to let DB defaults apply
         email: f.email(),
         locale: f.valuesFromArray({
           isUnique: false,

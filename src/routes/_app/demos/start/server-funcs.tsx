@@ -48,13 +48,11 @@ function RouteComponent() {
   });
 
   return (
-    <div className="p-4">
-      <Button
-        disabled={mutation.isPending}
-        onClick={() => mutation.mutate({ data: 1 })}
-      >
-        Add 1 to {state}?
-      </Button>
-    </div>
+    <Button
+      disabled={mutation.isPending}
+      onClick={() => mutation.mutate({ data: 1 })}
+    >
+      Add 1 to {state}?
+    </Button>
   );
 }

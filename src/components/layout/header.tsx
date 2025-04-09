@@ -5,7 +5,7 @@ import { ModeToggle } from '@/components/mode-toggle';
 export default function Header() {
   return (
     <header className="flex justify-between gap-2 border-b p-2">
-      <nav className="flex flex-row">
+      <nav className="flex flex-row items-center">
         <div className="px-2 font-bold">
           <Link to="/">Home</Link>
         </div>
@@ -31,7 +31,7 @@ export default function Header() {
         </div>
 
         <div className="px-2 font-bold">
-          <Link to="/demos/data/table">TanStack Table</Link>
+          <Link to="/users">TanStack Table</Link>
         </div>
       </nav>
       <ModeToggle />
