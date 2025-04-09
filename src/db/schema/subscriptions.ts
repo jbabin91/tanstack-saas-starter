@@ -6,6 +6,12 @@ import {
   timestamp,
   uuid,
 } from 'drizzle-orm/pg-core';
+import {
+  createInsertSchema,
+  createSelectSchema,
+  createUpdateSchema,
+} from 'drizzle-zod';
+import { type z } from 'zod';
 
 import { users } from './users';
 
@@ -36,3 +42,11 @@ export const subscriptions = pgTable(
     index('subscriptions_canceled_at_idx').on(table.canceledAt),
   ],
 );
+
+export const subscriptionSelectSchema = createSelectSchema(subscriptions);
+export const subscriptionInsertSchema = createInsertSchema(subscriptions);
+export const subscriptionUpdateSchema = createUpdateSchema(subscriptions);
+
+export type Subscription = z.infer<typeof subscriptionSelectSchema>;
+export type SubscriptionInsert = z.infer<typeof subscriptionInsertSchema>;
+export type SubscriptionUpdate = z.infer<typeof subscriptionUpdateSchema>;

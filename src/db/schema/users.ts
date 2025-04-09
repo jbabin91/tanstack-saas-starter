@@ -7,6 +7,12 @@ import {
   uniqueIndex,
   uuid,
 } from 'drizzle-orm/pg-core';
+import {
+  createInsertSchema,
+  createSelectSchema,
+  createUpdateSchema,
+} from 'drizzle-zod';
+import { type z } from 'zod';
 
 export const users = pgTable(
   'users',
@@ -29,3 +35,11 @@ export const users = pgTable(
     index('users_created_at_idx').on(table.createdAt),
   ],
 );
+
+export const userSelectSchema = createSelectSchema(users);
+export const userInsertSchema = createInsertSchema(users);
+export const userUpdateSchema = createUpdateSchema(users);
+
+export type User = z.infer<typeof userSelectSchema>;
+export type UserInsert = z.infer<typeof userInsertSchema>;
+export type UserUpdate = z.infer<typeof userUpdateSchema>;

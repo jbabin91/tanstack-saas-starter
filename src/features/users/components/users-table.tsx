@@ -37,16 +37,10 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { useUsersQuery } from '@/features/users/hooks/use-users-query';
+import { type UserApiOutput } from '@/features/users/types/user-types';
 
-// Define the shape of our user data based on the server function response
-type UserData = {
-  id: string;
-  email: string;
-  name: string | null;
-  locale: string;
-  createdAt: Date;
-  updatedAt: Date;
-};
+// Use the specific type inferred from the shared types file
+type UserData = UserApiOutput;
 
 // Create columns using the column helper
 const columnHelper = createColumnHelper<UserData>();
