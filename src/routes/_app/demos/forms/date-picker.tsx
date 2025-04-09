@@ -51,51 +51,49 @@ function DatePickerForm() {
   });
 
   return (
-    <div className="flex min-h-screen items-center justify-center p-4">
-      <Card className="w-full max-w-2xl">
-        <CardHeader>
-          <CardTitle>Schedule an Event</CardTitle>
-          <CardDescription>
-            Use the form below to schedule your event with our new calendar
-            picker.
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <form
-            className="space-y-6"
-            onSubmit={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              form.handleSubmit();
-            }}
-          >
-            <form.AppField name="eventName">
-              {(field) => <field.TextField label="Event Name" />}
-            </form.AppField>
+    <Card className="w-full max-w-2xl">
+      <CardHeader>
+        <CardTitle>Schedule an Event</CardTitle>
+        <CardDescription>
+          Use the form below to schedule your event with our new calendar
+          picker.
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <form
+          className="space-y-6"
+          onSubmit={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            form.handleSubmit();
+          }}
+        >
+          <form.AppField name="eventName">
+            {(field) => <field.TextField label="Event Name" />}
+          </form.AppField>
 
-            <form.AppField name="eventDate">
-              {(field) => (
-                <DatePicker
-                  error={field.state.meta.errors?.[0]}
-                  label="Date"
-                  value={field.state.value ?? undefined}
-                  onChange={(date) => field.setValue(date ?? null)}
-                />
-              )}
-            </form.AppField>
+          <form.AppField name="eventDate">
+            {(field) => (
+              <DatePicker
+                error={field.state.meta.errors?.[0]}
+                label="Date"
+                value={field.state.value ?? undefined}
+                onChange={(date) => field.setValue(date ?? null)}
+              />
+            )}
+          </form.AppField>
 
-            <form.AppField name="description">
-              {(field) => <field.TextArea label="Description" rows={4} />}
-            </form.AppField>
+          <form.AppField name="description">
+            {(field) => <field.TextArea label="Description" rows={4} />}
+          </form.AppField>
 
-            <div className="flex justify-end">
-              <form.AppForm>
-                <form.SubscribeButton label="Schedule Event" />
-              </form.AppForm>
-            </div>
-          </form>
-        </CardContent>
-      </Card>
-    </div>
+          <div className="flex justify-end">
+            <form.AppForm>
+              <form.SubscribeButton label="Schedule Event" />
+            </form.AppForm>
+          </div>
+        </form>
+      </CardContent>
+    </Card>
   );
 }

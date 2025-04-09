@@ -16,7 +16,7 @@ function Home() {
   });
 
   return (
-    <div className="p-4">
+    <div>
       <div>{names.join(', ')}</div>
     </div>
   );

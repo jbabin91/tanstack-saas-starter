@@ -3,6 +3,8 @@ node_modules/
 .vinxi/
 storybook-static/
 
+**/migrations/**
+
 pnpm-lock.yaml
 
 *.gen.ts

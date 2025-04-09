@@ -50,7 +50,7 @@ For breaking changes:
 - Add `!` before the colon
 - Pattern: `<type>(<scope>)!: <emoji> <description>`
 
-### Commit Body
+### Commit Body (REQUIRED)
 
 The commit body should:
 

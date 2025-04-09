@@ -15,6 +15,7 @@ import { Route as PublicRouteImport } from './routes/_public/route';
 import { Route as AuthRouteImport } from './routes/_auth/route';
 import { Route as AppRouteImport } from './routes/_app/route';
 import { Route as PublicIndexImport } from './routes/_public/index';
+import { Route as AppUsersImport } from './routes/_app/users';
 import { Route as AppDemosStartServerFuncsImport } from './routes/_app/demos/start/server-funcs';
 import { Route as AppDemosStartApiRequestImport } from './routes/_app/demos/start/api-request';
 import { Route as AppDemosFormsSimpleImport } from './routes/_app/demos/forms/simple';
@@ -22,7 +23,6 @@ import { Route as AppDemosFormsDateRangePickerImport } from './routes/_app/demos
 import { Route as AppDemosFormsDatePickerImport } from './routes/_app/demos/forms/date-picker';
 import { Route as AppDemosFormsCalendarImport } from './routes/_app/demos/forms/calendar';
 import { Route as AppDemosFormsAddressImport } from './routes/_app/demos/forms/address';
-import { Route as AppDemosDataTableImport } from './routes/_app/demos/data/table';
 import { Route as AppDemosDataQueryImport } from './routes/_app/demos/data/query';
 
 // Create/Update Routes
@@ -46,6 +46,12 @@ const PublicIndexRoute = PublicIndexImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => PublicRouteRoute,
+} as any);
+
+const AppUsersRoute = AppUsersImport.update({
+  id: '/users',
+  path: '/users',
+  getParentRoute: () => AppRouteRoute,
 } as any);
 
 const AppDemosStartServerFuncsRoute = AppDemosStartServerFuncsImport.update({
@@ -91,12 +97,6 @@ const AppDemosFormsAddressRoute = AppDemosFormsAddressImport.update({
   getParentRoute: () => AppRouteRoute,
 } as any);
 
-const AppDemosDataTableRoute = AppDemosDataTableImport.update({
-  id: '/demos/data/table',
-  path: '/demos/data/table',
-  getParentRoute: () => AppRouteRoute,
-} as any);
-
 const AppDemosDataQueryRoute = AppDemosDataQueryImport.update({
   id: '/demos/data/query',
   path: '/demos/data/query',
@@ -128,6 +128,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PublicRouteImport;
       parentRoute: typeof rootRoute;
     };
+    '/_app/users': {
+      id: '/_app/users';
+      path: '/users';
+      fullPath: '/users';
+      preLoaderRoute: typeof AppUsersImport;
+      parentRoute: typeof AppRouteImport;
+    };
     '/_public/': {
       id: '/_public/';
       path: '/';
@@ -140,13 +147,6 @@ declare module '@tanstack/react-router' {
       path: '/demos/data/query';
       fullPath: '/demos/data/query';
       preLoaderRoute: typeof AppDemosDataQueryImport;
-      parentRoute: typeof AppRouteImport;
-    };
-    '/_app/demos/data/table': {
-      id: '/_app/demos/data/table';
-      path: '/demos/data/table';
-      fullPath: '/demos/data/table';
-      preLoaderRoute: typeof AppDemosDataTableImport;
       parentRoute: typeof AppRouteImport;
     };
     '/_app/demos/forms/address': {
@@ -204,8 +204,8 @@ declare module '@tanstack/react-router' {
 // Create and export the route tree
 
 interface AppRouteRouteChildren {
+  AppUsersRoute: typeof AppUsersRoute;
   AppDemosDataQueryRoute: typeof AppDemosDataQueryRoute;
-  AppDemosDataTableRoute: typeof AppDemosDataTableRoute;
   AppDemosFormsAddressRoute: typeof AppDemosFormsAddressRoute;
   AppDemosFormsCalendarRoute: typeof AppDemosFormsCalendarRoute;
   AppDemosFormsDatePickerRoute: typeof AppDemosFormsDatePickerRoute;
@@ -216,8 +216,8 @@ interface AppRouteRouteChildren {
 }
 
 const AppRouteRouteChildren: AppRouteRouteChildren = {
+  AppUsersRoute: AppUsersRoute,
   AppDemosDataQueryRoute: AppDemosDataQueryRoute,
-  AppDemosDataTableRoute: AppDemosDataTableRoute,
   AppDemosFormsAddressRoute: AppDemosFormsAddressRoute,
   AppDemosFormsCalendarRoute: AppDemosFormsCalendarRoute,
   AppDemosFormsDatePickerRoute: AppDemosFormsDatePickerRoute,
@@ -245,9 +245,9 @@ const PublicRouteRouteWithChildren = PublicRouteRoute._addFileChildren(
 
 export interface FileRoutesByFullPath {
   '': typeof PublicRouteRouteWithChildren;
+  '/users': typeof AppUsersRoute;
   '/': typeof PublicIndexRoute;
   '/demos/data/query': typeof AppDemosDataQueryRoute;
-  '/demos/data/table': typeof AppDemosDataTableRoute;
   '/demos/forms/address': typeof AppDemosFormsAddressRoute;
   '/demos/forms/calendar': typeof AppDemosFormsCalendarRoute;
   '/demos/forms/date-picker': typeof AppDemosFormsDatePickerRoute;
@@ -259,9 +259,9 @@ export interface FileRoutesByFullPath {
 
 export interface FileRoutesByTo {
   '': typeof AuthRouteRoute;
+  '/users': typeof AppUsersRoute;
   '/': typeof PublicIndexRoute;
   '/demos/data/query': typeof AppDemosDataQueryRoute;
-  '/demos/data/table': typeof AppDemosDataTableRoute;
   '/demos/forms/address': typeof AppDemosFormsAddressRoute;
   '/demos/forms/calendar': typeof AppDemosFormsCalendarRoute;
   '/demos/forms/date-picker': typeof AppDemosFormsDatePickerRoute;
@@ -276,9 +276,9 @@ export interface FileRoutesById {
   '/_app': typeof AppRouteRouteWithChildren;
   '/_auth': typeof AuthRouteRoute;
   '/_public': typeof PublicRouteRouteWithChildren;
+  '/_app/users': typeof AppUsersRoute;
   '/_public/': typeof PublicIndexRoute;
   '/_app/demos/data/query': typeof AppDemosDataQueryRoute;
-  '/_app/demos/data/table': typeof AppDemosDataTableRoute;
   '/_app/demos/forms/address': typeof AppDemosFormsAddressRoute;
   '/_app/demos/forms/calendar': typeof AppDemosFormsCalendarRoute;
   '/_app/demos/forms/date-picker': typeof AppDemosFormsDatePickerRoute;
@@ -292,9 +292,9 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath;
   fullPaths:
     | ''
+    | '/users'
     | '/'
     | '/demos/data/query'
-    | '/demos/data/table'
     | '/demos/forms/address'
     | '/demos/forms/calendar'
     | '/demos/forms/date-picker'
@@ -305,9 +305,9 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo;
   to:
     | ''
+    | '/users'
     | '/'
     | '/demos/data/query'
-    | '/demos/data/table'
     | '/demos/forms/address'
     | '/demos/forms/calendar'
     | '/demos/forms/date-picker'
@@ -320,9 +320,9 @@ export interface FileRouteTypes {
     | '/_app'
     | '/_auth'
     | '/_public'
+    | '/_app/users'
     | '/_public/'
     | '/_app/demos/data/query'
-    | '/_app/demos/data/table'
     | '/_app/demos/forms/address'
     | '/_app/demos/forms/calendar'
     | '/_app/demos/forms/date-picker'
@@ -363,8 +363,8 @@ export const routeTree = rootRoute
     "/_app": {
       "filePath": "_app/route.tsx",
       "children": [
+        "/_app/users",
         "/_app/demos/data/query",
-        "/_app/demos/data/table",
         "/_app/demos/forms/address",
         "/_app/demos/forms/calendar",
         "/_app/demos/forms/date-picker",
@@ -383,16 +383,16 @@ export const routeTree = rootRoute
         "/_public/"
       ]
     },
+    "/_app/users": {
+      "filePath": "_app/users.tsx",
+      "parent": "/_app"
+    },
     "/_public/": {
       "filePath": "_public/index.tsx",
       "parent": "/_public"
     },
     "/_app/demos/data/query": {
       "filePath": "_app/demos/data/query.tsx",
-      "parent": "/_app"
-    },
-    "/_app/demos/data/table": {
-      "filePath": "_app/demos/data/table.tsx",
       "parent": "/_app"
     },
     "/_app/demos/forms/address": {
