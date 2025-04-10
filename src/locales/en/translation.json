@@ -1,0 +1,43 @@
+{
+  "auth": {
+    "email": "Email",
+    "forgotPassword": "Forgot Password?",
+    "login": "Login",
+    "password": "Password",
+    "rememberMe": "Remember Me",
+    "signup": "Sign Up"
+  },
+  "common": {
+    "cancel": "Cancel",
+    "create": "Create",
+    "delete": "Delete",
+    "edit": "Edit",
+    "error": "Error",
+    "language": "Language",
+    "loading": "Loading...",
+    "save": "Save",
+    "success": "Success",
+    "logoAlt": "logo"
+  },
+  "errors": {
+    "invalidEmail": "Invalid email address",
+    "invalidPassword": "Password must be at least 8 characters",
+    "required": "This field is required",
+    "somethingWentWrong": "Something went wrong"
+  },
+  "landing": {
+    "learnReact": "Learn React",
+    "learnTanstack": "Learn TanStack",
+    "editCode": {
+      "message": "Edit <0>{{path}}</0> and save to reload.",
+      "path": "src/routes/index.tsx"
+    }
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "home": "Home",
+    "logout": "Logout",
+    "profile": "Profile",
+    "settings": "Settings"
+  }
+}

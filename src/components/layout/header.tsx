@@ -1,5 +1,6 @@
 import { Link } from '@tanstack/react-router';
 
+import { LanguageSwitcher } from '@/components/language-switcher';
 import { ModeToggle } from '@/components/mode-toggle';
 
 export default function Header() {
@@ -34,7 +35,10 @@ export default function Header() {
           <Link to="/users">TanStack Table</Link>
         </div>
       </nav>
-      <ModeToggle />
+      <div className="flex flex-row items-center gap-2">
+        <LanguageSwitcher />
+        <ModeToggle />
+      </div>
     </header>
   );
 }
