@@ -29,8 +29,8 @@
     "learnReact": "Learn React",
     "learnTanstack": "Learn TanStack",
     "editCode": {
-      "path": "src/routes/index.tsx",
-      "message": "Edit <0>{{path}}</0> and save to reload."
+      "message": "Edit <0>{{path}}</0> and save to reload.",
+      "path": "src/routes/index.tsx"
     }
   },
   "nav": {

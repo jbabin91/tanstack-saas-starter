@@ -21,7 +21,7 @@ function Home() {
         />
         <p>
           <Trans
-            components={[<code key={t('landing.editCode.path')} />]}
+            components={[<code key="path" />]}
             i18nKey="landing.editCode.message"
             values={{ path: t('landing.editCode.path') }}
           />

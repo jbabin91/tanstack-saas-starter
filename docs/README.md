@@ -25,6 +25,7 @@ Welcome to the TanStack SaaS Starter documentation. This guide will help you und
 - [JavaScript](./core/javascript.md) - JavaScript patterns and practices
 - [React](./core/react.md) - React patterns and best practices
 - [Modules](./core/modules.md) - Module system and imports
+- [Internationalization](./core/i18n.md) - i18n setup and usage
 
 ### Development Workflow
 
