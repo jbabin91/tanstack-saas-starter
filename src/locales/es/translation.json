@@ -1,0 +1,43 @@
+{
+  "auth": {
+    "email": "Correo Electrónico",
+    "forgotPassword": "¿Olvidaste tu Contraseña?",
+    "login": "Iniciar Sesión",
+    "password": "Contraseña",
+    "rememberMe": "Recordarme",
+    "signup": "Registrarse"
+  },
+  "common": {
+    "cancel": "Cancelar",
+    "create": "Crear",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "error": "Error",
+    "language": "Idioma",
+    "loading": "Cargando...",
+    "save": "Guardar",
+    "success": "Éxito",
+    "logoAlt": "logo"
+  },
+  "errors": {
+    "invalidEmail": "Correo electrónico inválido",
+    "invalidPassword": "La contraseña debe tener al menos 8 caracteres",
+    "required": "Este campo es requerido",
+    "somethingWentWrong": "Algo salió mal"
+  },
+  "landing": {
+    "learnReact": "Aprender React",
+    "learnTanstack": "Aprender TanStack",
+    "editCode": {
+      "path": "src/routes/index.tsx",
+      "message": "Editar <0>{{path}}</0> y guardar para recargar."
+    }
+  },
+  "nav": {
+    "dashboard": "Panel",
+    "home": "Inicio",
+    "logout": "Cerrar Sesión",
+    "profile": "Perfil",
+    "settings": "Configuración"
+  }
+}
