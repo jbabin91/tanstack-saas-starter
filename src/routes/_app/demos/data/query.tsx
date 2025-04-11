@@ -1,11 +1,14 @@
 import { useQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
 
+import { useTranslations } from '@/hooks/use-translations';
+
 export const Route = createFileRoute('/_app/demos/data/query')({
   component: QueryDemo,
 });
 
 function QueryDemo() {
+  const { t } = useTranslations();
   const { data } = useQuery({
     queryKey: ['people'],
     queryFn: () =>
@@ -17,7 +20,7 @@ function QueryDemo() {
 
   return (
     <div>
-      <h1 className="mb-4 text-2xl">People list from Swapi</h1>
+      <h1 className="mb-4 text-2xl">{t('demos.data.peopleListTitle')}</h1>
       <ul>
         {data.map((person) => (
           <li key={person.name}>{person.name}</li>

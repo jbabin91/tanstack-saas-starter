@@ -5,6 +5,7 @@ import { createFileRoute, useRouter } from '@tanstack/react-router';
 import { createServerFn } from '@tanstack/react-start';
 
 import { Button } from '@/components/ui/button';
+import { useTranslations } from '@/hooks/use-translations';
 
 const filePath = 'count.txt';
 
@@ -35,6 +36,7 @@ export const Route = createFileRoute('/_app/demos/start/server-funcs')({
 function RouteComponent() {
   const router = useRouter();
   const queryClient = useQueryClient();
+  const { t } = useTranslations();
   const state = Route.useLoaderData();
 
   const mutation = useMutation({
@@ -52,7 +54,7 @@ function RouteComponent() {
       disabled={mutation.isPending}
       onClick={() => mutation.mutate({ data: 1 })}
     >
-      Add 1 to {state}?
+      {t('demos.start.addToCounter', { count: state })}
     </Button>
   );
 }

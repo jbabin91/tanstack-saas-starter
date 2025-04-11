@@ -3,6 +3,7 @@ import { z } from 'zod';
 
 import { Card, CardContent } from '@/components/ui/card';
 import { useAppForm } from '@/components/ui/form';
+import { useTranslations } from '@/hooks/use-translations';
 
 export const Route = createFileRoute('/_app/demos/forms/simple')({
   component: SimpleForm,
@@ -14,6 +15,7 @@ const schema = z.object({
 });
 
 function SimpleForm() {
+  const { t } = useTranslations();
   const form = useAppForm({
     defaultValues: {
       title: '',
@@ -25,7 +27,7 @@ function SimpleForm() {
     onSubmit: ({ value }) => {
       console.log(value);
       // Show success message
-      alert('Form submitted successfully!');
+      alert(t('common.formSubmitSuccess'));
     },
   });
 
@@ -41,16 +43,20 @@ function SimpleForm() {
           }}
         >
           <form.AppField name="title">
-            {(field) => <field.TextField label="Title" />}
+            {(field) => (
+              <field.TextField label={t('forms.simple.titleLabel')} />
+            )}
           </form.AppField>
 
           <form.AppField name="description">
-            {(field) => <field.TextArea label="Description" />}
+            {(field) => (
+              <field.TextArea label={t('forms.simple.descriptionLabel')} />
+            )}
           </form.AppField>
 
           <div className="flex justify-end">
             <form.AppForm>
-              <form.SubscribeButton label="Submit" />
+              <form.SubscribeButton label={t('common.submit')} />
             </form.AppForm>
           </div>
         </form>

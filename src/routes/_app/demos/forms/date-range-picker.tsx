@@ -9,12 +9,14 @@ import {
 } from '@/components/ui/card';
 import { DateRangePicker } from '@/components/ui/date-range-picker';
 import { useAppForm } from '@/components/ui/form';
+import { useTranslations } from '@/hooks/use-translations';
 
 export const Route = createFileRoute('/_app/demos/forms/date-range-picker')({
   component: DateRangePickerForm,
 });
 
 function DateRangePickerForm() {
+  const { t } = useTranslations();
   const form = useAppForm({
     defaultValues: {
       eventName: '',
@@ -44,7 +46,11 @@ function DateRangePickerForm() {
       if (!value.dateRange) return;
       console.log(value);
       alert(
-        `Event "${value.eventName}" scheduled from ${value.dateRange.from.toLocaleDateString()} to ${value.dateRange.to.toLocaleDateString()}`,
+        t('forms.dateRangePicker.successMessage', {
+          eventName: value.eventName,
+          startDate: value.dateRange.from.toLocaleDateString(),
+          endDate: value.dateRange.to.toLocaleDateString(),
+        }),
       );
     },
   });
@@ -52,10 +58,9 @@ function DateRangePickerForm() {
   return (
     <Card className="w-full max-w-2xl">
       <CardHeader>
-        <CardTitle>Schedule an Event Range</CardTitle>
+        <CardTitle>{t('forms.dateRangePicker.title')}</CardTitle>
         <CardDescription>
-          Use the form below to schedule your event with our new date range
-          picker.
+          {t('forms.dateRangePicker.description')}
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -68,7 +73,9 @@ function DateRangePickerForm() {
           }}
         >
           <form.AppField name="eventName">
-            {(field) => <field.TextField label="Event Name" />}
+            {(field) => (
+              <field.TextField label={t('forms.datePicker.eventNameLabel')} />
+            )}
           </form.AppField>
 
           <form.AppField name="dateRange">
@@ -78,7 +85,7 @@ function DateRangePickerForm() {
                   className="text-sm leading-none font-medium"
                   htmlFor="date-range-picker"
                 >
-                  Date Range
+                  {t('forms.dateRangePicker.dateRangeLabel')}
                 </label>
                 <DateRangePicker
                   className={
@@ -96,12 +103,19 @@ function DateRangePickerForm() {
           </form.AppField>
 
           <form.AppField name="description">
-            {(field) => <field.TextArea label="Description" rows={4} />}
+            {(field) => (
+              <field.TextArea
+                label={t('forms.datePicker.descriptionLabel')}
+                rows={4}
+              />
+            )}
           </form.AppField>
 
           <div className="flex justify-end">
             <form.AppForm>
-              <form.SubscribeButton label="Schedule Event" />
+              <form.SubscribeButton
+                label={t('forms.datePicker.submitButtonLabel')}
+              />
             </form.AppForm>
           </div>
         </form>

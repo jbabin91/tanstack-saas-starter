@@ -10,12 +10,14 @@ import {
 } from '@/components/ui/card';
 import { DatePicker } from '@/components/ui/date-picker';
 import { useAppForm } from '@/components/ui/form';
+import { useTranslations } from '@/hooks/use-translations';
 
 export const Route = createFileRoute('/_app/demos/forms/date-picker')({
   component: DatePickerForm,
 });
 
 function DatePickerForm() {
+  const { t } = useTranslations();
   const form = useAppForm({
     defaultValues: {
       eventName: '',
@@ -45,7 +47,10 @@ function DatePickerForm() {
       if (!value.eventDate) return;
       console.log(value);
       alert(
-        `Event "${value.eventName}" scheduled for ${format(value.eventDate, 'PPP')}`,
+        t('forms.datePicker.successMessage', {
+          eventName: value.eventName,
+          eventDate: format(value.eventDate, 'PPP'),
+        }),
       );
     },
   });
@@ -53,11 +58,8 @@ function DatePickerForm() {
   return (
     <Card className="w-full max-w-2xl">
       <CardHeader>
-        <CardTitle>Schedule an Event</CardTitle>
-        <CardDescription>
-          Use the form below to schedule your event with our new calendar
-          picker.
-        </CardDescription>
+        <CardTitle>{t('forms.datePicker.title')}</CardTitle>
+        <CardDescription>{t('forms.datePicker.description')}</CardDescription>
       </CardHeader>
       <CardContent>
         <form
@@ -69,14 +71,16 @@ function DatePickerForm() {
           }}
         >
           <form.AppField name="eventName">
-            {(field) => <field.TextField label="Event Name" />}
+            {(field) => (
+              <field.TextField label={t('forms.datePicker.eventNameLabel')} />
+            )}
           </form.AppField>
 
           <form.AppField name="eventDate">
             {(field) => (
               <DatePicker
                 error={field.state.meta.errors?.[0]}
-                label="Date"
+                label={t('forms.datePicker.dateLabel')}
                 value={field.state.value ?? undefined}
                 onChange={(date) => field.setValue(date ?? null)}
               />
@@ -84,12 +88,19 @@ function DatePickerForm() {
           </form.AppField>
 
           <form.AppField name="description">
-            {(field) => <field.TextArea label="Description" rows={4} />}
+            {(field) => (
+              <field.TextArea
+                label={t('forms.datePicker.descriptionLabel')}
+                rows={4}
+              />
+            )}
           </form.AppField>
 
           <div className="flex justify-end">
             <form.AppForm>
-              <form.SubscribeButton label="Schedule Event" />
+              <form.SubscribeButton
+                label={t('forms.datePicker.submitButtonLabel')}
+              />
             </form.AppForm>
           </div>
         </form>

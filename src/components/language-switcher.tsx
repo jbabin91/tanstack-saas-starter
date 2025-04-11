@@ -8,9 +8,9 @@ import {
 import { useTranslations } from '@/hooks/use-translations';
 import type { SupportedLanguage } from '@/lib/i18n';
 
-const languages: { code: SupportedLanguage; label: string }[] = [
-  { code: 'en', label: 'English' },
-  { code: 'es', label: 'Español' },
+const languages: { code: SupportedLanguage }[] = [
+  { code: 'en' },
+  { code: 'es' },
 ];
 
 export function LanguageSwitcher() {
@@ -24,7 +24,7 @@ export function LanguageSwitcher() {
       <SelectContent>
         {languages.map((lang) => (
           <SelectItem key={lang.code} value={lang.code}>
-            {lang.label}
+            {t(`languages.${lang.code}`)}
           </SelectItem>
         ))}
       </SelectContent>

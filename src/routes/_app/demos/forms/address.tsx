@@ -1,13 +1,16 @@
 import { createFileRoute } from '@tanstack/react-router';
 
+// import { z } from 'zod'; // Note: Zod validation might be needed later
 import { Card, CardContent } from '@/components/ui/card';
 import { useAppForm } from '@/components/ui/form';
+import { useTranslations } from '@/hooks/use-translations';
 
 export const Route = createFileRoute('/_app/demos/forms/address')({
   component: AddressForm,
 });
 
 function AddressForm() {
+  const { t } = useTranslations();
   const form = useAppForm({
     defaultValues: {
       fullName: '',
@@ -29,7 +32,7 @@ function AddressForm() {
           fields: Record<string, string>;
         };
         if (value.fullName.trim().length === 0) {
-          errors.fields.fullName = 'Full name is required';
+          errors.fields.fullName = 'Full name is required'; // Deferred: Validation
         }
         return errors;
       },
@@ -37,7 +40,7 @@ function AddressForm() {
     onSubmit: ({ value }) => {
       console.log(value);
       // Show success message
-      alert('Form submitted successfully!');
+      alert(t('common.formSubmitSuccess'));
     },
   });
 
@@ -53,7 +56,9 @@ function AddressForm() {
           }}
         >
           <form.AppField name="fullName">
-            {(field) => <field.TextField label="Full Name" />}
+            {(field) => (
+              <field.TextField label={t('forms.address.fullNameLabel')} />
+            )}
           </form.AppField>
 
           <form.AppField
@@ -61,16 +66,16 @@ function AddressForm() {
             validators={{
               onBlur: ({ value }) => {
                 if (!value || value.trim().length === 0) {
-                  return 'Email is required';
+                  return 'Email is required'; // Deferred: Validation
                 }
                 if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value)) {
-                  return 'Invalid email address';
+                  return t('errors.invalidEmail'); // Use existing key
                 }
                 return undefined;
               },
             }}
           >
-            {(field) => <field.TextField label="Email" />}
+            {(field) => <field.TextField label={t('auth.email')} />}
           </form.AppField>
 
           <form.AppField
@@ -78,13 +83,15 @@ function AddressForm() {
             validators={{
               onBlur: ({ value }) => {
                 if (!value || value.trim().length === 0) {
-                  return 'Street address is required';
+                  return 'Street address is required'; // Deferred: Validation
                 }
                 return undefined;
               },
             }}
           >
-            {(field) => <field.TextField label="Street Address" />}
+            {(field) => (
+              <field.TextField label={t('forms.address.streetLabel')} />
+            )}
           </form.AppField>
 
           <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
@@ -93,42 +100,48 @@ function AddressForm() {
               validators={{
                 onBlur: ({ value }) => {
                   if (!value || value.trim().length === 0) {
-                    return 'City is required';
+                    return 'City is required'; // Deferred: Validation
                   }
                   return undefined;
                 },
               }}
             >
-              {(field) => <field.TextField label="City" />}
+              {(field) => (
+                <field.TextField label={t('forms.address.cityLabel')} />
+              )}
             </form.AppField>
             <form.AppField
               name="address.state"
               validators={{
                 onBlur: ({ value }) => {
                   if (!value || value.trim().length === 0) {
-                    return 'State is required';
+                    return 'State is required'; // Deferred: Validation
                   }
                   return undefined;
                 },
               }}
             >
-              {(field) => <field.TextField label="State" />}
+              {(field) => (
+                <field.TextField label={t('forms.address.stateLabel')} />
+              )}
             </form.AppField>
             <form.AppField
               name="address.zipCode"
               validators={{
                 onBlur: ({ value }) => {
                   if (!value || value.trim().length === 0) {
-                    return 'Zip code is required';
+                    return 'Zip code is required'; // Deferred: Validation
                   }
                   if (!/^\d{5}(-\d{4})?$/.test(value)) {
-                    return 'Invalid zip code format';
+                    return 'Invalid zip code format'; // Deferred: Validation
                   }
                   return undefined;
                 },
               }}
             >
-              {(field) => <field.TextField label="Zip Code" />}
+              {(field) => (
+                <field.TextField label={t('forms.address.zipCodeLabel')} />
+              )}
             </form.AppField>
           </div>
 
@@ -137,7 +150,7 @@ function AddressForm() {
             validators={{
               onBlur: ({ value }) => {
                 if (!value || value.trim().length === 0) {
-                  return 'Country is required';
+                  return 'Country is required'; // Deferred: Validation
                 }
                 return undefined;
               },
@@ -145,16 +158,16 @@ function AddressForm() {
           >
             {(field) => (
               <field.Select
-                label="Country"
-                placeholder="Select a country"
+                label={t('forms.address.countryLabel')}
+                placeholder={t('forms.address.countryPlaceholder')}
                 values={[
-                  { label: 'United States', value: 'US' },
-                  { label: 'Canada', value: 'CA' },
-                  { label: 'United Kingdom', value: 'UK' },
-                  { label: 'Australia', value: 'AU' },
-                  { label: 'Germany', value: 'DE' },
-                  { label: 'France', value: 'FR' },
-                  { label: 'Japan', value: 'JP' },
+                  { label: t('countries.us'), value: 'US' },
+                  { label: t('countries.ca'), value: 'CA' },
+                  { label: t('countries.uk'), value: 'UK' },
+                  { label: t('countries.au'), value: 'AU' },
+                  { label: t('countries.de'), value: 'DE' },
+                  { label: t('countries.fr'), value: 'FR' },
+                  { label: t('countries.jp'), value: 'JP' },
                 ]}
               />
             )}
@@ -165,27 +178,30 @@ function AddressForm() {
             validators={{
               onBlur: ({ value }) => {
                 if (!value || value.trim().length === 0) {
-                  return 'Phone number is required';
+                  return 'Phone number is required'; // Deferred: Validation
                 }
                 if (
                   !/^(\+\d{1,3})?\s?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/.test(
                     value,
                   )
                 ) {
-                  return 'Invalid phone number format';
+                  return 'Invalid phone number format'; // Deferred: Validation
                 }
                 return undefined;
               },
             }}
           >
             {(field) => (
-              <field.TextField label="Phone" placeholder="123-456-7890" />
+              <field.TextField
+                label={t('forms.address.phoneLabel')}
+                placeholder={t('forms.address.phonePlaceholder')}
+              />
             )}
           </form.AppField>
 
           <div className="flex justify-end">
             <form.AppForm>
-              <form.SubscribeButton label="Submit" />
+              <form.SubscribeButton label={t('common.submit')} />
             </form.AppForm>
           </div>
         </form>

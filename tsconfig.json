@@ -27,6 +27,7 @@
   "include": [
     "src/**/*.ts",
     "src/**/*.tsx",
+    "src/@types/**/*.d.ts",
     "*.ts",
     "*.tsx",
     "*.js",

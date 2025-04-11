@@ -17,13 +17,21 @@
     "loading": "Cargando...",
     "save": "Guardar",
     "success": "Éxito",
-    "logoAlt": "logo"
+    "logoAlt": "logo",
+    "tryAgain": "Intentar de Nuevo",
+    "appTitle": "TanStack Start Starter",
+    "formSubmitSuccess": "¡Formulario enviado con éxito!",
+    "submit": "Enviar",
+    "notAvailable": "N/D"
   },
   "errors": {
     "invalidEmail": "Correo electrónico inválido",
     "invalidPassword": "La contraseña debe tener al menos 8 caracteres",
     "required": "Este campo es requerido",
-    "somethingWentWrong": "Algo salió mal"
+    "somethingWentWrong": "Algo salió mal",
+    "pageNotFound": "La página que buscas no existe.",
+    "goBack": "Volver",
+    "startOver": "Empezar de Nuevo"
   },
   "landing": {
     "learnReact": "Aprender React",
@@ -38,6 +46,109 @@
     "home": "Inicio",
     "logout": "Cerrar Sesión",
     "profile": "Perfil",
-    "settings": "Configuración"
+    "settings": "Configuración",
+    "startServerFuncs": "Inicio - Funciones Servidor",
+    "startApiRequest": "Inicio - Petición API",
+    "simpleForm": "Formulario Simple",
+    "addressForm": "Formulario Dirección",
+    "tanstackQuery": "TanStack Query",
+    "tanstackTable": "TanStack Table"
+  },
+  "languages": {
+    "en": "Inglés",
+    "es": "Español"
+  },
+  "theme": {
+    "toggle": "Cambiar tema",
+    "light": "Claro",
+    "dark": "Oscuro",
+    "system": "Sistema"
+  },
+  "pageTitles": {
+    "users": "Usuarios"
+  },
+  "demos": {
+    "start": {
+      "addToCounter": "¿Añadir 1 a {{count}}?"
+    },
+    "data": {
+      "peopleListTitle": "Lista de Personas de Swapi"
+    },
+    "forms": {
+      "simple": {
+        "titleLabel": "Título",
+        "descriptionLabel": "Descripción"
+      },
+      "address": {
+        "fullNameLabel": "Nombre Completo",
+        "streetLabel": "Dirección (Calle)",
+        "cityLabel": "Ciudad",
+        "stateLabel": "Estado/Provincia",
+        "zipCodeLabel": "Código Postal",
+        "countryLabel": "País",
+        "countryPlaceholder": "Selecciona un país",
+        "phoneLabel": "Teléfono",
+        "phonePlaceholder": "123-456-7890"
+      },
+      "calendar": {
+        "title": "Componente Calendario",
+        "description": "Un componente de calendario independiente con varios modos de selección y opciones de personalización.",
+        "singleDateTitle": "Selección Fecha Única",
+        "multipleMonthsTitle": "Múltiples Meses"
+      },
+      "datePicker": {
+        "successMessage": "Evento \"{{eventName}}\" programado para {{eventDate}}",
+        "title": "Programar un Evento",
+        "description": "Usa el formulario de abajo para programar tu evento con nuestro nuevo selector de calendario.",
+        "eventNameLabel": "Nombre del Evento",
+        "dateLabel": "Fecha",
+        "descriptionLabel": "Descripción",
+        "submitButtonLabel": "Programar Evento"
+      },
+      "dateRangePicker": {
+        "successMessage": "Evento \"{{eventName}}\" programado desde {{startDate}} hasta {{endDate}}",
+        "title": "Programar Rango de Evento",
+        "description": "Usa el formulario de abajo para programar tu evento con nuestro nuevo selector de rango de fechas.",
+        "dateRangeLabel": "Rango de Fechas"
+      }
+    }
+  },
+  "countries": {
+    "us": "Estados Unidos",
+    "ca": "Canadá",
+    "uk": "Reino Unido",
+    "au": "Australia",
+    "de": "Alemania",
+    "fr": "Francia",
+    "jp": "Japón"
+  },
+  "table": {
+    "header": {
+      "name": "Nombre",
+      "locale": "Idioma",
+      "createdAt": "Creado En"
+    },
+    "filterPlaceholder": "Buscar nombre o correo...",
+    "loading": "Cargando usuarios...",
+    "error": "Error al obtener usuarios: {{message}}",
+    "noResults": "Sin resultados.",
+    "sort": {
+      "ascending": "Ordenar ascendente",
+      "descending": "Ordenar descendente",
+      "clear": "Quitar orden"
+    },
+    "pagination": {
+      "firstPageLabel": "Ir a primera página",
+      "previousPageLabel": "Ir a página anterior",
+      "nextPageLabel": "Ir a página siguiente",
+      "lastPageLabel": "Ir a última página",
+      "page": "Página",
+      "of": "de",
+      "goToPage": "Ir a página:",
+      "incrementAriaLabel": "Incrementar número de página",
+      "decrementAriaLabel": "Decrementar número de página",
+      "pageSizePlaceholder": "Tamaño pág.",
+      "showPageSize": "Mostrar {{pageSize}}"
+    }
   }
 }

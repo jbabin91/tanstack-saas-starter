@@ -1,4 +1,6 @@
 import {
+  type CellContext,
+  type ColumnDef,
   createColumnHelper,
   flexRender,
   getCoreRowModel,
@@ -38,6 +40,7 @@ import {
 } from '@/components/ui/table';
 import { useUsersQuery } from '@/features/users/hooks/use-users-query';
 import { type UserApiOutput } from '@/features/users/types/user-types';
+import { useTranslations } from '@/hooks/use-translations';
 
 // Use the specific type inferred from the shared types file
 type UserData = UserApiOutput;
@@ -45,26 +48,26 @@ type UserData = UserApiOutput;
 // Create columns using the column helper
 const columnHelper = createColumnHelper<UserData>();
 
-const columns = [
+const columns: ColumnDef<UserData, any>[] = [
   columnHelper.accessor('name', {
     cell: (info) => info.getValue() ?? 'N/A',
     enableSorting: true,
-    header: 'Name',
+    header: 'table.header.name',
   }),
   columnHelper.accessor('email', {
     cell: (info) => info.getValue(),
     enableSorting: true,
-    header: 'Email', // Enable sorting for email
+    header: 'auth.email',
   }),
   columnHelper.accessor('locale', {
     cell: (info) => info.getValue(),
     enableSorting: true,
-    header: 'Locale',
+    header: 'table.header.locale',
   }),
   columnHelper.accessor('createdAt', {
     cell: (info) => new Date(info.getValue()).toLocaleDateString(),
     enableSorting: true,
-    header: 'Created At',
+    header: 'table.header.createdAt',
   }),
   // Add more columns as needed, e.g., actions
   // columnHelper.display({
@@ -74,6 +77,7 @@ const columns = [
 ];
 
 export function UsersTable() {
+  const { t } = useTranslations();
   const {
     data: queryResult, // Contains { data: UserData[], pageCount: number, totalCount: number }
     error,
@@ -91,8 +95,22 @@ export function UsersTable() {
   const tableData = useMemo(() => queryResult?.data ?? [], [queryResult]);
   const pageCount = useMemo(() => queryResult?.pageCount ?? 0, [queryResult]);
 
+  // Translate columns before passing to table
+  const translatedColumns = useMemo<ColumnDef<UserData, any>[]>(() => {
+    return columns.map((col) => ({
+      ...col,
+      cell:
+        col.id === 'name' ?
+          (info: CellContext<UserData, any>) =>
+            info.getValue() ?? t('common.notAvailable')
+        : col.cell,
+      header:
+        typeof col.header === 'string' ? t(col.header as any) : col.header,
+    }));
+  }, [t]);
+
   const table = useReactTable({
-    columns,
+    columns: translatedColumns,
     data: tableData,
     // Tell the table filtering is handled server-side
     debugTable: process.env.NODE_ENV === 'development',
@@ -130,7 +148,7 @@ export function UsersTable() {
       globalFilter,
       pagination,
       sorting,
-    }, // Required by TanStack Table even for manual filtering
+    },
   });
 
   const currentPageIndex = table.getState().pagination.pageIndex;
@@ -151,18 +169,18 @@ export function UsersTable() {
       {/* Global Filter Input */}
       <DebouncedInput
         className="w-full rounded-md border p-2"
-        placeholder="Search name or email..."
+        placeholder={t('table.filterPlaceholder')}
         value={globalFilter ?? ''}
         onChange={(value: string | number) => setGlobalFilter(String(value))}
       />
 
       {/* Loading and Error States */}
       {isLoading ?
-        <div className="text-center">Loading users...</div>
+        <div className="text-center">{t('table.loading')}</div>
       : null}
       {error ?
         <div className="text-center text-red-500">
-          Error fetching users: {error.message}
+          {t('table.error', { message: error.message })}
         </div>
       : null}
 
@@ -186,10 +204,10 @@ export function UsersTable() {
                         title={
                           header.column.getCanSort() ?
                             header.column.getNextSortingOrder() === 'asc' ?
-                              'Sort ascending'
+                              t('table.sort.ascending')
                             : header.column.getNextSortingOrder() === 'desc' ?
-                              'Sort descending'
-                            : 'Clear sort'
+                              t('table.sort.descending')
+                            : t('table.sort.clear')
                           : undefined
                         }
                         onClick={header.column.getToggleSortingHandler()}
@@ -240,7 +258,7 @@ export function UsersTable() {
                   className="h-24 text-center"
                   colSpan={columns.length}
                 >
-                  {!isLoading ? 'No results.' : null}
+                  {!isLoading ? t('table.noResults') : null}
                 </TableCell>
               </TableRow>
             }
@@ -257,7 +275,9 @@ export function UsersTable() {
             variant="outline"
             onClick={() => table.setPageIndex(0)}
           >
-            <span className="sr-only">Go to first page</span>
+            <span className="sr-only">
+              {t('table.pagination.firstPageLabel')}
+            </span>
             <ChevronsLeft className="h-4 w-4" />
           </Button>
           <Button
@@ -266,7 +286,9 @@ export function UsersTable() {
             variant="outline"
             onClick={() => table.previousPage()}
           >
-            <span className="sr-only">Go to previous page</span>
+            <span className="sr-only">
+              {t('table.pagination.previousPageLabel')}
+            </span>
             <ChevronLeft className="h-4 w-4" />
           </Button>
           <Button
@@ -275,7 +297,9 @@ export function UsersTable() {
             variant="outline"
             onClick={() => table.nextPage()}
           >
-            <span className="sr-only">Go to next page</span>
+            <span className="sr-only">
+              {t('table.pagination.nextPageLabel')}
+            </span>
             <ChevronRight className="h-4 w-4" />
           </Button>
           <Button
@@ -284,19 +308,21 @@ export function UsersTable() {
             variant="outline"
             onClick={() => table.setPageIndex(table.getPageCount() - 1)}
           >
-            <span className="sr-only">Go to last page</span>
+            <span className="sr-only">
+              {t('table.pagination.lastPageLabel')}
+            </span>
             <ChevronsRight className="h-4 w-4" />
           </Button>
         </div>
         <span className="flex items-center gap-1 text-sm">
-          <div>Page</div>
+          <div>{t('table.pagination.page')}</div>
           <strong>
-            {table.getState().pagination.pageIndex + 1} of{' '}
-            {table.getPageCount()}
+            {table.getState().pagination.pageIndex + 1}{' '}
+            {t('table.pagination.of')} {table.getPageCount()}
           </strong>
         </span>
         <div className="flex items-center gap-2">
-          <span className="text-sm">Go to page:</span>
+          <span className="text-sm">{t('table.pagination.goToPage')}</span>
           <div className="relative flex items-center">
             <Input
               className="h-8 w-20 rounded-md border pr-7 text-center [-moz-appearance:_textfield] [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none"
@@ -316,7 +342,7 @@ export function UsersTable() {
             />
             <div className="absolute inset-y-0 right-0 flex flex-col items-center justify-center">
               <Button
-                aria-label="Increment page number"
+                aria-label={t('table.pagination.incrementAriaLabel')}
                 className="h-4 w-4 rounded-none border-b border-l p-0"
                 disabled={currentPageIndex >= maxPageIndex}
                 size="icon"
@@ -326,7 +352,7 @@ export function UsersTable() {
                 <ChevronUp className="h-3 w-3" />
               </Button>
               <Button
-                aria-label="Decrement page number"
+                aria-label={t('table.pagination.decrementAriaLabel')}
                 className="h-4 w-4 rounded-none border-l p-0"
                 disabled={currentPageIndex <= 0}
                 size="icon"
@@ -344,12 +370,14 @@ export function UsersTable() {
             }}
           >
             <SelectTrigger className="h-8">
-              <SelectValue placeholder="Page size" />
+              <SelectValue
+                placeholder={t('table.pagination.pageSizePlaceholder')}
+              />
             </SelectTrigger>
             <SelectContent side="top">
               {[10, 20, 50, 100].map((pageSize) => (
                 <SelectItem key={pageSize} value={`${pageSize}`}>
-                  Show {pageSize}
+                  {t('table.pagination.showPageSize', { pageSize })}
                 </SelectItem>
               ))}
             </SelectContent>

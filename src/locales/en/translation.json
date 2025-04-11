@@ -17,13 +17,21 @@
     "loading": "Loading...",
     "save": "Save",
     "success": "Success",
-    "logoAlt": "logo"
+    "logoAlt": "logo",
+    "tryAgain": "Try Again",
+    "appTitle": "TanStack Start Starter",
+    "formSubmitSuccess": "Form submitted successfully!",
+    "submit": "Submit",
+    "notAvailable": "N/A"
   },
   "errors": {
     "invalidEmail": "Invalid email address",
     "invalidPassword": "Password must be at least 8 characters",
     "required": "This field is required",
-    "somethingWentWrong": "Something went wrong"
+    "somethingWentWrong": "Something went wrong",
+    "pageNotFound": "The page you are looking for does not exist.",
+    "goBack": "Go back",
+    "startOver": "Start Over"
   },
   "landing": {
     "learnReact": "Learn React",
@@ -31,13 +39,117 @@
     "editCode": {
       "message": "Edit <0>{{path}}</0> and save to reload.",
       "path": "src/routes/index.tsx"
-    }
+    },
+    "settings": "Settings"
   },
   "nav": {
     "dashboard": "Dashboard",
     "home": "Home",
     "logout": "Logout",
     "profile": "Profile",
-    "settings": "Settings"
+    "settings": "Settings",
+    "startServerFuncs": "Start - Server Functions",
+    "startApiRequest": "Start - API Request",
+    "simpleForm": "Simple Form",
+    "addressForm": "Address Form",
+    "tanstackQuery": "TanStack Query",
+    "tanstackTable": "TanStack Table"
+  },
+  "languages": {
+    "en": "English",
+    "es": "Español"
+  },
+  "theme": {
+    "toggle": "Toggle theme",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
+  },
+  "forms": {
+    "simple": {
+      "titleLabel": "Title",
+      "descriptionLabel": "Description"
+    },
+    "address": {
+      "fullNameLabel": "Full Name",
+      "streetLabel": "Street Address",
+      "cityLabel": "City",
+      "stateLabel": "State",
+      "zipCodeLabel": "Zip Code",
+      "countryLabel": "Country",
+      "countryPlaceholder": "Select a country",
+      "phoneLabel": "Phone",
+      "phonePlaceholder": "123-456-7890"
+    },
+    "calendar": {
+      "title": "Calendar Component",
+      "description": "A standalone calendar component with various selection modes and customization options.",
+      "singleDateTitle": "Single Date Selection",
+      "multipleMonthsTitle": "Multiple Months"
+    },
+    "datePicker": {
+      "successMessage": "Event \"{{eventName}}\" scheduled for {{eventDate}}",
+      "title": "Schedule an Event",
+      "description": "Use the form below to schedule your event with our new calendar picker.",
+      "eventNameLabel": "Event Name",
+      "dateLabel": "Date",
+      "descriptionLabel": "Description",
+      "submitButtonLabel": "Schedule Event"
+    },
+    "dateRangePicker": {
+      "successMessage": "Event \"{{eventName}}\" scheduled from {{startDate}} to {{endDate}}",
+      "title": "Schedule an Event Range",
+      "description": "Use the form below to schedule your event with our new date range picker.",
+      "dateRangeLabel": "Date Range"
+    }
+  },
+  "pageTitles": {
+    "users": "Users"
+  },
+  "demos": {
+    "start": {
+      "addToCounter": "Add 1 to {{count}}?"
+    },
+    "data": {
+      "peopleListTitle": "People list from Swapi"
+    }
+  },
+  "countries": {
+    "us": "United States",
+    "ca": "Canada",
+    "uk": "United Kingdom",
+    "au": "Australia",
+    "de": "Germany",
+    "fr": "France",
+    "jp": "Japan"
+  },
+  "table": {
+    "header": {
+      "name": "Name",
+      "locale": "Locale",
+      "createdAt": "Created At"
+    },
+    "filterPlaceholder": "Search name or email...",
+    "loading": "Loading users...",
+    "error": "Error fetching users: {{message}}",
+    "noResults": "No results.",
+    "sort": {
+      "ascending": "Sort ascending",
+      "descending": "Sort descending",
+      "clear": "Clear sort"
+    },
+    "pagination": {
+      "firstPageLabel": "Go to first page",
+      "previousPageLabel": "Go to previous page",
+      "nextPageLabel": "Go to next page",
+      "lastPageLabel": "Go to last page",
+      "page": "Page",
+      "of": "of",
+      "goToPage": "Go to page:",
+      "incrementAriaLabel": "Increment page number",
+      "decrementAriaLabel": "Decrement page number",
+      "pageSizePlaceholder": "Page size",
+      "showPageSize": "Show {{pageSize}}"
+    }
   }
 }

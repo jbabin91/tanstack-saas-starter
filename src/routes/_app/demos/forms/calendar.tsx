@@ -10,12 +10,14 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import { useTranslations } from '@/hooks/use-translations';
 
 export const Route = createFileRoute('/_app/demos/forms/calendar')({
   component: CalendarDemo,
 });
 
 function CalendarDemo() {
+  const { t } = useTranslations();
   const [date, setDate] = React.useState<Date | undefined>(() =>
     addDays(new Date(), 2),
   );
@@ -23,15 +25,14 @@ function CalendarDemo() {
   return (
     <Card className="w-full max-w-2xl">
       <CardHeader>
-        <CardTitle>Calendar Component</CardTitle>
-        <CardDescription>
-          A standalone calendar component with various selection modes and
-          customization options.
-        </CardDescription>
+        <CardTitle>{t('forms.calendar.title')}</CardTitle>
+        <CardDescription>{t('forms.calendar.description')}</CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col items-center space-y-4">
         <div className="space-y-2">
-          <h3 className="text-lg font-medium">Single Date Selection</h3>
+          <h3 className="text-lg font-medium">
+            {t('forms.calendar.singleDateTitle')}
+          </h3>
           <Calendar
             className="rounded-md border"
             mode="single"
@@ -41,7 +42,9 @@ function CalendarDemo() {
         </div>
 
         <div className="space-y-2">
-          <h3 className="text-lg font-medium">Multiple Months</h3>
+          <h3 className="text-lg font-medium">
+            {t('forms.calendar.multipleMonthsTitle')}
+          </h3>
           <Calendar
             className="rounded-md border"
             mode="single"
