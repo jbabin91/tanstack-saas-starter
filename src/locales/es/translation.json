@@ -8,147 +8,234 @@
     "signup": "Registrarse"
   },
   "common": {
+    "appTitle": "TanStack Start Starter",
     "cancel": "Cancelar",
     "create": "Crear",
     "delete": "Eliminar",
     "edit": "Editar",
     "error": "Error",
+    "formSubmitSuccess": "¡Formulario enviado con éxito!",
     "language": "Idioma",
     "loading": "Cargando...",
-    "save": "Guardar",
-    "success": "Éxito",
     "logoAlt": "logo",
-    "tryAgain": "Intentar de Nuevo",
-    "appTitle": "TanStack Start Starter",
-    "formSubmitSuccess": "¡Formulario enviado con éxito!",
+    "notAvailable": "N/D",
+    "save": "Guardar",
     "submit": "Enviar",
-    "notAvailable": "N/D"
+    "success": "Éxito",
+    "tryAgain": "Intentar de Nuevo"
+  },
+  "countries": {
+    "au": "Australia",
+    "ca": "Canadá",
+    "de": "Alemania",
+    "fr": "Francia",
+    "jp": "Japón",
+    "uk": "Reino Unido",
+    "us": "Estados Unidos"
+  },
+  "demos": {
+    "data": {
+      "peopleListTitle": "Lista de Personas de Swapi"
+    },
+    "start": {
+      "addToCounter": "¿Añadir 1 a {{count}}?"
+    }
   },
   "errors": {
+    "dateRangeRequired": "Por favor selecciona un rango de fechas",
+    "dateRequired": "Por favor selecciona una fecha",
+    "goBack": "Volver",
     "invalidEmail": "Correo electrónico inválido",
     "invalidPassword": "La contraseña debe tener al menos 8 caracteres",
+    "invalidPhoneFormat": "Formato de número de teléfono inválido",
+    "invalidZipFormat": "Formato de código postal inválido",
+    "pageNotFound": "La página que buscas no existe.",
+    "phoneRequired": "Número de teléfono requerido",
     "required": "Este campo es requerido",
     "somethingWentWrong": "Algo salió mal",
-    "pageNotFound": "La página que buscas no existe.",
-    "goBack": "Volver",
     "startOver": "Empezar de Nuevo"
   },
+  "forms": {
+    "address": {
+      "cityLabel": "Ciudad",
+      "countryLabel": "País",
+      "countryPlaceholder": "Selecciona un país",
+      "fullNameLabel": "Nombre Completo",
+      "phoneLabel": "Teléfono",
+      "phonePlaceholder": "123-456-7890",
+      "stateLabel": "Estado/Provincia",
+      "streetLabel": "Dirección (Calle)",
+      "zipCodeLabel": "Código Postal"
+    },
+    "calendar": {
+      "description": "Un componente de calendario independiente con varios modos de selección y opciones de personalización.",
+      "multipleMonthsTitle": "Múltiples Meses",
+      "singleDateTitle": "Selección Fecha Única",
+      "title": "Componente Calendario"
+    },
+    "datePicker": {
+      "dateLabel": "Fecha",
+      "description": "Usa el formulario de abajo para programar tu evento con nuestro nuevo selector de calendario.",
+      "descriptionLabel": "Descripción",
+      "eventNameLabel": "Nombre del Evento",
+      "submitButtonLabel": "Programar Evento",
+      "successMessage": "Evento \"{{eventName}}\" programado para {{eventDate}}",
+      "title": "Programar un Evento"
+    },
+    "dateRangePicker": {
+      "dateRangeLabel": "Rango de Fechas",
+      "description": "Usa el formulario de abajo para programar tu evento con nuestro nuevo selector de rango de fechas.",
+      "successMessage": "Evento \"{{eventName}}\" programado desde {{startDate}} hasta {{endDate}}",
+      "title": "Programar Rango de Evento"
+    },
+    "simple": {
+      "descriptionLabel": "Descripción",
+      "titleLabel": "Título"
+    }
+  },
   "landing": {
-    "learnReact": "Aprender React",
-    "learnTanstack": "Aprender TanStack",
     "editCode": {
       "message": "Edita <0>{{path}}</0> y guarda para recargar.",
       "path": "src/routes/index.tsx"
-    }
-  },
-  "nav": {
-    "dashboard": "Panel",
-    "home": "Inicio",
-    "logout": "Cerrar Sesión",
-    "profile": "Perfil",
-    "settings": "Configuración",
-    "startServerFuncs": "Inicio - Funciones Servidor",
-    "startApiRequest": "Inicio - Petición API",
-    "simpleForm": "Formulario Simple",
-    "addressForm": "Formulario Dirección",
-    "tanstackQuery": "TanStack Query",
-    "tanstackTable": "TanStack Table"
+    },
+    "learnReact": "Aprender React",
+    "learnTanstack": "Aprender TanStack"
   },
   "languages": {
     "en": "Inglés",
     "es": "Español"
   },
-  "theme": {
-    "toggle": "Cambiar tema",
-    "light": "Claro",
-    "dark": "Oscuro",
-    "system": "Sistema"
+  "nav": {
+    "addressForm": "Formulario Dirección",
+    "dashboard": "Panel",
+    "home": "Inicio",
+    "logout": "Cerrar Sesión",
+    "profile": "Perfil",
+    "settings": "Configuración",
+    "simpleForm": "Formulario Simple",
+    "startApiRequest": "Inicio - Petición API",
+    "startServerFuncs": "Inicio - Funciones Servidor",
+    "tanstackQuery": "TanStack Query",
+    "tanstackTable": "TanStack Table"
   },
   "pageTitles": {
     "users": "Usuarios"
   },
-  "demos": {
-    "start": {
-      "addToCounter": "¿Añadir 1 a {{count}}?"
-    },
-    "data": {
-      "peopleListTitle": "Lista de Personas de Swapi"
-    },
-    "forms": {
-      "simple": {
-        "titleLabel": "Título",
-        "descriptionLabel": "Descripción"
-      },
-      "address": {
-        "fullNameLabel": "Nombre Completo",
-        "streetLabel": "Dirección (Calle)",
-        "cityLabel": "Ciudad",
-        "stateLabel": "Estado/Provincia",
-        "zipCodeLabel": "Código Postal",
-        "countryLabel": "País",
-        "countryPlaceholder": "Selecciona un país",
-        "phoneLabel": "Teléfono",
-        "phonePlaceholder": "123-456-7890"
-      },
-      "calendar": {
-        "title": "Componente Calendario",
-        "description": "Un componente de calendario independiente con varios modos de selección y opciones de personalización.",
-        "singleDateTitle": "Selección Fecha Única",
-        "multipleMonthsTitle": "Múltiples Meses"
-      },
-      "datePicker": {
-        "successMessage": "Evento \"{{eventName}}\" programado para {{eventDate}}",
-        "title": "Programar un Evento",
-        "description": "Usa el formulario de abajo para programar tu evento con nuestro nuevo selector de calendario.",
-        "eventNameLabel": "Nombre del Evento",
-        "dateLabel": "Fecha",
-        "descriptionLabel": "Descripción",
-        "submitButtonLabel": "Programar Evento"
-      },
-      "dateRangePicker": {
-        "successMessage": "Evento \"{{eventName}}\" programado desde {{startDate}} hasta {{endDate}}",
-        "title": "Programar Rango de Evento",
-        "description": "Usa el formulario de abajo para programar tu evento con nuestro nuevo selector de rango de fechas.",
-        "dateRangeLabel": "Rango de Fechas"
-      }
-    }
-  },
-  "countries": {
-    "us": "Estados Unidos",
-    "ca": "Canadá",
-    "uk": "Reino Unido",
-    "au": "Australia",
-    "de": "Alemania",
-    "fr": "Francia",
-    "jp": "Japón"
-  },
   "table": {
-    "header": {
-      "name": "Nombre",
-      "locale": "Idioma",
-      "createdAt": "Creado En"
-    },
-    "filterPlaceholder": "Buscar nombre o correo...",
-    "loading": "Cargando usuarios...",
     "error": "Error al obtener usuarios: {{message}}",
-    "noResults": "Sin resultados.",
-    "sort": {
-      "ascending": "Ordenar ascendente",
-      "descending": "Ordenar descendente",
-      "clear": "Quitar orden"
+    "filterPlaceholder": "Buscar nombre o correo...",
+    "header": {
+      "createdAt": "Creado En",
+      "locale": "Idioma",
+      "name": "Nombre"
     },
+    "loading": "Cargando usuarios...",
+    "noResults": "Sin resultados.",
     "pagination": {
+      "decrementAriaLabel": "Decrementar número de página",
       "firstPageLabel": "Ir a primera página",
-      "previousPageLabel": "Ir a página anterior",
-      "nextPageLabel": "Ir a página siguiente",
-      "lastPageLabel": "Ir a última página",
-      "page": "Página",
-      "of": "de",
       "goToPage": "Ir a página:",
       "incrementAriaLabel": "Incrementar número de página",
-      "decrementAriaLabel": "Decrementar número de página",
+      "lastPageLabel": "Ir a última página",
+      "nextPageLabel": "Ir a página siguiente",
+      "of": "de",
+      "page": "Página",
       "pageSizePlaceholder": "Tamaño pág.",
+      "previousPageLabel": "Ir a página anterior",
       "showPageSize": "Mostrar {{pageSize}}"
+    },
+    "sort": {
+      "ascending": "Ordenar ascendente",
+      "clear": "Quitar orden",
+      "descending": "Ordenar descendente"
     }
+  },
+  "theme": {
+    "dark": "Oscuro",
+    "light": "Claro",
+    "system": "Sistema",
+    "toggle": "Cambiar tema"
+  },
+  "zod": {
+    "description": "Por favor, revisa el formulario para ver los errores",
+    "errors": {
+      "custom": "Entrada inválida",
+      "invalid_arguments": "Argumentos de función inválidos",
+      "invalid_date": "Fecha inválida",
+      "invalid_enum_value": "Valor de enumeración inválido. Se esperaba {{options}}, se recibió '{{received}}'",
+      "invalid_intersection_types": "Los resultados de la intersección no se pudieron fusionar",
+      "invalid_literal": "Valor literal inválido, se esperaba {{expected}}",
+      "invalid_return_type": "Tipo de retorno de función inválido",
+      "invalid_string": {
+        "cuid": "CUID inválido",
+        "datetime": "Fecha y hora inválidas",
+        "email": "Correo electrónico inválido",
+        "endsWith": "Entrada inválida: debe terminar con \"{{endsWith}}\"",
+        "regex": "Inválido",
+        "startsWith": "Entrada inválida: debe comenzar con \"{{startsWith}}\"",
+        "url": "URL inválida",
+        "uuid": "UUID inválido"
+      },
+      "invalid_type": "Se esperaba {{expected}}, se recibió {{received}}",
+      "invalid_type_received_undefined": "Requerido",
+      "invalid_union": "Entrada inválida",
+      "invalid_union_discriminator": "Valor discriminador inválido. Se esperaba {{options}}",
+      "too_big": {
+        "array": {
+          "exact": "El array debe contener exactamente {{maximum}} elemento(s)",
+          "inclusive": "El array debe contener como máximo {{maximum}} elemento(s)",
+          "not_inclusive": "El array debe contener menos de {{maximum}} elemento(s)"
+        },
+        "date": {
+          "exact": "La fecha debe ser exactamente {{maximum}}",
+          "inclusive": "La fecha debe ser menor o igual a {{maximum}}",
+          "not_inclusive": "La fecha debe ser menor que {{maximum}}"
+        },
+        "number": {
+          "exact": "El número debe ser exactamente {{maximum}}",
+          "inclusive": "El número debe ser menor o igual a {{maximum}}",
+          "not_inclusive": "El número debe ser menor que {{maximum}}"
+        },
+        "set": {
+          "exact": "Entrada inválida",
+          "inclusive": "Entrada inválida",
+          "not_inclusive": "Entrada inválida"
+        },
+        "string": {
+          "exact": "La cadena debe contener exactamente {{maximum}} caracter(es)",
+          "inclusive": "La cadena debe contener como máximo {{maximum}} caracter(es)",
+          "not_inclusive": "La cadena debe contener menos de {{maximum}} caracter(es)"
+        }
+      },
+      "too_small": {
+        "array": {
+          "exact": "El array debe contener exactamente {{minimum}} elemento(s)",
+          "inclusive": "El array debe contener al menos {{minimum}} elemento(s)",
+          "not_inclusive": "El array debe contener más de {{minimum}} elemento(s)"
+        },
+        "date": {
+          "exact": "La fecha debe ser exactamente {{minimum}}",
+          "inclusive": "La fecha debe ser mayor o igual a {{minimum}}",
+          "not_inclusive": "La fecha debe ser mayor que {{minimum}}"
+        },
+        "number": {
+          "exact": "El número debe ser exactamente {{minimum}}",
+          "inclusive": "El número debe ser mayor o igual a {{minimum}}",
+          "not_inclusive": "El número debe ser mayor que {{minimum}}"
+        },
+        "set": {
+          "exact": "Entrada inválida",
+          "inclusive": "Entrada inválida",
+          "not_inclusive": "Entrada inválida"
+        },
+        "string": {
+          "exact": "La cadena debe contener exactamente {{minimum}} caracter(es)",
+          "inclusive": "La cadena debe contener al menos {{minimum}} caracter(es)",
+          "not_inclusive": "La cadena debe contener más de {{minimum}} caracter(es)"
+        }
+      },
+      "unrecognized_keys": "Clave(s) no reconocida(s) en el objeto: {{keys}}"
+    },
+    "title": "Error de Validación"
   }
 }

@@ -8,148 +8,235 @@
     "signup": "Sign Up"
   },
   "common": {
+    "appTitle": "TanStack Start Starter",
     "cancel": "Cancel",
     "create": "Create",
     "delete": "Delete",
     "edit": "Edit",
     "error": "Error",
+    "formSubmitSuccess": "Form submitted successfully!",
     "language": "Language",
     "loading": "Loading...",
-    "save": "Save",
-    "success": "Success",
     "logoAlt": "logo",
-    "tryAgain": "Try Again",
-    "appTitle": "TanStack Start Starter",
-    "formSubmitSuccess": "Form submitted successfully!",
+    "notAvailable": "N/A",
+    "save": "Save",
     "submit": "Submit",
-    "notAvailable": "N/A"
+    "success": "Success",
+    "tryAgain": "Try Again"
+  },
+  "countries": {
+    "au": "Australia",
+    "ca": "Canada",
+    "de": "Germany",
+    "fr": "France",
+    "jp": "Japan",
+    "uk": "United Kingdom",
+    "us": "United States"
+  },
+  "demos": {
+    "data": {
+      "peopleListTitle": "People list from Swapi"
+    },
+    "start": {
+      "addToCounter": "Add 1 to {{count}}?"
+    }
   },
   "errors": {
+    "dateRangeRequired": "Please select a date range",
+    "dateRequired": "Please select a date",
+    "goBack": "Go back",
     "invalidEmail": "Invalid email address",
     "invalidPassword": "Password must be at least 8 characters",
+    "invalidPhoneFormat": "Invalid phone number format",
+    "invalidZipFormat": "Invalid zip code format",
+    "pageNotFound": "The page you are looking for does not exist.",
+    "phoneRequired": "Phone number is required",
     "required": "This field is required",
     "somethingWentWrong": "Something went wrong",
-    "pageNotFound": "The page you are looking for does not exist.",
-    "goBack": "Go back",
     "startOver": "Start Over"
   },
+  "forms": {
+    "address": {
+      "cityLabel": "City",
+      "countryLabel": "Country",
+      "countryPlaceholder": "Select a country",
+      "fullNameLabel": "Full Name",
+      "phoneLabel": "Phone",
+      "phonePlaceholder": "123-456-7890",
+      "stateLabel": "State",
+      "streetLabel": "Street Address",
+      "zipCodeLabel": "Zip Code"
+    },
+    "calendar": {
+      "description": "A standalone calendar component with various selection modes and customization options.",
+      "multipleMonthsTitle": "Multiple Months",
+      "singleDateTitle": "Single Date Selection",
+      "title": "Calendar Component"
+    },
+    "datePicker": {
+      "dateLabel": "Date",
+      "description": "Use the form below to schedule your event with our new calendar picker.",
+      "descriptionLabel": "Description",
+      "eventNameLabel": "Event Name",
+      "submitButtonLabel": "Schedule Event",
+      "successMessage": "Event \"{{eventName}}\" scheduled for {{eventDate}}",
+      "title": "Schedule an Event"
+    },
+    "dateRangePicker": {
+      "dateRangeLabel": "Date Range",
+      "description": "Use the form below to schedule your event with our new date range picker.",
+      "successMessage": "Event \"{{eventName}}\" scheduled from {{startDate}} to {{endDate}}",
+      "title": "Schedule an Event Range"
+    },
+    "simple": {
+      "descriptionLabel": "Description",
+      "titleLabel": "Title"
+    }
+  },
   "landing": {
-    "learnReact": "Learn React",
-    "learnTanstack": "Learn TanStack",
     "editCode": {
       "message": "Edit <0>{{path}}</0> and save to reload.",
       "path": "src/routes/index.tsx"
     },
+    "learnReact": "Learn React",
+    "learnTanstack": "Learn TanStack",
     "settings": "Settings"
-  },
-  "nav": {
-    "dashboard": "Dashboard",
-    "home": "Home",
-    "logout": "Logout",
-    "profile": "Profile",
-    "settings": "Settings",
-    "startServerFuncs": "Start - Server Functions",
-    "startApiRequest": "Start - API Request",
-    "simpleForm": "Simple Form",
-    "addressForm": "Address Form",
-    "tanstackQuery": "TanStack Query",
-    "tanstackTable": "TanStack Table"
   },
   "languages": {
     "en": "English",
     "es": "Español"
   },
-  "theme": {
-    "toggle": "Toggle theme",
-    "light": "Light",
-    "dark": "Dark",
-    "system": "System"
-  },
-  "forms": {
-    "simple": {
-      "titleLabel": "Title",
-      "descriptionLabel": "Description"
-    },
-    "address": {
-      "fullNameLabel": "Full Name",
-      "streetLabel": "Street Address",
-      "cityLabel": "City",
-      "stateLabel": "State",
-      "zipCodeLabel": "Zip Code",
-      "countryLabel": "Country",
-      "countryPlaceholder": "Select a country",
-      "phoneLabel": "Phone",
-      "phonePlaceholder": "123-456-7890"
-    },
-    "calendar": {
-      "title": "Calendar Component",
-      "description": "A standalone calendar component with various selection modes and customization options.",
-      "singleDateTitle": "Single Date Selection",
-      "multipleMonthsTitle": "Multiple Months"
-    },
-    "datePicker": {
-      "successMessage": "Event \"{{eventName}}\" scheduled for {{eventDate}}",
-      "title": "Schedule an Event",
-      "description": "Use the form below to schedule your event with our new calendar picker.",
-      "eventNameLabel": "Event Name",
-      "dateLabel": "Date",
-      "descriptionLabel": "Description",
-      "submitButtonLabel": "Schedule Event"
-    },
-    "dateRangePicker": {
-      "successMessage": "Event \"{{eventName}}\" scheduled from {{startDate}} to {{endDate}}",
-      "title": "Schedule an Event Range",
-      "description": "Use the form below to schedule your event with our new date range picker.",
-      "dateRangeLabel": "Date Range"
-    }
+  "nav": {
+    "addressForm": "Address Form",
+    "dashboard": "Dashboard",
+    "home": "Home",
+    "logout": "Logout",
+    "profile": "Profile",
+    "settings": "Settings",
+    "simpleForm": "Simple Form",
+    "startApiRequest": "Start - API Request",
+    "startServerFuncs": "Start - Server Functions",
+    "tanstackQuery": "TanStack Query",
+    "tanstackTable": "TanStack Table"
   },
   "pageTitles": {
     "users": "Users"
   },
-  "demos": {
-    "start": {
-      "addToCounter": "Add 1 to {{count}}?"
-    },
-    "data": {
-      "peopleListTitle": "People list from Swapi"
-    }
-  },
-  "countries": {
-    "us": "United States",
-    "ca": "Canada",
-    "uk": "United Kingdom",
-    "au": "Australia",
-    "de": "Germany",
-    "fr": "France",
-    "jp": "Japan"
-  },
   "table": {
-    "header": {
-      "name": "Name",
-      "locale": "Locale",
-      "createdAt": "Created At"
-    },
-    "filterPlaceholder": "Search name or email...",
-    "loading": "Loading users...",
     "error": "Error fetching users: {{message}}",
-    "noResults": "No results.",
-    "sort": {
-      "ascending": "Sort ascending",
-      "descending": "Sort descending",
-      "clear": "Clear sort"
+    "filterPlaceholder": "Search name or email...",
+    "header": {
+      "createdAt": "Created At",
+      "locale": "Locale",
+      "name": "Name"
     },
+    "loading": "Loading users...",
+    "noResults": "No results.",
     "pagination": {
+      "decrementAriaLabel": "Decrement page number",
       "firstPageLabel": "Go to first page",
-      "previousPageLabel": "Go to previous page",
-      "nextPageLabel": "Go to next page",
-      "lastPageLabel": "Go to last page",
-      "page": "Page",
-      "of": "of",
       "goToPage": "Go to page:",
       "incrementAriaLabel": "Increment page number",
-      "decrementAriaLabel": "Decrement page number",
+      "lastPageLabel": "Go to last page",
+      "nextPageLabel": "Go to next page",
+      "of": "of",
+      "page": "Page",
       "pageSizePlaceholder": "Page size",
+      "previousPageLabel": "Go to previous page",
       "showPageSize": "Show {{pageSize}}"
+    },
+    "sort": {
+      "ascending": "Sort ascending",
+      "clear": "Clear sort",
+      "descending": "Sort descending"
     }
+  },
+  "theme": {
+    "dark": "Dark",
+    "light": "Light",
+    "system": "System",
+    "toggle": "Toggle theme"
+  },
+  "zod": {
+    "description": "Please check the form for errors",
+    "errors": {
+      "custom": "Invalid input",
+      "invalid_arguments": "Invalid function arguments",
+      "invalid_date": "Invalid date",
+      "invalid_enum_value": "Invalid enum value. Expected {{options}}, received '{{received}}'",
+      "invalid_intersection_types": "Intersection results could not be merged",
+      "invalid_literal": "Invalid literal value, expected {{expected}}",
+      "invalid_return_type": "Invalid function return type",
+      "invalid_string": {
+        "cuid": "Invalid cuid",
+        "datetime": "Invalid datetime",
+        "email": "Invalid email",
+        "endsWith": "Invalid input: must end with \"{{endsWith}}\"",
+        "regex": "Invalid",
+        "startsWith": "Invalid input: must start with \"{{startsWith}}\"",
+        "url": "Invalid url",
+        "uuid": "Invalid uuid"
+      },
+      "invalid_type": "Expected {{expected}}, received {{received}}",
+      "invalid_type_received_undefined": "Required",
+      "invalid_union": "Invalid input",
+      "invalid_union_discriminator": "Invalid discriminator value. Expected {{options}}",
+      "too_big": {
+        "array": {
+          "exact": "Array must contain exactly {{maximum}} element(s)",
+          "inclusive": "Array must contain at most {{maximum}} element(s)",
+          "not_inclusive": "Array must contain less than {{maximum}} element(s)"
+        },
+        "date": {
+          "exact": "Date must be exactly {{maximum}}",
+          "inclusive": "Date must be less than or equal to {{maximum}}",
+          "not_inclusive": "Date must be less than {{maximum}}"
+        },
+        "number": {
+          "exact": "Number must be exactly {{maximum}}",
+          "inclusive": "Number must be less than or equal to {{maximum}}",
+          "not_inclusive": "Number must be less than {{maximum}}"
+        },
+        "set": {
+          "exact": "Invalid input",
+          "inclusive": "Invalid input",
+          "not_inclusive": "Invalid input"
+        },
+        "string": {
+          "exact": "String must contain exactly {{maximum}} character(s)",
+          "inclusive": "String must contain at most {{maximum}} character(s)",
+          "not_inclusive": "String must contain under {{maximum}} character(s)"
+        }
+      },
+      "too_small": {
+        "array": {
+          "exact": "Array must contain exactly {{minimum}} element(s)",
+          "inclusive": "Array must contain at least {{minimum}} element(s)",
+          "not_inclusive": "Array must contain more than {{minimum}} element(s)"
+        },
+        "date": {
+          "exact": "Date must be exactly {{minimum}}",
+          "inclusive": "Date must be greater than or equal to {{minimum}}",
+          "not_inclusive": "Date must be greater than {{minimum}}"
+        },
+        "number": {
+          "exact": "Number must be exactly {{minimum}}",
+          "inclusive": "Number must be greater than or equal to {{minimum}}",
+          "not_inclusive": "Number must be greater than {{minimum}}"
+        },
+        "set": {
+          "exact": "Invalid input",
+          "inclusive": "Invalid input",
+          "not_inclusive": "Invalid input"
+        },
+        "string": {
+          "exact": "String must contain exactly {{minimum}} character(s)",
+          "inclusive": "String must contain at least {{minimum}} character(s)",
+          "not_inclusive": "String must contain over {{minimum}} character(s)"
+        }
+      },
+      "unrecognized_keys": "Unrecognized key(s) in object: {{keys}}"
+    },
+    "title": "Validation Error"
   }
 }

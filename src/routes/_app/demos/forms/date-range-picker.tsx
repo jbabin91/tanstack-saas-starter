@@ -32,11 +32,11 @@ function DateRangePickerForm() {
         };
 
         if (!value.eventName?.trim()) {
-          errors.fields.eventName = 'Event name is required';
+          errors.fields.eventName = 'errors.required';
         }
 
         if (!value.dateRange?.from || !value.dateRange?.to) {
-          errors.fields.dateRange = 'Please select a date range';
+          errors.fields.dateRange = 'errors.dateRangeRequired';
         }
 
         return errors;

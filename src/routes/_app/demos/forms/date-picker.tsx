@@ -33,11 +33,11 @@ function DatePickerForm() {
         };
 
         if (!value.eventName?.trim()) {
-          errors.fields.eventName = 'Event name is required';
+          errors.fields.eventName = 'errors.required';
         }
 
         if (!value.eventDate) {
-          errors.fields.eventDate = 'Please select a date';
+          errors.fields.eventDate = 'errors.dateRequired';
         }
 
         return errors;

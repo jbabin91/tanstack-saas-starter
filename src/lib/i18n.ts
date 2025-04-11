@@ -1,18 +1,23 @@
 import i18n from 'i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import { initReactI18next } from 'react-i18next';
+import { z } from 'zod';
+import { zodI18nMap } from 'zod-i18n-map';
 
 // Import translation files
 import enTranslation from '../locales/en/translation.json';
 import esTranslation from '../locales/es/translation.json';
 
 export const defaultNS = 'translation';
+
 export const resources = {
   en: {
     translation: enTranslation,
+    zod: enTranslation.zod,
   },
   es: {
     translation: esTranslation,
+    zod: esTranslation.zod,
   },
 } as const;
 
@@ -39,5 +44,8 @@ i18n
     lng: DEFAULT_LANGUAGE,
     resources,
   });
+
+// Configure zod to use i18next for error messages
+z.setErrorMap(zodI18nMap);
 
 export default i18n;

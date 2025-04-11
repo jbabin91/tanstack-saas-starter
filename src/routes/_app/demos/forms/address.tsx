@@ -1,9 +1,30 @@
 import { createFileRoute } from '@tanstack/react-router';
+import { z } from 'zod'; // Import Zod
 
 // import { z } from 'zod'; // Note: Zod validation might be needed later
 import { Card, CardContent } from '@/components/ui/card';
 import { useAppForm } from '@/components/ui/form';
 import { useTranslations } from '@/hooks/use-translations';
+
+// Define Zod schema for the address form
+const addressSchema = z.object({
+  fullName: z.string().min(1),
+  email: z.string().min(1).email(),
+  address: z.object({
+    street: z.string().min(1),
+    city: z.string().min(1),
+    state: z.string().min(1),
+    zipCode: z
+      .string()
+      .min(1)
+      .regex(/^\d{5}(-\d{4})?$/),
+    country: z.string().min(1),
+  }),
+  phone: z
+    .string()
+    .min(1)
+    .regex(/^(\+\d{1,3})?\s?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/),
+});
 
 export const Route = createFileRoute('/_app/demos/forms/address')({
   component: AddressForm,
@@ -25,17 +46,8 @@ function AddressForm() {
       phone: '',
     },
     validators: {
-      onBlur: ({ value }) => {
-        const errors = {
-          fields: {},
-        } as {
-          fields: Record<string, string>;
-        };
-        if (value.fullName.trim().length === 0) {
-          errors.fields.fullName = 'Full name is required'; // Deferred: Validation
-        }
-        return errors;
-      },
+      onBlur: addressSchema,
+      onSubmit: addressSchema,
     },
     onSubmit: ({ value }) => {
       console.log(value);
@@ -61,101 +73,35 @@ function AddressForm() {
             )}
           </form.AppField>
 
-          <form.AppField
-            name="email"
-            validators={{
-              onBlur: ({ value }) => {
-                if (!value || value.trim().length === 0) {
-                  return 'Email is required'; // Deferred: Validation
-                }
-                if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value)) {
-                  return t('errors.invalidEmail'); // Use existing key
-                }
-                return undefined;
-              },
-            }}
-          >
+          <form.AppField name="email">
             {(field) => <field.TextField label={t('auth.email')} />}
           </form.AppField>
 
-          <form.AppField
-            name="address.street"
-            validators={{
-              onBlur: ({ value }) => {
-                if (!value || value.trim().length === 0) {
-                  return 'Street address is required'; // Deferred: Validation
-                }
-                return undefined;
-              },
-            }}
-          >
+          <form.AppField name="address.street">
             {(field) => (
               <field.TextField label={t('forms.address.streetLabel')} />
             )}
           </form.AppField>
 
           <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-            <form.AppField
-              name="address.city"
-              validators={{
-                onBlur: ({ value }) => {
-                  if (!value || value.trim().length === 0) {
-                    return 'City is required'; // Deferred: Validation
-                  }
-                  return undefined;
-                },
-              }}
-            >
+            <form.AppField name="address.city">
               {(field) => (
                 <field.TextField label={t('forms.address.cityLabel')} />
               )}
             </form.AppField>
-            <form.AppField
-              name="address.state"
-              validators={{
-                onBlur: ({ value }) => {
-                  if (!value || value.trim().length === 0) {
-                    return 'State is required'; // Deferred: Validation
-                  }
-                  return undefined;
-                },
-              }}
-            >
+            <form.AppField name="address.state">
               {(field) => (
                 <field.TextField label={t('forms.address.stateLabel')} />
               )}
             </form.AppField>
-            <form.AppField
-              name="address.zipCode"
-              validators={{
-                onBlur: ({ value }) => {
-                  if (!value || value.trim().length === 0) {
-                    return 'Zip code is required'; // Deferred: Validation
-                  }
-                  if (!/^\d{5}(-\d{4})?$/.test(value)) {
-                    return 'Invalid zip code format'; // Deferred: Validation
-                  }
-                  return undefined;
-                },
-              }}
-            >
+            <form.AppField name="address.zipCode">
               {(field) => (
                 <field.TextField label={t('forms.address.zipCodeLabel')} />
               )}
             </form.AppField>
           </div>
 
-          <form.AppField
-            name="address.country"
-            validators={{
-              onBlur: ({ value }) => {
-                if (!value || value.trim().length === 0) {
-                  return 'Country is required'; // Deferred: Validation
-                }
-                return undefined;
-              },
-            }}
-          >
+          <form.AppField name="address.country">
             {(field) => (
               <field.Select
                 label={t('forms.address.countryLabel')}
@@ -173,24 +119,7 @@ function AddressForm() {
             )}
           </form.AppField>
 
-          <form.AppField
-            name="phone"
-            validators={{
-              onBlur: ({ value }) => {
-                if (!value || value.trim().length === 0) {
-                  return 'Phone number is required'; // Deferred: Validation
-                }
-                if (
-                  !/^(\+\d{1,3})?\s?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/.test(
-                    value,
-                  )
-                ) {
-                  return 'Invalid phone number format'; // Deferred: Validation
-                }
-                return undefined;
-              },
-            }}
-          >
+          <form.AppField name="phone">
             {(field) => (
               <field.TextField
                 label={t('forms.address.phoneLabel')}
