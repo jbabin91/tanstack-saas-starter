@@ -55,7 +55,6 @@ i18n
     interpolation: {
       escapeValue: false,
     },
-    lng: DEFAULT_LANGUAGE,
     resources,
   });
 
