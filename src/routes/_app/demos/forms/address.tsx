@@ -1,22 +1,14 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { t } from 'i18next';
 import { toast } from 'sonner';
 import { z } from 'zod';
 
 import { Card, CardContent } from '@/components/ui/card';
 import { useAppForm } from '@/components/ui/form';
 import { useTranslations } from '@/hooks/use-translations';
-
-// Define reusable country options constant
-const countryOptions: { label: string; value: string }[] = [
-  { label: t('countries.us'), value: 'US' },
-  { label: t('countries.ca'), value: 'CA' },
-  { label: t('countries.uk'), value: 'UK' },
-  { label: t('countries.au'), value: 'AU' },
-  { label: t('countries.de'), value: 'DE' },
-  { label: t('countries.fr'), value: 'FR' },
-  { label: t('countries.jp'), value: 'JP' },
-];
+import {
+  countryOptions,
+  getSubdivisionOptions,
+} from '@/lib/constants/country-options';
 
 // Define Zod schema for the address form
 const addressSchema = z.object({
@@ -102,11 +94,24 @@ function AddressForm() {
                 <field.TextField label={t('forms.address.cityLabel')} />
               )}
             </form.AppField>
-            <form.AppField name="address.state">
-              {(field) => (
-                <field.TextField label={t('forms.address.stateLabel')} />
+            <form.Subscribe selector={(state) => state.values.address.country}>
+              {(countryCode) => (
+                <form.AppField name="address.state">
+                  {(field) => (
+                    <field.Select
+                      label={t('forms.address.stateLabel')}
+                      placeholder={t('forms.address.statePlaceholder')}
+                      values={getSubdivisionOptions(countryCode).map(
+                        ({ labelKey, value }) => ({
+                          label: t(labelKey as any),
+                          value,
+                        }),
+                      )}
+                    />
+                  )}
+                </form.AppField>
               )}
-            </form.AppField>
+            </form.Subscribe>
             <form.AppField name="address.zipCode">
               {(field) => (
                 <field.TextField label={t('forms.address.zipCodeLabel')} />
@@ -119,7 +124,10 @@ function AddressForm() {
               <field.Select
                 label={t('forms.address.countryLabel')}
                 placeholder={t('forms.address.countryPlaceholder')}
-                values={countryOptions}
+                values={countryOptions.map(({ labelKey, value }) => ({
+                  label: t(labelKey as any),
+                  value,
+                }))}
               />
             )}
           </form.AppField>

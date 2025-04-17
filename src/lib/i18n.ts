@@ -5,19 +5,33 @@ import { z } from 'zod';
 import { zodI18nMap } from 'zod-i18n-map';
 
 // Import translation files
+import enCountries from '../locales/en/countries.json';
+import enStates from '../locales/en/states.json';
 import enTranslation from '../locales/en/translation.json';
+import enZod from '../locales/en/zod.json';
+import esCountries from '../locales/es/countries.json';
+import esStates from '../locales/es/states.json';
 import esTranslation from '../locales/es/translation.json';
+import esZod from '../locales/es/zod.json';
 
 export const defaultNS = 'translation';
 
 export const resources = {
   en: {
-    translation: enTranslation,
-    zod: enTranslation.zod,
+    translation: {
+      ...enTranslation,
+      countries: enCountries,
+      states: enStates,
+    },
+    zod: enZod,
   },
   es: {
-    translation: esTranslation,
-    zod: esTranslation.zod,
+    translation: {
+      ...esTranslation,
+      countries: esCountries,
+      states: esStates,
+    },
+    zod: esZod,
   },
 } as const;
 
