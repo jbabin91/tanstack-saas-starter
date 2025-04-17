@@ -1,10 +1,22 @@
 import { createFileRoute } from '@tanstack/react-router';
+import { t } from 'i18next';
 import { toast } from 'sonner';
 import { z } from 'zod';
 
 import { Card, CardContent } from '@/components/ui/card';
 import { useAppForm } from '@/components/ui/form';
 import { useTranslations } from '@/hooks/use-translations';
+
+// Define reusable country options constant
+const countryOptions: { label: string; value: string }[] = [
+  { label: t('countries.us'), value: 'US' },
+  { label: t('countries.ca'), value: 'CA' },
+  { label: t('countries.uk'), value: 'UK' },
+  { label: t('countries.au'), value: 'AU' },
+  { label: t('countries.de'), value: 'DE' },
+  { label: t('countries.fr'), value: 'FR' },
+  { label: t('countries.jp'), value: 'JP' },
+];
 
 // Define Zod schema for the address form
 const addressSchema = z.object({
@@ -107,15 +119,7 @@ function AddressForm() {
               <field.Select
                 label={t('forms.address.countryLabel')}
                 placeholder={t('forms.address.countryPlaceholder')}
-                values={[
-                  { label: t('countries.us'), value: 'US' },
-                  { label: t('countries.ca'), value: 'CA' },
-                  { label: t('countries.uk'), value: 'UK' },
-                  { label: t('countries.au'), value: 'AU' },
-                  { label: t('countries.de'), value: 'DE' },
-                  { label: t('countries.fr'), value: 'FR' },
-                  { label: t('countries.jp'), value: 'JP' },
-                ]}
+                values={countryOptions}
               />
             )}
           </form.AppField>
