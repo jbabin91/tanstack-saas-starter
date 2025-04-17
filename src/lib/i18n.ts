@@ -40,23 +40,32 @@ export const SUPPORTED_LANGUAGES = ['en', 'es'] as const;
 
 export type SupportedLanguage = (typeof SUPPORTED_LANGUAGES)[number];
 
-i18n
-  .use(LanguageDetector)
-  .use(initReactI18next)
-  .init({
-    debug: process.env.NODE_ENV === 'development',
-    defaultNS,
-    detection: {
-      caches: ['localStorage'],
-      lookupLocalStorage: 'i18nextLng',
-      order: ['localStorage', 'navigator'],
-    },
-    fallbackLng: DEFAULT_LANGUAGE,
-    interpolation: {
-      escapeValue: false,
-    },
-    resources,
-  });
+// Only install the browser detector on the client to pick localStorage
+const isBrowser = typeof window !== 'undefined';
+if (isBrowser) {
+  i18n.use(LanguageDetector);
+}
+
+// Initialize i18next without auto-detection; we'll detect in the provider
+i18n.use(initReactI18next).init({
+  debug: process.env.NODE_ENV === 'development',
+  defaultNS,
+  // Client-side detection config
+  detection:
+    isBrowser ?
+      {
+        caches: ['localStorage'],
+        lookupLocalStorage: 'i18nextLng',
+        order: ['localStorage', 'navigator'],
+      }
+    : undefined,
+  fallbackLng: DEFAULT_LANGUAGE,
+  interpolation: {
+    escapeValue: false,
+  },
+  resources,
+  supportedLngs: SUPPORTED_LANGUAGES,
+});
 
 // Configure zod to use i18next for error messages
 z.setErrorMap(zodI18nMap);

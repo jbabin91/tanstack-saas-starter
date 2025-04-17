@@ -10,8 +10,21 @@ type I18nProviderProps = {
 };
 
 export function I18nProvider({ children }: I18nProviderProps) {
-  const { currentLanguage } = useTranslations();
+  const { currentLanguage, changeLanguage, languages } = useTranslations();
   useLanguageDirection(); // Handles RTL/LTR changes
+
+  // On initial client mount, detect and apply persisted or navigator language
+  useEffect(() => {
+    const stored = localStorage.getItem('i18nextLng');
+    if (stored && stored !== currentLanguage) {
+      changeLanguage(stored as any);
+    } else if (!stored) {
+      const nav = navigator.language.split('-')[0];
+      if (languages.includes(nav as any) && nav !== currentLanguage) {
+        changeLanguage(nav as any);
+      }
+    }
+  }, []);
 
   // Update document language
   useEffect(() => {
