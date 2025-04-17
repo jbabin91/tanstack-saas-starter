@@ -1,0 +1,153 @@
+---
+description: The conventions to follow when committing code.
+globs:
+alwaysApply: true
+---
+
+# Conventional Commits
+
+## Overview
+
+Conventional Commits is a specification for adding human and machine-readable meaning to commit messages. This convention dovetails with [SemVer](https://semver.org/), by describing features, fixes, and breaking changes in commit messages.
+
+## Message Format
+
+STRICT FORMAT = `<type>(<scope>): <emoji> <description>`
+
+### Type-Emoji Pairs (REQUIRED)
+
+| Type     | Emoji | Description                                                   |
+| -------- | ----- | ------------------------------------------------------------- |
+| feat     | ✨    | A new feature                                                 |
+| fix      | 🐛    | A bug fix                                                     |
+| docs     | 📝    | Documentation only changes                                    |
+| style    | 💄    | Changes that do not affect the meaning of the code            |
+| refactor | ♻️    | A code change that neither fixes a bug nor adds a feature     |
+| perf     | ⚡️   | A code change that improves performance                       |
+| test     | ✅    | Adding missing tests or correcting existing tests             |
+| build    | 📦    | Changes that affect the build system or external dependencies |
+| ci       | 👷    | Changes to CI configuration files and scripts                 |
+| chore    | 🔨    | Other changes that don't modify src or test files             |
+| revert   | ⏪️   | Reverts a previous commit                                     |
+
+### Scopes (REQUIRED)
+
+| Scope  | Description                    |
+| ------ | ------------------------------ |
+| ui     | Component and styling changes  |
+| api    | Backend endpoint changes       |
+| docs   | Documentation updates          |
+| test   | Testing-related changes        |
+| forms  | Form components and logic      |
+| router | Routing-related changes        |
+| query  | Data fetching and caching      |
+| deps   | Dependency updates             |
+| config | Configuration changes          |
+| auth   | Authentication-related changes |
+| types  | TypeScript type changes        |
+
+Multiple scopes can be combined using commas: `feat(ui,forms): ✨ add new form component`
+
+### Breaking Changes
+
+For breaking changes:
+
+- Only allowed in `feat` and `fix` types
+- Add `!` before the colon
+- Pattern: `<type>(<scope>)!: <emoji> <description>`
+
+### Commit Body (REQUIRED)
+
+The commit body should:
+
+1. Be separated from the subject with a blank line
+2. Use bullet points with "-"
+3. Start each point with a capital letter
+4. Describe:
+   - What changes were made
+   - Why changes were needed
+   - Impact of changes
+   - Notable implementation details
+
+## Examples
+
+### Feature with Breaking Change
+
+```sh
+feat(auth)!: ✨ implement new OAuth2 flow
+
+- Replaced legacy authentication system with OAuth2 implementation
+- Added support for multiple identity providers (Google, GitHub)
+- Improved security by implementing PKCE flow
+- Updated user session management to handle new token format
+```
+
+### Bug Fix
+
+```sh
+fix(api): 🐛 handle null responses in user service
+
+- Added null checks to prevent crashes in user profile fetching
+- Implemented fallback values for missing user data
+- Updated error handling to provide more descriptive messages
+- Added logging for better debugging of null responses
+```
+
+### Documentation Update
+
+```sh
+docs(docs): 📝 add conventional commit guidelines
+
+- Introduced comprehensive documentation for conventional commit message formatting
+- Defined standard type-emoji mappings to ensure consistency across commits
+- Added detailed examples and use cases for different commit types
+- Included guidelines for breaking changes and multi-scope commits
+```
+
+## Validation
+
+### Regex Pattern
+
+```sh
+^(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert)(\([a-z,]+\))(!)?:\s[✨🐛📝💄♻️⚡️✅📦👷🔨⏪️]\s.+$
+```
+
+### Quick Commands
+
+- `b`: Quick dependency updates (`chore(deps): 🔨`)
+
+## Configuration
+
+This project uses `commitlint` with `cz-git` for commit message linting and interactive commit creation. The configuration includes:
+
+- Emoji support enabled by default
+- Type-safe configuration using TypeScript
+- Predefined scopes with descriptions for better clarity
+- Skip prompts for footer and scope to streamline commit process
+- Maximum subject length of 100 characters
+- Breaking changes allowed only for `feat` and `fix` types
+- Smart aliases for common dependency updates and fixes
+- No custom issue prefix support for consistent commit messages
+- Optional body and breaking change sections for detailed changes when needed
+
+## Benefits
+
+- Automatically generating CHANGELOGs
+- Automatically determining semantic version bumps
+- Communicating the nature of changes to teammates and stakeholders
+- Making it easier for people to contribute to your projects
+- Consistent commit history with emoji support
+- Quick commits using aliases for common changes
+
+## Tools
+
+- [commitlint](https://commitlint.js.org/) - Lint commit messages
+- [cz-git](https://cz-git.qbb.sh/) - Customizable commitizen adapter
+- [commitizen](https://commitizen.github.io/cz-cli/) - Command line utility to format commit messages
+- [standard-version](https://github.com/conventional-changelog/standard-version) - Automate versioning and CHANGELOG generation
+
+## References
+
+- [Conventional Commits Specification](https://www.conventionalcommits.org/)
+- [Angular Commit Message Guidelines](https://github.com/angular/angular/blob/master/CONTRIBUTING.md#-commit-message-guidelines)
+- [cz-git Documentation](https://cz-git.qbb.sh/)
