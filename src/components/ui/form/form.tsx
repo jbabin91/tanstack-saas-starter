@@ -33,14 +33,19 @@ function ErrorMessages({
 }: {
   errors: (string | { message: string })[];
 }) {
+  // Deduplicate error messages
+  const uniqueMessages = Array.from(
+    new Set(
+      errors.map((error) =>
+        typeof error === 'string' ? error : error.message,
+      ),
+    ),
+  );
   return (
     <>
-      {errors.map((error) => (
-        <div
-          key={typeof error === 'string' ? error : error.message}
-          className="mt-1 font-bold text-red-500"
-        >
-          {typeof error === 'string' ? error : error.message}
+      {uniqueMessages.map((message) => (
+        <div key={message} className="mt-1 font-bold text-red-500">
+          {message}
         </div>
       ))}
     </>

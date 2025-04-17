@@ -1,7 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { z } from 'zod'; // Import Zod
+import { toast } from 'sonner';
+import { z } from 'zod';
 
-// import { z } from 'zod'; // Note: Zod validation might be needed later
 import { Card, CardContent } from '@/components/ui/card';
 import { useAppForm } from '@/components/ui/form';
 import { useTranslations } from '@/hooks/use-translations';
@@ -46,18 +46,19 @@ function AddressForm() {
       phone: '',
     },
     validators: {
+      onChange: addressSchema,
       onBlur: addressSchema,
       onSubmit: addressSchema,
     },
     onSubmit: ({ value }) => {
       console.log(value);
       // Show success message
-      alert(t('common.formSubmitSuccess'));
+      toast.success(t('common.formSubmitSuccess'));
     },
   });
 
   return (
-    <Card>
+    <Card className="max-w-xl">
       <CardContent>
         <form
           className="space-y-6"
