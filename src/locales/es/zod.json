@@ -4,6 +4,9 @@
   "address.state": "Estado/Provincia",
   "address.street": "Dirección (Calle)",
   "address.zipCode": "Código Postal",
+  "address.invalidState": "Estado/Región inválido para el país seleccionado",
+  "address.invalidPostal": "Código postal inválido para el país seleccionado",
+  "address.invalidPhone": "Número de teléfono inválido para el país seleccionado",
   "description": "Por favor, revisa el formulario para ver los errores",
   "email": "Correo Electrónico",
   "errors": {

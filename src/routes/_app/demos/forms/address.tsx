@@ -74,24 +74,38 @@ function AddressForm() {
         >
           <form.AppField name="fullName">
             {(field) => (
-              <field.TextField label={t('forms.address.fullNameLabel')} />
+              <field.TextField
+                label={t('forms.address.fullNameLabel')}
+                placeholder={t('forms.address.fullNamePlaceholder')}
+              />
             )}
           </form.AppField>
 
           <form.AppField name="email">
-            {(field) => <field.TextField label={t('auth.email')} />}
+            {(field) => (
+              <field.TextField
+                label={t('auth.email')}
+                placeholder={t('forms.address.emailPlaceholder')}
+              />
+            )}
           </form.AppField>
 
           <form.AppField name="address.street">
             {(field) => (
-              <field.TextField label={t('forms.address.streetLabel')} />
+              <field.TextField
+                label={t('forms.address.streetLabel')}
+                placeholder={t('forms.address.streetPlaceholder')}
+              />
             )}
           </form.AppField>
 
           <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
             <form.AppField name="address.city">
               {(field) => (
-                <field.TextField label={t('forms.address.cityLabel')} />
+                <field.TextField
+                  label={t('forms.address.cityLabel')}
+                  placeholder={t('forms.address.cityPlaceholder')}
+                />
               )}
             </form.AppField>
             <form.Subscribe selector={(state) => state.values.address.country}>
@@ -114,7 +128,10 @@ function AddressForm() {
             </form.Subscribe>
             <form.AppField name="address.zipCode">
               {(field) => (
-                <field.TextField label={t('forms.address.zipCodeLabel')} />
+                <field.TextField
+                  label={t('forms.address.zipCodeLabel')}
+                  placeholder={t('forms.address.zipCodePlaceholder')}
+                />
               )}
             </form.AppField>
           </div>

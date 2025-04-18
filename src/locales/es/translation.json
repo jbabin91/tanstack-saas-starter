@@ -58,14 +58,20 @@
   "forms": {
     "address": {
       "cityLabel": "Ciudad",
+      "cityPlaceholder": "Madrid",
       "countryLabel": "País",
       "countryPlaceholder": "Selecciona un país",
       "fullNameLabel": "Nombre Completo",
+      "fullNamePlaceholder": "Juan Pérez",
       "phoneLabel": "Teléfono",
       "phonePlaceholder": "123-456-7890",
+      "emailPlaceholder": "tú@ejemplo.com",
       "stateLabel": "Estado/Provincia",
+      "statePlaceholder": "Selecciona un estado",
       "streetLabel": "Dirección (Calle)",
-      "zipCodeLabel": "Código Postal"
+      "streetPlaceholder": "Calle 123",
+      "zipCodeLabel": "Código Postal",
+      "zipCodePlaceholder": "28001"
     },
     "calendar": {
       "description": "Un componente de calendario independiente con varios modos de selección y opciones de personalización.",

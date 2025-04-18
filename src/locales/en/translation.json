@@ -49,15 +49,20 @@
   "forms": {
     "address": {
       "cityLabel": "City",
+      "cityPlaceholder": "San Francisco",
       "countryLabel": "Country",
       "countryPlaceholder": "Select a country",
       "fullNameLabel": "Full Name",
+      "fullNamePlaceholder": "John Doe",
       "phoneLabel": "Phone",
       "phonePlaceholder": "123-456-7890",
+      "emailPlaceholder": "you@example.com",
       "stateLabel": "State",
       "statePlaceholder": "Select a state",
       "streetLabel": "Street Address",
-      "zipCodeLabel": "Zip Code"
+      "streetPlaceholder": "123 Main St",
+      "zipCodeLabel": "Zip Code",
+      "zipCodePlaceholder": "12345"
     },
     "calendar": {
       "description": "A standalone calendar component with various selection modes and customization options.",

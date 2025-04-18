@@ -22,6 +22,7 @@ export const resources = {
       ...enTranslation,
       countries: enCountries,
       states: enStates,
+      zod: enZod,
     },
     zod: enZod,
   },
@@ -30,6 +31,7 @@ export const resources = {
       ...esTranslation,
       countries: esCountries,
       states: esStates,
+      zod: esZod,
     },
     zod: esZod,
   },
@@ -67,7 +69,27 @@ i18n.use(initReactI18next).init({
   supportedLngs: SUPPORTED_LANGUAGES,
 });
 
-// Configure zod to use i18next for error messages
-z.setErrorMap(zodI18nMap);
+// Configure zod to use i18next for error messages, including custom codes
+z.setErrorMap((issue, ctx) => {
+  // 1) built-in Zod error translations
+  const builtIn = zodI18nMap(issue, ctx);
+  if (builtIn.message) {
+    return builtIn;
+  }
+
+  // 2) custom cross-field validation codes
+  const code = (issue as any).params?.code as string | undefined;
+  switch (code) {
+    case 'invalidState':
+      return { message: i18n.t('zod.address.invalidState') };
+    case 'invalidPostal':
+      return { message: i18n.t('zod.address.invalidPostal') };
+    case 'invalidPhone':
+      return { message: i18n.t('zod.address.invalidPhone') };
+  }
+
+  // 3) fallback
+  return { message: ctx.defaultError };
+});
 
 export default i18n;

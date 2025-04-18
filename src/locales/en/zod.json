@@ -4,6 +4,9 @@
   "address.state": "State",
   "address.street": "Street Address",
   "address.zipCode": "Zip Code",
+  "address.invalidState": "Invalid state/region for selected country",
+  "address.invalidPostal": "Invalid postal code for selected country",
+  "address.invalidPhone": "Invalid phone number for selected country",
   "description": "Please check the form for errors",
   "email": "Email",
   "errors": {
