@@ -50,7 +50,7 @@ if (isBrowser) {
 
 // Initialize i18next without auto-detection; we'll detect in the provider
 i18n.use(initReactI18next).init({
-  debug: process.env.NODE_ENV === 'development',
+  debug: import.meta.env.DEV,
   defaultNS,
   // Client-side detection config
   detection:

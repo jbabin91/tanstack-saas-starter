@@ -2,6 +2,7 @@ import { createFileRoute } from '@tanstack/react-router';
 import { Trans } from 'react-i18next';
 
 import logo from '@/assets/logo.svg';
+import { env } from '@/configs/env';
 import { useTranslations } from '@/hooks/use-translations';
 
 export const Route = createFileRoute('/_public/')({
@@ -43,6 +44,9 @@ function Home() {
           {t('landing.learnTanstack')}
         </a>
       </header>
+      <div>
+        <pre>{JSON.stringify(env.VITE_APP_TITLE, null, 2)}</pre>
+      </div>
     </div>
   );
 }

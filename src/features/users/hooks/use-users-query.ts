@@ -1,56 +1,77 @@
-import { keepPreviousData, useQuery } from '@tanstack/react-query'; // Import keepPreviousData
+import {
+  keepPreviousData,
+  useQuery,
+  type UseQueryOptions,
+} from '@tanstack/react-query';
 import { type PaginationState, type SortingState } from '@tanstack/react-table';
 import { useState } from 'react';
 
 import { getUsers } from '@/features/users/api/get-users';
+import { initialPagination } from '@/lib/constants/pagination';
+import { initialSorting } from '@/lib/constants/sorting';
 
-// Define the initial state for pagination
-const initialPagination: PaginationState = {
-  pageIndex: 0,
-  pageSize: 10,
-};
+// Type for the getUsers server function result
+type UsersQueryFnData = Awaited<ReturnType<typeof getUsers>>;
 
-// Define the initial state for sorting
-const initialSorting: SortingState = [
-  // Default sort by createdAt descending
-  { desc: true, id: 'createdAt' },
-];
-
-export function useUsersQuery() {
-  const [pagination, setPagination] =
-    useState<PaginationState>(initialPagination);
-  const [sorting, setSorting] = useState<SortingState>(initialSorting);
-  const [globalFilter, setGlobalFilter] = useState<string>('');
-
-  // Define the query key, including the full state objects and primitives
-  const queryKey = [
-    'users',
-    pagination.pageIndex,
-    pagination.pageSize,
-    sorting,
-    globalFilter,
-  ];
-
-  const query = useQuery({
-    // Use placeholderData to keep showing old data while fetching new data
+/**
+ * Build a React Query options object for the `getUsers` server function.
+ */
+export function getUsersQueryOptions(args: {
+  globalFilter?: string;
+  pageIndex: number;
+  pageSize: number;
+  sorting?: SortingState;
+}): UseQueryOptions<UsersQueryFnData> {
+  return {
     placeholderData: keepPreviousData,
-
-    // The query function calls the server function with the current state
     queryFn: () =>
       getUsers({
-        // Wrap arguments in 'data' object for POST server function
         data: {
-          globalFilter: globalFilter || undefined,
-          pageIndex: pagination.pageIndex,
-          pageSize: pagination.pageSize,
-          sorting: sorting, // Pass undefined if filter is empty
+          globalFilter: args.globalFilter,
+          pageIndex: args.pageIndex,
+          pageSize: args.pageSize,
+          sorting: args.sorting,
         },
       }),
+    queryKey: [
+      'users',
+      args.pageIndex,
+      args.pageSize,
+      args.sorting ?? [],
+      args.globalFilter ?? '',
+    ],
+  };
+}
 
-    queryKey,
-    // Consider adding staleTime if appropriate for your use case
-    // staleTime: 1000 * 60 * 1, // 1 minute
+// Options to override default pagination/sorting
+export type UseUsersQueryOptions = {
+  defaultPagination?: Partial<PaginationState>;
+  defaultSorting?: SortingState;
+};
+
+/**
+ * Hook for fetching users with pagination, sorting, and filtering.
+ * You can override the initial pagination or sorting via options.
+ */
+export function useUsersQuery(options: UseUsersQueryOptions = {}) {
+  const [pagination, setPagination] = useState<PaginationState>(
+    // merge defaults with any override
+    { ...initialPagination, ...(options.defaultPagination ?? {}) },
+  );
+  const [sorting, setSorting] = useState<SortingState>(
+    // use override or default
+    options.defaultSorting ?? initialSorting,
+  );
+  const [globalFilter, setGlobalFilter] = useState<string>('');
+
+  // Build React Query options for current state
+  const queryOptions = getUsersQueryOptions({
+    globalFilter: globalFilter || undefined,
+    pageIndex: pagination.pageIndex,
+    pageSize: pagination.pageSize,
+    sorting,
   });
+  const query = useQuery(queryOptions);
 
   // The query object returned by useQuery includes isPlaceholderData
   return {
@@ -60,9 +81,7 @@ export function useUsersQuery() {
     globalFilter,
     isFetching: query.isFetching,
     isLoading: query.isLoading,
-
     isPlaceholderData: query.isPlaceholderData,
-    // Current table state and setters remain the same
     pagination,
     setGlobalFilter,
     setPagination,
