@@ -41,15 +41,10 @@ function ErrorMessages({
       ),
     ),
   );
-  return (
-    <>
-      {uniqueMessages.map((message) => (
-        <div key={message} className="mt-1 font-bold text-red-500">
-          {message}
-        </div>
-      ))}
-    </>
-  );
+  const firstMessage = uniqueMessages[0];
+  return firstMessage ?
+      <div className="mt-1 font-bold text-red-500">{firstMessage}</div>
+    : null;
 }
 
 export function FormTextField({
