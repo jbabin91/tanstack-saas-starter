@@ -8,36 +8,158 @@
     "signup": "Registrarse"
   },
   "common": {
+    "appTitle": "TanStack Start Starter",
     "cancel": "Cancelar",
     "create": "Crear",
     "delete": "Eliminar",
     "edit": "Editar",
     "error": "Error",
+    "formSubmitSuccess": "¡Formulario enviado con éxito!",
     "language": "Idioma",
     "loading": "Cargando...",
+    "logoAlt": "logo",
+    "notAvailable": "N/D",
     "save": "Guardar",
+    "submit": "Enviar",
     "success": "Éxito",
-    "logoAlt": "logo"
+    "tryAgain": "Intentar de Nuevo"
+  },
+  "countries": {
+    "au": "Australia",
+    "ca": "Canadá",
+    "de": "Alemania",
+    "fr": "Francia",
+    "jp": "Japón",
+    "uk": "Reino Unido",
+    "us": "Estados Unidos"
+  },
+  "demos": {
+    "data": {
+      "peopleListTitle": "Lista de Personas de Swapi"
+    },
+    "start": {
+      "addToCounter": "¿Añadir 1 a {{count}}?"
+    }
   },
   "errors": {
+    "dateRangeRequired": "Por favor selecciona un rango de fechas",
+    "dateRequired": "Por favor selecciona una fecha",
+    "goBack": "Volver",
     "invalidEmail": "Correo electrónico inválido",
     "invalidPassword": "La contraseña debe tener al menos 8 caracteres",
+    "invalidPhoneFormat": "Formato de número de teléfono inválido",
+    "invalidZipFormat": "Formato de código postal inválido",
+    "pageNotFound": "La página que buscas no existe.",
+    "phoneRequired": "Número de teléfono requerido",
     "required": "Este campo es requerido",
-    "somethingWentWrong": "Algo salió mal"
+    "somethingWentWrong": "Algo salió mal",
+    "startOver": "Empezar de Nuevo"
+  },
+  "forms": {
+    "address": {
+      "cityLabel": "Ciudad",
+      "cityPlaceholder": "Madrid",
+      "countryLabel": "País",
+      "countryPlaceholder": "Selecciona un país",
+      "fullNameLabel": "Nombre Completo",
+      "fullNamePlaceholder": "Juan Pérez",
+      "phoneLabel": "Teléfono",
+      "phonePlaceholder": "123-456-7890",
+      "emailPlaceholder": "tú@ejemplo.com",
+      "stateLabel": "Estado/Provincia",
+      "statePlaceholder": "Selecciona un estado",
+      "streetLabel": "Dirección (Calle)",
+      "streetPlaceholder": "Calle 123",
+      "zipCodeLabel": "Código Postal",
+      "zipCodePlaceholder": "28001"
+    },
+    "calendar": {
+      "description": "Un componente de calendario independiente con varios modos de selección y opciones de personalización.",
+      "multipleMonthsTitle": "Múltiples Meses",
+      "singleDateTitle": "Selección Fecha Única",
+      "title": "Componente Calendario"
+    },
+    "datePicker": {
+      "dateLabel": "Fecha",
+      "description": "Usa el formulario de abajo para programar tu evento con nuestro nuevo selector de calendario.",
+      "descriptionLabel": "Descripción",
+      "eventNameLabel": "Nombre del Evento",
+      "submitButtonLabel": "Programar Evento",
+      "successMessage": "Evento \"{{eventName}}\" programado para {{eventDate}}",
+      "title": "Programar un Evento"
+    },
+    "dateRangePicker": {
+      "dateRangeLabel": "Rango de Fechas",
+      "description": "Usa el formulario de abajo para programar tu evento con nuestro nuevo selector de rango de fechas.",
+      "successMessage": "Evento \"{{eventName}}\" programado desde {{startDate}} hasta {{endDate}}",
+      "title": "Programar Rango de Evento"
+    },
+    "simple": {
+      "descriptionLabel": "Descripción",
+      "titleLabel": "Título"
+    }
   },
   "landing": {
-    "learnReact": "Aprender React",
-    "learnTanstack": "Aprender TanStack",
     "editCode": {
       "message": "Edita <0>{{path}}</0> y guarda para recargar.",
       "path": "src/routes/index.tsx"
-    }
+    },
+    "learnReact": "Aprender React",
+    "learnTanstack": "Aprender TanStack"
+  },
+  "languages": {
+    "en": "Inglés",
+    "es": "Español"
   },
   "nav": {
+    "addressForm": "Formulario Dirección",
     "dashboard": "Panel",
     "home": "Inicio",
     "logout": "Cerrar Sesión",
     "profile": "Perfil",
-    "settings": "Configuración"
+    "settings": "Configuración",
+    "simpleForm": "Formulario Simple",
+    "startApiRequest": "Inicio - Petición API",
+    "startServerFuncs": "Inicio - Funciones Servidor",
+    "tanstackQuery": "TanStack Query",
+    "tanstackTable": "TanStack Table"
+  },
+  "pageTitles": {
+    "users": "Usuarios"
+  },
+  "table": {
+    "error": "Error al obtener usuarios: {{message}}",
+    "filterPlaceholder": "Buscar nombre o correo...",
+    "header": {
+      "createdAt": "Creado En",
+      "locale": "Idioma",
+      "name": "Nombre"
+    },
+    "loading": "Cargando usuarios...",
+    "noResults": "Sin resultados.",
+    "pagination": {
+      "decrementAriaLabel": "Decrementar número de página",
+      "firstPageLabel": "Ir a primera página",
+      "goToPage": "Ir a página:",
+      "incrementAriaLabel": "Incrementar número de página",
+      "lastPageLabel": "Ir a última página",
+      "nextPageLabel": "Ir a página siguiente",
+      "of": "de",
+      "page": "Página",
+      "pageSizePlaceholder": "Tamaño pág.",
+      "previousPageLabel": "Ir a página anterior",
+      "showPageSize": "Mostrar {{pageSize}}"
+    },
+    "sort": {
+      "ascending": "Ordenar ascendente",
+      "clear": "Quitar orden",
+      "descending": "Ordenar descendente"
+    }
+  },
+  "theme": {
+    "dark": "Oscuro",
+    "light": "Claro",
+    "system": "Sistema",
+    "toggle": "Cambiar tema"
   }
 }

@@ -33,18 +33,18 @@ function ErrorMessages({
 }: {
   errors: (string | { message: string })[];
 }) {
-  return (
-    <>
-      {errors.map((error) => (
-        <div
-          key={typeof error === 'string' ? error : error.message}
-          className="mt-1 font-bold text-red-500"
-        >
-          {typeof error === 'string' ? error : error.message}
-        </div>
-      ))}
-    </>
+  // Deduplicate error messages
+  const uniqueMessages = Array.from(
+    new Set(
+      errors.map((error) =>
+        typeof error === 'string' ? error : error.message,
+      ),
+    ),
   );
+  const firstMessage = uniqueMessages[0];
+  return firstMessage ?
+      <div className="mt-1 font-bold text-red-500">{firstMessage}</div>
+    : null;
 }
 
 export function FormTextField({
@@ -186,7 +186,13 @@ export function FormSelect({
       <ShadcnSelect.Select
         name={field.name}
         value={field.state.value}
-        onValueChange={(value) => field.handleChange(value)}
+        onOpenChange={(open) => {
+          if (!open) field.handleBlur();
+        }}
+        onValueChange={(value) => {
+          field.handleChange(value);
+          field.handleBlur();
+        }}
       >
         <ShadcnSelect.SelectTrigger
           aria-describedby={errors?.length ? errorId : ariaDescribedBy}
@@ -195,6 +201,7 @@ export function FormSelect({
           aria-required={ariaRequired}
           className="placeholder:text-muted-foreground/70 hover:bg-accent/10 w-full"
           id={fieldId}
+          onBlur={field.handleBlur}
         >
           <ShadcnSelect.SelectValue
             className="text-muted-foreground"

@@ -1,13 +1,44 @@
 import { createFileRoute } from '@tanstack/react-router';
+import { toast } from 'sonner';
+import { z } from 'zod';
 
 import { Card, CardContent } from '@/components/ui/card';
 import { useAppForm } from '@/components/ui/form';
+import { useTranslations } from '@/hooks/use-translations';
+import {
+  countryOptions,
+  getSubdivisionOptions,
+} from '@/lib/constants/country-options';
+import { withAddressValidation } from '@/lib/utils/zod-validators';
+
+// Define Zod schema for the address form with cross-field validation
+const addressSchema = withAddressValidation(
+  z.object({
+    fullName: z.string().min(1),
+    email: z.string().min(1).email(),
+    address: z.object({
+      street: z.string().min(1),
+      city: z.string().min(1),
+      state: z.string().min(1),
+      zipCode: z
+        .string()
+        .min(1)
+        .regex(/^\d{5}(-\d{4})?$/),
+      country: z.string().min(1),
+    }),
+    phone: z
+      .string()
+      .min(1)
+      .regex(/^(\+\d{1,3})?\s?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/),
+  }),
+);
 
 export const Route = createFileRoute('/_app/demos/forms/address')({
   component: AddressForm,
 });
 
 function AddressForm() {
+  const { t } = useTranslations();
   const form = useAppForm({
     defaultValues: {
       fullName: '',
@@ -22,27 +53,19 @@ function AddressForm() {
       phone: '',
     },
     validators: {
-      onBlur: ({ value }) => {
-        const errors = {
-          fields: {},
-        } as {
-          fields: Record<string, string>;
-        };
-        if (value.fullName.trim().length === 0) {
-          errors.fields.fullName = 'Full name is required';
-        }
-        return errors;
-      },
+      onChange: addressSchema,
+      onBlur: addressSchema,
+      onSubmit: addressSchema,
     },
     onSubmit: ({ value }) => {
       console.log(value);
       // Show success message
-      alert('Form submitted successfully!');
+      toast.success(t('common.formSubmitSuccess'));
     },
   });
 
   return (
-    <Card>
+    <Card className="max-w-xl">
       <CardContent>
         <form
           className="space-y-6"
@@ -53,139 +76,94 @@ function AddressForm() {
           }}
         >
           <form.AppField name="fullName">
-            {(field) => <field.TextField label="Full Name" />}
-          </form.AppField>
-
-          <form.AppField
-            name="email"
-            validators={{
-              onBlur: ({ value }) => {
-                if (!value || value.trim().length === 0) {
-                  return 'Email is required';
-                }
-                if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value)) {
-                  return 'Invalid email address';
-                }
-                return undefined;
-              },
-            }}
-          >
-            {(field) => <field.TextField label="Email" />}
-          </form.AppField>
-
-          <form.AppField
-            name="address.street"
-            validators={{
-              onBlur: ({ value }) => {
-                if (!value || value.trim().length === 0) {
-                  return 'Street address is required';
-                }
-                return undefined;
-              },
-            }}
-          >
-            {(field) => <field.TextField label="Street Address" />}
-          </form.AppField>
-
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-            <form.AppField
-              name="address.city"
-              validators={{
-                onBlur: ({ value }) => {
-                  if (!value || value.trim().length === 0) {
-                    return 'City is required';
-                  }
-                  return undefined;
-                },
-              }}
-            >
-              {(field) => <field.TextField label="City" />}
-            </form.AppField>
-            <form.AppField
-              name="address.state"
-              validators={{
-                onBlur: ({ value }) => {
-                  if (!value || value.trim().length === 0) {
-                    return 'State is required';
-                  }
-                  return undefined;
-                },
-              }}
-            >
-              {(field) => <field.TextField label="State" />}
-            </form.AppField>
-            <form.AppField
-              name="address.zipCode"
-              validators={{
-                onBlur: ({ value }) => {
-                  if (!value || value.trim().length === 0) {
-                    return 'Zip code is required';
-                  }
-                  if (!/^\d{5}(-\d{4})?$/.test(value)) {
-                    return 'Invalid zip code format';
-                  }
-                  return undefined;
-                },
-              }}
-            >
-              {(field) => <field.TextField label="Zip Code" />}
-            </form.AppField>
-          </div>
-
-          <form.AppField
-            name="address.country"
-            validators={{
-              onBlur: ({ value }) => {
-                if (!value || value.trim().length === 0) {
-                  return 'Country is required';
-                }
-                return undefined;
-              },
-            }}
-          >
             {(field) => (
-              <field.Select
-                label="Country"
-                placeholder="Select a country"
-                values={[
-                  { label: 'United States', value: 'US' },
-                  { label: 'Canada', value: 'CA' },
-                  { label: 'United Kingdom', value: 'UK' },
-                  { label: 'Australia', value: 'AU' },
-                  { label: 'Germany', value: 'DE' },
-                  { label: 'France', value: 'FR' },
-                  { label: 'Japan', value: 'JP' },
-                ]}
+              <field.TextField
+                label={t('forms.address.fullNameLabel')}
+                placeholder={t('forms.address.fullNamePlaceholder')}
               />
             )}
           </form.AppField>
 
-          <form.AppField
-            name="phone"
-            validators={{
-              onBlur: ({ value }) => {
-                if (!value || value.trim().length === 0) {
-                  return 'Phone number is required';
-                }
-                if (
-                  !/^(\+\d{1,3})?\s?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/.test(
-                    value,
-                  )
-                ) {
-                  return 'Invalid phone number format';
-                }
-                return undefined;
-              },
-            }}
-          >
+          <form.AppField name="email">
             {(field) => (
-              <field.TextField label="Phone" placeholder="123-456-7890" />
+              <field.TextField
+                label={t('auth.email')}
+                placeholder={t('forms.address.emailPlaceholder')}
+              />
+            )}
+          </form.AppField>
+
+          <form.AppField name="address.street">
+            {(field) => (
+              <field.TextField
+                label={t('forms.address.streetLabel')}
+                placeholder={t('forms.address.streetPlaceholder')}
+              />
+            )}
+          </form.AppField>
+
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+            <form.AppField name="address.city">
+              {(field) => (
+                <field.TextField
+                  label={t('forms.address.cityLabel')}
+                  placeholder={t('forms.address.cityPlaceholder')}
+                />
+              )}
+            </form.AppField>
+            <form.Subscribe selector={(state) => state.values.address.country}>
+              {(countryCode) => (
+                <form.AppField name="address.state">
+                  {(field) => (
+                    <field.Select
+                      label={t('forms.address.stateLabel')}
+                      placeholder={t('forms.address.statePlaceholder')}
+                      values={getSubdivisionOptions(countryCode).map(
+                        ({ labelKey, value }) => ({
+                          label: t(labelKey as any),
+                          value,
+                        }),
+                      )}
+                    />
+                  )}
+                </form.AppField>
+              )}
+            </form.Subscribe>
+            <form.AppField name="address.zipCode">
+              {(field) => (
+                <field.TextField
+                  label={t('forms.address.zipCodeLabel')}
+                  placeholder={t('forms.address.zipCodePlaceholder')}
+                />
+              )}
+            </form.AppField>
+          </div>
+
+          <form.AppField name="address.country">
+            {(field) => (
+              <field.Select
+                label={t('forms.address.countryLabel')}
+                placeholder={t('forms.address.countryPlaceholder')}
+                values={countryOptions.map(({ labelKey, value }) => ({
+                  label: t(labelKey as any),
+                  value,
+                }))}
+              />
+            )}
+          </form.AppField>
+
+          <form.AppField name="phone">
+            {(field) => (
+              <field.TextField
+                label={t('forms.address.phoneLabel')}
+                placeholder={t('forms.address.phonePlaceholder')}
+              />
             )}
           </form.AppField>
 
           <div className="flex justify-end">
             <form.AppForm>
-              <form.SubscribeButton label="Submit" />
+              <form.SubscribeButton label={t('common.submit')} />
             </form.AppForm>
           </div>
         </form>

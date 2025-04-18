@@ -8,9 +8,11 @@ import {
 } from '@tanstack/react-router';
 
 import { Button } from '@/components/ui/button';
+import { useTranslations } from '@/hooks/use-translations';
 
 export function DefaultCatchBoundary({ error }: ErrorComponentProps) {
   const router = useRouter();
+  const { t } = useTranslations();
   const isRoot = useMatch({
     select: (state) => state.id === rootRouteId,
     strict: false,
@@ -28,11 +30,11 @@ export function DefaultCatchBoundary({ error }: ErrorComponentProps) {
             router.invalidate();
           }}
         >
-          Try Again
+          {t('common.tryAgain')}
         </Button>
         {isRoot ?
           <Button asChild>
-            <Link to="/">Home</Link>
+            <Link to="/">{t('nav.home')}</Link>
           </Button>
         : <Button asChild>
             <Link
@@ -42,7 +44,7 @@ export function DefaultCatchBoundary({ error }: ErrorComponentProps) {
                 globalThis.history.back();
               }}
             >
-              Go Back
+              {t('errors.goBack')}
             </Link>
           </Button>
         }

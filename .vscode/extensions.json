@@ -5,6 +5,7 @@
     "dotenv.dotenv-vscode",
     "editorconfig.editorconfig",
     "esbenp.prettier-vscode",
+    "lokalise.i18n-ally",
     "ms-playwright.playwright",
     "redhat.vscode-yaml",
     "streetsidesoftware.code-spell-checker",

@@ -9,6 +9,7 @@ import {
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools';
 
 import Header from '@/components/layout/header';
+import { useTranslations } from '@/hooks/use-translations';
 import { Providers } from '@/providers';
 import globalsCss from '@/styles/globals.css?url';
 
@@ -56,8 +57,10 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 });
 
 function RootDocument({ children }: { children: React.ReactNode }) {
+  const { currentLanguage } = useTranslations();
+
   return (
-    <html suppressHydrationWarning lang="en">
+    <html suppressHydrationWarning lang={currentLanguage}>
       <head>
         <HeadContent />
       </head>

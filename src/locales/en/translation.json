@@ -8,36 +8,150 @@
     "signup": "Sign Up"
   },
   "common": {
+    "appTitle": "TanStack Start Starter",
     "cancel": "Cancel",
     "create": "Create",
     "delete": "Delete",
     "edit": "Edit",
     "error": "Error",
+    "formSubmitSuccess": "Form submitted successfully!",
     "language": "Language",
     "loading": "Loading...",
+    "logoAlt": "logo",
+    "notAvailable": "N/A",
     "save": "Save",
+    "submit": "Submit",
     "success": "Success",
-    "logoAlt": "logo"
+    "tryAgain": "Try Again"
+  },
+  "demos": {
+    "data": {
+      "peopleListTitle": "People list from Swapi"
+    },
+    "start": {
+      "addToCounter": "Add 1 to {{count}}?"
+    }
   },
   "errors": {
+    "dateRangeRequired": "Please select a date range",
+    "dateRequired": "Please select a date",
+    "goBack": "Go back",
     "invalidEmail": "Invalid email address",
     "invalidPassword": "Password must be at least 8 characters",
+    "invalidPhoneFormat": "Invalid phone number format",
+    "invalidZipFormat": "Invalid zip code format",
+    "pageNotFound": "The page you are looking for does not exist.",
+    "phoneRequired": "Phone number is required",
     "required": "This field is required",
-    "somethingWentWrong": "Something went wrong"
+    "somethingWentWrong": "Something went wrong",
+    "startOver": "Start Over"
+  },
+  "forms": {
+    "address": {
+      "cityLabel": "City",
+      "cityPlaceholder": "San Francisco",
+      "countryLabel": "Country",
+      "countryPlaceholder": "Select a country",
+      "fullNameLabel": "Full Name",
+      "fullNamePlaceholder": "John Doe",
+      "phoneLabel": "Phone",
+      "phonePlaceholder": "123-456-7890",
+      "emailPlaceholder": "you@example.com",
+      "stateLabel": "State",
+      "statePlaceholder": "Select a state",
+      "streetLabel": "Street Address",
+      "streetPlaceholder": "123 Main St",
+      "zipCodeLabel": "Zip Code",
+      "zipCodePlaceholder": "12345"
+    },
+    "calendar": {
+      "description": "A standalone calendar component with various selection modes and customization options.",
+      "multipleMonthsTitle": "Multiple Months",
+      "singleDateTitle": "Single Date Selection",
+      "title": "Calendar Component"
+    },
+    "datePicker": {
+      "dateLabel": "Date",
+      "description": "Use the form below to schedule your event with our new calendar picker.",
+      "descriptionLabel": "Description",
+      "eventNameLabel": "Event Name",
+      "submitButtonLabel": "Schedule Event",
+      "successMessage": "Event \"{{eventName}}\" scheduled for {{eventDate}}",
+      "title": "Schedule an Event"
+    },
+    "dateRangePicker": {
+      "dateRangeLabel": "Date Range",
+      "description": "Use the form below to schedule your event with our new date range picker.",
+      "successMessage": "Event \"{{eventName}}\" scheduled from {{startDate}} to {{endDate}}",
+      "title": "Schedule an Event Range"
+    },
+    "simple": {
+      "descriptionLabel": "Description",
+      "titleLabel": "Title"
+    }
   },
   "landing": {
-    "learnReact": "Learn React",
-    "learnTanstack": "Learn TanStack",
     "editCode": {
       "message": "Edit <0>{{path}}</0> and save to reload.",
       "path": "src/routes/index.tsx"
-    }
+    },
+    "learnReact": "Learn React",
+    "learnTanstack": "Learn TanStack",
+    "settings": "Settings"
+  },
+  "languages": {
+    "en": "English",
+    "es": "Español"
   },
   "nav": {
+    "addressForm": "Address Form",
     "dashboard": "Dashboard",
     "home": "Home",
     "logout": "Logout",
     "profile": "Profile",
-    "settings": "Settings"
+    "settings": "Settings",
+    "simpleForm": "Simple Form",
+    "startApiRequest": "Start - API Request",
+    "startServerFuncs": "Start - Server Functions",
+    "tanstackQuery": "TanStack Query",
+    "tanstackTable": "TanStack Table"
+  },
+  "pageTitles": {
+    "users": "Users"
+  },
+  "table": {
+    "error": "Error fetching users: {{message}}",
+    "filterPlaceholder": "Search name or email...",
+    "header": {
+      "createdAt": "Created At",
+      "locale": "Locale",
+      "name": "Name"
+    },
+    "loading": "Loading users...",
+    "noResults": "No results.",
+    "pagination": {
+      "decrementAriaLabel": "Decrement page number",
+      "firstPageLabel": "Go to first page",
+      "goToPage": "Go to page:",
+      "incrementAriaLabel": "Increment page number",
+      "lastPageLabel": "Go to last page",
+      "nextPageLabel": "Go to next page",
+      "of": "of",
+      "page": "Page",
+      "pageSizePlaceholder": "Page size",
+      "previousPageLabel": "Go to previous page",
+      "showPageSize": "Show {{pageSize}}"
+    },
+    "sort": {
+      "ascending": "Sort ascending",
+      "clear": "Clear sort",
+      "descending": "Sort descending"
+    }
+  },
+  "theme": {
+    "dark": "Dark",
+    "light": "Light",
+    "system": "System",
+    "toggle": "Toggle theme"
   }
 }
