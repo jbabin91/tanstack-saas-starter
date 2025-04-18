@@ -35,7 +35,7 @@
   },
   "demos": {
     "data": {
-      "peopleListTitle": "Lista de Personas de Swapi"
+      "peopleListTitle": "Lista de Personas"
     },
     "start": {
       "addToCounter": "¿Añadir 1 a {{count}}?"

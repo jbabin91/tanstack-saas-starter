@@ -113,7 +113,7 @@ export function UsersTable() {
     columns: translatedColumns,
     data: tableData,
     // Tell the table filtering is handled server-side
-    debugTable: process.env.NODE_ENV === 'development',
+    debugTable: import.meta.env.DEV,
 
     // Enable debug logs in dev
     filterFns: {
