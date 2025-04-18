@@ -9,26 +9,29 @@ import {
   countryOptions,
   getSubdivisionOptions,
 } from '@/lib/constants/country-options';
+import { withAddressValidation } from '@/lib/utils/zod-validators';
 
-// Define Zod schema for the address form
-const addressSchema = z.object({
-  fullName: z.string().min(1),
-  email: z.string().min(1).email(),
-  address: z.object({
-    street: z.string().min(1),
-    city: z.string().min(1),
-    state: z.string().min(1),
-    zipCode: z
+// Define Zod schema for the address form with cross-field validation
+const addressSchema = withAddressValidation(
+  z.object({
+    fullName: z.string().min(1),
+    email: z.string().min(1).email(),
+    address: z.object({
+      street: z.string().min(1),
+      city: z.string().min(1),
+      state: z.string().min(1),
+      zipCode: z
+        .string()
+        .min(1)
+        .regex(/^\d{5}(-\d{4})?$/),
+      country: z.string().min(1),
+    }),
+    phone: z
       .string()
       .min(1)
-      .regex(/^\d{5}(-\d{4})?$/),
-    country: z.string().min(1),
+      .regex(/^(\+\d{1,3})?\s?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/),
   }),
-  phone: z
-    .string()
-    .min(1)
-    .regex(/^(\+\d{1,3})?\s?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/),
-});
+);
 
 export const Route = createFileRoute('/_app/demos/forms/address')({
   component: AddressForm,

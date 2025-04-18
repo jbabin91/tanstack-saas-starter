@@ -22,18 +22,18 @@ export const resources = {
       ...enTranslation,
       countries: enCountries,
       states: enStates,
-      zod: enZod,
+      zod: enZod.zod,
     },
-    zod: enZod,
+    zod: enZod.zod,
   },
   es: {
     translation: {
       ...esTranslation,
       countries: esCountries,
       states: esStates,
-      zod: esZod,
+      zod: esZod.zod,
     },
-    zod: esZod,
+    zod: esZod.zod,
   },
 } as const;
 

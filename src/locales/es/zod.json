@@ -1,97 +1,101 @@
 {
-  "address.city": "Ciudad",
-  "address.country": "País",
-  "address.state": "Estado/Provincia",
-  "address.street": "Dirección (Calle)",
-  "address.zipCode": "Código Postal",
-  "address.invalidState": "Estado/Región inválido para el país seleccionado",
-  "address.invalidPostal": "Código postal inválido para el país seleccionado",
-  "address.invalidPhone": "Número de teléfono inválido para el país seleccionado",
-  "description": "Por favor, revisa el formulario para ver los errores",
-  "email": "Correo Electrónico",
-  "errors": {
-    "custom": "Entrada inválida",
-    "invalid_arguments": "Argumentos de función inválidos",
-    "invalid_date": "Fecha inválida",
-    "invalid_enum_value": "Valor de enumeración inválido. Se esperaba {{options}}, se recibió '{{received}}'",
-    "invalid_intersection_types": "Los resultados de la intersección no se pudieron fusionar",
-    "invalid_literal": "Valor literal inválido, se esperaba {{expected}}",
-    "invalid_return_type": "Tipo de retorno de función inválido",
-    "invalid_string": {
-      "cuid": "CUID inválido",
-      "datetime": "Fecha y hora inválidas",
+  "zod": {
+    "address": {
+      "city": "Ciudad",
+      "country": "País",
+      "invalidPhone": "Número de teléfono inválido para el país seleccionado",
+      "invalidPostal": "Código postal inválido para el país seleccionado",
+      "invalidState": "Estado/Región inválido para el país seleccionado",
+      "state": "Estado/Provincia",
+      "street": "Dirección (Calle)",
+      "zipCode": "Código Postal"
+    },
+    "description": "Por favor, revisa el formulario para ver los errores",
+    "email": "Correo Electrónico",
+    "errors": {
+      "custom": "Entrada inválida",
+      "invalid_arguments": "Argumentos de función inválidos",
+      "invalid_date": "Fecha inválida",
+      "invalid_enum_value": "Valor de enumeración inválido. Se esperaba {{options}}, se recibió '{{received}}'",
+      "invalid_intersection_types": "Los resultados de la intersección no se pudieron fusionar",
+      "invalid_literal": "Valor literal inválido, se esperaba {{expected}}",
+      "invalid_return_type": "Tipo de retorno de función inválido",
+      "invalid_string": {
+        "cuid": "CUID inválido",
+        "datetime": "Fecha y hora inválidas",
+        "email": "Correo electrónico inválido",
+        "endsWith": "Entrada inválida: debe terminar con \"{{endsWith}}\"",
+        "regex": "Inválido",
+        "startsWith": "Entrada inválida: debe comenzar con \"{{startsWith}}\"",
+        "url": "URL inválida",
+        "uuid": "UUID inválido"
+      },
+      "invalid_type": "Se esperaba {{expected}}, se recibió {{received}}",
+      "invalid_type_received_undefined": "Requerido",
+      "invalid_union": "Entrada inválida",
+      "invalid_union_discriminator": "Valor discriminador inválido. Se esperaba {{options}}",
+      "too_big": {
+        "array": {
+          "exact": "El array debe contener exactamente {{maximum}} elemento(s)",
+          "inclusive": "El array debe contener como máximo {{maximum}} elemento(s)",
+          "not_inclusive": "El array debe contener menos de {{maximum}} elemento(s)"
+        },
+        "date": {
+          "exact": "La fecha debe ser exactamente {{maximum}}",
+          "inclusive": "La fecha debe ser menor o igual a {{maximum}}",
+          "not_inclusive": "La fecha debe ser menor que {{maximum}}"
+        },
+        "number": {
+          "exact": "El número debe ser exactamente {{maximum}}",
+          "inclusive": "El número debe ser menor o igual a {{maximum}}",
+          "not_inclusive": "El número debe ser menor que {{maximum}}"
+        },
+        "set": {
+          "exact": "Entrada inválida",
+          "inclusive": "Entrada inválida",
+          "not_inclusive": "Entrada inválida"
+        },
+        "string": {
+          "exact": "La cadena debe contener exactamente {{maximum}} caracter(es)",
+          "inclusive": "La cadena debe contener como máximo {{maximum}} caracter(es)",
+          "not_inclusive": "La cadena debe contener menos de {{maximum}} caracter(es)"
+        }
+      },
+      "too_small": {
+        "array": {
+          "exact": "El array debe contener exactamente {{minimum}} elemento(s)",
+          "inclusive": "El array debe contener al menos {{minimum}} elemento(s)",
+          "not_inclusive": "El array debe contener más de {{minimum}} elemento(s)"
+        },
+        "date": {
+          "exact": "La fecha debe ser exactamente {{minimum}}",
+          "inclusive": "La fecha debe ser mayor o igual a {{minimum}}",
+          "not_inclusive": "La fecha debe ser mayor que {{minimum}}"
+        },
+        "number": {
+          "exact": "El número debe ser exactamente {{minimum}}",
+          "inclusive": "El número debe ser mayor o igual a {{minimum}}",
+          "not_inclusive": "El número debe ser mayor que {{minimum}}"
+        },
+        "set": {
+          "exact": "Entrada inválida",
+          "inclusive": "Entrada inválida",
+          "not_inclusive": "Entrada inválida"
+        },
+        "string": {
+          "exact": "La cadena debe contener exactamente {{minimum}} caracter(es)",
+          "inclusive": "La cadena debe contener al menos {{minimum}} caracter(es)",
+          "not_inclusive": "La cadena debe contener más de {{minimum}} caracter(es)"
+        }
+      },
+      "unrecognized_keys": "Clave(s) no reconocida(s) en el objeto: {{keys}}"
+    },
+    "fullName": "Nombre Completo",
+    "phone": "Teléfono",
+    "title": "Error de Validación",
+    "validations": {
       "email": "Correo electrónico inválido",
-      "endsWith": "Entrada inválida: debe terminar con \"{{endsWith}}\"",
-      "regex": "Inválido",
-      "startsWith": "Entrada inválida: debe comenzar con \"{{startsWith}}\"",
-      "url": "URL inválida",
-      "uuid": "UUID inválido"
-    },
-    "invalid_type": "Se esperaba {{expected}}, se recibió {{received}}",
-    "invalid_type_received_undefined": "Requerido",
-    "invalid_union": "Entrada inválida",
-    "invalid_union_discriminator": "Valor discriminador inválido. Se esperaba {{options}}",
-    "too_big": {
-      "array": {
-        "exact": "El array debe contener exactamente {{maximum}} elemento(s)",
-        "inclusive": "El array debe contener como máximo {{maximum}} elemento(s)",
-        "not_inclusive": "El array debe contener menos de {{maximum}} elemento(s)"
-      },
-      "date": {
-        "exact": "La fecha debe ser exactamente {{maximum}}",
-        "inclusive": "La fecha debe ser menor o igual a {{maximum}}",
-        "not_inclusive": "La fecha debe ser menor que {{maximum}}"
-      },
-      "number": {
-        "exact": "El número debe ser exactamente {{maximum}}",
-        "inclusive": "El número debe ser menor o igual a {{maximum}}",
-        "not_inclusive": "El número debe ser menor que {{maximum}}"
-      },
-      "set": {
-        "exact": "Entrada inválida",
-        "inclusive": "Entrada inválida",
-        "not_inclusive": "Entrada inválida"
-      },
-      "string": {
-        "exact": "La cadena debe contener exactamente {{maximum}} caracter(es)",
-        "inclusive": "La cadena debe contener como máximo {{maximum}} caracter(es)",
-        "not_inclusive": "La cadena debe contener menos de {{maximum}} caracter(es)"
-      }
-    },
-    "too_small": {
-      "array": {
-        "exact": "El array debe contener exactamente {{minimum}} elemento(s)",
-        "inclusive": "El array debe contener al menos {{minimum}} elemento(s)",
-        "not_inclusive": "El array debe contener más de {{minimum}} elemento(s)"
-      },
-      "date": {
-        "exact": "La fecha debe ser exactamente {{minimum}}",
-        "inclusive": "La fecha debe ser mayor o igual a {{minimum}}",
-        "not_inclusive": "La fecha debe ser mayor que {{minimum}}"
-      },
-      "number": {
-        "exact": "El número debe ser exactamente {{minimum}}",
-        "inclusive": "El número debe ser mayor o igual a {{minimum}}",
-        "not_inclusive": "El número debe ser mayor que {{minimum}}"
-      },
-      "set": {
-        "exact": "Entrada inválida",
-        "inclusive": "Entrada inválida",
-        "not_inclusive": "Entrada inválida"
-      },
-      "string": {
-        "exact": "La cadena debe contener exactamente {{minimum}} caracter(es)",
-        "inclusive": "La cadena debe contener al menos {{minimum}} caracter(es)",
-        "not_inclusive": "La cadena debe contener más de {{minimum}} caracter(es)"
-      }
-    },
-    "unrecognized_keys": "Clave(s) no reconocida(s) en el objeto: {{keys}}"
-  },
-  "fullName": "Nombre Completo",
-  "phone": "Teléfono",
-  "title": "Error de Validación",
-  "validations": {
-    "email": "Correo electrónico inválido",
-    "regex": "Inválido"
+      "regex": "Inválido"
+    }
   }
 }
