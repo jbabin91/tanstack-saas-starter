@@ -96,8 +96,8 @@ importers:
         specifier: ^8.19.4
         version: 8.19.4
       '@tanstack/react-form':
-        specifier: ^1.6.1
-        version: 1.6.1(@tanstack/react-start@1.116.1(@netlify/blobs@8.2.0)(@tanstack/react-router@1.116.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(@types/node@22.14.1)(db0@0.3.2(drizzle-orm@0.42.0(@types/pg@8.11.13)(gel@2.0.2)(pg@8.14.1)))(drizzle-orm@0.42.0(@types/pg@8.11.13)(gel@2.0.2)(pg@8.14.1))(ioredis@5.6.1)(jiti@2.4.2)(lightningcss@1.29.2)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(terser@5.39.0)(tsx@4.19.3)(vite@6.3.2(@types/node@22.14.1)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.1))(yaml@2.7.1))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(vinxi@0.5.4(@netlify/blobs@8.2.0)(@types/node@22.14.1)(db0@0.3.2(drizzle-orm@0.42.0(@types/pg@8.11.13)(gel@2.0.2)(pg@8.14.1)))(drizzle-orm@0.42.0(@types/pg@8.11.13)(gel@2.0.2)(pg@8.14.1))(ioredis@5.6.1)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.1))
+        specifier: ^1.6.3
+        version: 1.6.3(@tanstack/react-start@1.116.1(@netlify/blobs@8.2.0)(@tanstack/react-router@1.116.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(@types/node@22.14.1)(db0@0.3.2(drizzle-orm@0.42.0(@types/pg@8.11.13)(gel@2.0.2)(pg@8.14.1)))(drizzle-orm@0.42.0(@types/pg@8.11.13)(gel@2.0.2)(pg@8.14.1))(ioredis@5.6.1)(jiti@2.4.2)(lightningcss@1.29.2)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(terser@5.39.0)(tsx@4.19.3)(vite@6.3.2(@types/node@22.14.1)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.1))(yaml@2.7.1))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(vinxi@0.5.4(@netlify/blobs@8.2.0)(@types/node@22.14.1)(db0@0.3.2(drizzle-orm@0.42.0(@types/pg@8.11.13)(gel@2.0.2)(pg@8.14.1)))(drizzle-orm@0.42.0(@types/pg@8.11.13)(gel@2.0.2)(pg@8.14.1))(ioredis@5.6.1)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.1))
       '@tanstack/react-query':
         specifier: ^5.74.4
         version: 5.74.4(react@19.1.0)
@@ -3118,8 +3118,8 @@ packages:
   '@tanstack/form-core@0.42.1':
     resolution: {integrity: sha512-jTU0jyHqFceujdtPNv3jPVej1dTqBwa8TYdIyWB5BCwRVUBZEp1PiYEBkC9r92xu5fMpBiKc+JKud3eeVjuMiA==}
 
-  '@tanstack/form-core@1.6.1':
-    resolution: {integrity: sha512-R3d+jcPeUJzhzlBrQZCuurBK5CH1utmSZ/kah/PPbktj7VZ/9Rm9BB2eMXyYekRanjumlIvZna0Rq5sHLmDlUQ==}
+  '@tanstack/form-core@1.6.3':
+    resolution: {integrity: sha512-0m+F3vOplArF5yDzBOFpMeM+3cGjgRmtVgfi3z5+Bzcc4F8AkXngRay+PmzY0z8K3Trz7EAqmJWMB9T+LlZWoA==}
 
   '@tanstack/history@1.115.0':
     resolution: {integrity: sha512-K7JJNrRVvyjAVnbXOH2XLRhFXDkeP54Kt2P4FR1Kl2KDGlIbkua5VqZQD2rot3qaDrpufyUa63nuLai1kOLTsQ==}
@@ -3135,8 +3135,8 @@ packages:
   '@tanstack/query-devtools@5.73.3':
     resolution: {integrity: sha512-hBQyYwsOuO7QOprK75NzfrWs/EQYjgFA0yykmcvsV62q0t6Ua97CU3sYgjHx0ZvxkXSOMkY24VRJ5uv9f5Ik4w==}
 
-  '@tanstack/react-form@1.6.1':
-    resolution: {integrity: sha512-bYdWCE1Zbo4pJTtVXSVTQpdUePiQ9MbLlOBEyLMK8vHs2792RXSZiOp+gVgdIb19V5sKFPit9l8DpF6J4c/25g==}
+  '@tanstack/react-form@1.6.3':
+    resolution: {integrity: sha512-JuooyQ1bqIn3zC0wWCJB4n1UTyFZAF1Z4IWduUt6l356CoT78KTD56umRYLv3CirJqvYoa9kWOQKyjrVTmTNqw==}
     peerDependencies:
       '@tanstack/react-start': ^1.112.0
       react: ^17.0.0 || ^18.0.0 || ^19.0.0
@@ -6870,6 +6870,7 @@ packages:
   node-domexception@1.0.0:
     resolution: {integrity: sha512-/jKZoMpw0F8GRwl4/eLROPA3cfcXtLApP0QzLmUT/HuPCZWyB7IY9ZrMeKw2O/nFIqPQB3PVM9aYm0F312AXDQ==}
     engines: {node: '>=10.5.0'}
+    deprecated: Use your platform's native DOMException instead
 
   node-fetch-native@1.6.6:
     resolution: {integrity: sha512-8Mc2HhqPdlIfedsuZoc3yioPuzp6b+L5jRCRY1QzuWZh2EGJVQrGppC6V6cF0bLdbW0+O2YpqCA25aF/1lvipQ==}
@@ -11665,7 +11666,7 @@ snapshots:
     dependencies:
       '@tanstack/store': 0.7.0
 
-  '@tanstack/form-core@1.6.1':
+  '@tanstack/form-core@1.6.3':
     dependencies:
       '@tanstack/store': 0.7.0
 
@@ -11679,9 +11680,9 @@ snapshots:
 
   '@tanstack/query-devtools@5.73.3': {}
 
-  '@tanstack/react-form@1.6.1(@tanstack/react-start@1.116.1(@netlify/blobs@8.2.0)(@tanstack/react-router@1.116.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(@types/node@22.14.1)(db0@0.3.2(drizzle-orm@0.42.0(@types/pg@8.11.13)(gel@2.0.2)(pg@8.14.1)))(drizzle-orm@0.42.0(@types/pg@8.11.13)(gel@2.0.2)(pg@8.14.1))(ioredis@5.6.1)(jiti@2.4.2)(lightningcss@1.29.2)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(terser@5.39.0)(tsx@4.19.3)(vite@6.3.2(@types/node@22.14.1)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.1))(yaml@2.7.1))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(vinxi@0.5.4(@netlify/blobs@8.2.0)(@types/node@22.14.1)(db0@0.3.2(drizzle-orm@0.42.0(@types/pg@8.11.13)(gel@2.0.2)(pg@8.14.1)))(drizzle-orm@0.42.0(@types/pg@8.11.13)(gel@2.0.2)(pg@8.14.1))(ioredis@5.6.1)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.1))':
+  '@tanstack/react-form@1.6.3(@tanstack/react-start@1.116.1(@netlify/blobs@8.2.0)(@tanstack/react-router@1.116.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(@types/node@22.14.1)(db0@0.3.2(drizzle-orm@0.42.0(@types/pg@8.11.13)(gel@2.0.2)(pg@8.14.1)))(drizzle-orm@0.42.0(@types/pg@8.11.13)(gel@2.0.2)(pg@8.14.1))(ioredis@5.6.1)(jiti@2.4.2)(lightningcss@1.29.2)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(terser@5.39.0)(tsx@4.19.3)(vite@6.3.2(@types/node@22.14.1)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.1))(yaml@2.7.1))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(vinxi@0.5.4(@netlify/blobs@8.2.0)(@types/node@22.14.1)(db0@0.3.2(drizzle-orm@0.42.0(@types/pg@8.11.13)(gel@2.0.2)(pg@8.14.1)))(drizzle-orm@0.42.0(@types/pg@8.11.13)(gel@2.0.2)(pg@8.14.1))(ioredis@5.6.1)(jiti@2.4.2)(lightningcss@1.29.2)(terser@5.39.0)(tsx@4.19.3)(yaml@2.7.1))':
     dependencies:
-      '@tanstack/form-core': 1.6.1
+      '@tanstack/form-core': 1.6.3
       '@tanstack/react-store': 0.7.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       decode-formdata: 0.9.0
       devalue: 5.1.1
