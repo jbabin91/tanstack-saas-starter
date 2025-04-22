@@ -31,16 +31,21 @@ export const env = createEnv({
    * Use process.env on server (SSR) and import.meta.env on client
    */
   runtimeEnv:
-    import.meta.env.SSR ?
+    import.meta.env?.SSR ?
       {
         ...(process.env as Record<string, string | undefined>),
         ...(import.meta.env as Record<string, string | undefined>),
       }
-    : (import.meta.env as Record<string, string | undefined>),
+    : ((import.meta.env as Record<string, string | undefined>)
+      ?? (process.env as Record<string, string | undefined>)),
 
   server: {
     DATABASE_URL: z.string().url(),
-    NODE_ENV: z.enum(['development', 'test', 'production']),
+    GITHUB_CLIENT_ID: z.string(),
+    GITHUB_CLIENT_SECRET: z.string(),
+    NODE_ENV: z
+      .enum(['development', 'test', 'production'])
+      .default('development'),
     SERVER_URL: z.string().url().optional(),
   },
 });

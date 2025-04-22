@@ -15,6 +15,7 @@ import { Route as PublicRouteImport } from './routes/_public/route';
 import { Route as AuthRouteImport } from './routes/_auth/route';
 import { Route as AppRouteImport } from './routes/_app/route';
 import { Route as PublicIndexImport } from './routes/_public/index';
+import { Route as PublicAboutImport } from './routes/_public/about';
 import { Route as AppUsersImport } from './routes/_app/users';
 import { Route as AppDemosStartServerFuncsImport } from './routes/_app/demos/start/server-funcs';
 import { Route as AppDemosStartApiRequestImport } from './routes/_app/demos/start/api-request';
@@ -45,6 +46,12 @@ const AppRouteRoute = AppRouteImport.update({
 const PublicIndexRoute = PublicIndexImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => PublicRouteRoute,
+} as any);
+
+const PublicAboutRoute = PublicAboutImport.update({
+  id: '/about',
+  path: '/about',
   getParentRoute: () => PublicRouteRoute,
 } as any);
 
@@ -134,6 +141,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/users';
       preLoaderRoute: typeof AppUsersImport;
       parentRoute: typeof AppRouteImport;
+    };
+    '/_public/about': {
+      id: '/_public/about';
+      path: '/about';
+      fullPath: '/about';
+      preLoaderRoute: typeof PublicAboutImport;
+      parentRoute: typeof PublicRouteImport;
     };
     '/_public/': {
       id: '/_public/';
@@ -232,10 +246,12 @@ const AppRouteRouteWithChildren = AppRouteRoute._addFileChildren(
 );
 
 interface PublicRouteRouteChildren {
+  PublicAboutRoute: typeof PublicAboutRoute;
   PublicIndexRoute: typeof PublicIndexRoute;
 }
 
 const PublicRouteRouteChildren: PublicRouteRouteChildren = {
+  PublicAboutRoute: PublicAboutRoute,
   PublicIndexRoute: PublicIndexRoute,
 };
 
@@ -246,6 +262,7 @@ const PublicRouteRouteWithChildren = PublicRouteRoute._addFileChildren(
 export interface FileRoutesByFullPath {
   '': typeof PublicRouteRouteWithChildren;
   '/users': typeof AppUsersRoute;
+  '/about': typeof PublicAboutRoute;
   '/': typeof PublicIndexRoute;
   '/demos/data/query': typeof AppDemosDataQueryRoute;
   '/demos/forms/address': typeof AppDemosFormsAddressRoute;
@@ -260,6 +277,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '': typeof AuthRouteRoute;
   '/users': typeof AppUsersRoute;
+  '/about': typeof PublicAboutRoute;
   '/': typeof PublicIndexRoute;
   '/demos/data/query': typeof AppDemosDataQueryRoute;
   '/demos/forms/address': typeof AppDemosFormsAddressRoute;
@@ -277,6 +295,7 @@ export interface FileRoutesById {
   '/_auth': typeof AuthRouteRoute;
   '/_public': typeof PublicRouteRouteWithChildren;
   '/_app/users': typeof AppUsersRoute;
+  '/_public/about': typeof PublicAboutRoute;
   '/_public/': typeof PublicIndexRoute;
   '/_app/demos/data/query': typeof AppDemosDataQueryRoute;
   '/_app/demos/forms/address': typeof AppDemosFormsAddressRoute;
@@ -293,6 +312,7 @@ export interface FileRouteTypes {
   fullPaths:
     | ''
     | '/users'
+    | '/about'
     | '/'
     | '/demos/data/query'
     | '/demos/forms/address'
@@ -306,6 +326,7 @@ export interface FileRouteTypes {
   to:
     | ''
     | '/users'
+    | '/about'
     | '/'
     | '/demos/data/query'
     | '/demos/forms/address'
@@ -321,6 +342,7 @@ export interface FileRouteTypes {
     | '/_auth'
     | '/_public'
     | '/_app/users'
+    | '/_public/about'
     | '/_public/'
     | '/_app/demos/data/query'
     | '/_app/demos/forms/address'
@@ -380,12 +402,17 @@ export const routeTree = rootRoute
     "/_public": {
       "filePath": "_public/route.tsx",
       "children": [
+        "/_public/about",
         "/_public/"
       ]
     },
     "/_app/users": {
       "filePath": "_app/users.tsx",
       "parent": "/_app"
+    },
+    "/_public/about": {
+      "filePath": "_public/about.tsx",
+      "parent": "/_public"
     },
     "/_public/": {
       "filePath": "_public/index.tsx",

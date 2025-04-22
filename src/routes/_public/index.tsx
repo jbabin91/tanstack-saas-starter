@@ -4,6 +4,7 @@ import { Trans } from 'react-i18next';
 import logo from '@/assets/logo.svg';
 import { env } from '@/configs/env';
 import { useTranslations } from '@/hooks/use-translations';
+import { useSession } from '@/lib/auth-client';
 
 export const Route = createFileRoute('/_public/')({
   component: Home,
@@ -11,6 +12,7 @@ export const Route = createFileRoute('/_public/')({
 
 function Home() {
   const { t } = useTranslations();
+  const { data: session } = useSession();
 
   return (
     <div className="text-center">
@@ -45,6 +47,7 @@ function Home() {
         </a>
       </header>
       <div>
+        {session?.user ? `${session.user.name}` : 'No session'}
         <pre>{JSON.stringify(env.VITE_APP_TITLE, null, 2)}</pre>
       </div>
     </div>

@@ -3,6 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "auth:generate": "pnpm with-env pnpm dlx @better-auth/cli@latest generate --config src/lib/auth.ts --output src/db/schema/auth.ts",
     "build": "pnpm with-env vinxi build",
     "build-storybook": "storybook build",
     "chromatic": "chromatic",
@@ -77,6 +78,7 @@
     "@tanstack/react-table": "^8.21.3",
     "@tanstack/react-virtual": "^3.13.6",
     "@tanstack/zod-form-adapter": "^0.42.1",
+    "better-auth": "^1.2.7",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "country-state-city": "^3.2.1",
