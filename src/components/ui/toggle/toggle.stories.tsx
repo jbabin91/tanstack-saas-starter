@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import {
-  AlignCenter,
-  AlignLeft,
-  AlignRight,
-  Bold,
-  Italic,
-  Underline,
+  AlignCenterIcon,
+  AlignLeftIcon,
+  AlignRightIcon,
+  BoldIcon,
+  ItalicIcon,
+  UnderlineIcon,
 } from 'lucide-react';
 import * as React from 'react';
 
@@ -87,7 +87,7 @@ export const Disabled: Story = {
 export const WithIcon: Story = {
   render: (args) => (
     <Toggle {...args}>
-      <Bold className="h-4 w-4" />
+      <BoldIcon className="h-4 w-4" />
       <span>Bold</span>
     </Toggle>
   ),
@@ -96,7 +96,7 @@ export const WithIcon: Story = {
 export const IconOnly: Story = {
   render: (args) => (
     <Toggle {...args} aria-label="Toggle bold">
-      <Bold className="h-4 w-4" />
+      <BoldIcon className="h-4 w-4" />
     </Toggle>
   ),
 };
@@ -105,13 +105,13 @@ export const TextFormatting: Story = {
   render: () => (
     <div className="flex items-center space-x-2">
       <Toggle aria-label="Toggle bold">
-        <Bold className="h-4 w-4" />
+        <BoldIcon className="h-4 w-4" />
       </Toggle>
       <Toggle aria-label="Toggle italic">
-        <Italic className="h-4 w-4" />
+        <ItalicIcon className="h-4 w-4" />
       </Toggle>
       <Toggle aria-label="Toggle underline">
-        <Underline className="h-4 w-4" />
+        <UnderlineIcon className="h-4 w-4" />
       </Toggle>
     </div>
   ),
@@ -121,13 +121,13 @@ export const TextAlignment: Story = {
   render: () => (
     <div className="flex items-center space-x-2">
       <Toggle aria-label="Align left" variant="outline">
-        <AlignLeft className="h-4 w-4" />
+        <AlignLeftIcon className="h-4 w-4" />
       </Toggle>
       <Toggle aria-label="Align center" variant="outline">
-        <AlignCenter className="h-4 w-4" />
+        <AlignCenterIcon className="h-4 w-4" />
       </Toggle>
       <Toggle aria-label="Align right" variant="outline">
-        <AlignRight className="h-4 w-4" />
+        <AlignRightIcon className="h-4 w-4" />
       </Toggle>
     </div>
   ),

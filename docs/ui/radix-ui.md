@@ -44,7 +44,7 @@ This project uses several Radix UI components:
 ### Select Component
 
 ```tsx
-import * as Select from '@radix-ui/react-select';
+import { Select } from 'radix-ui';
 import { cn } from '@/lib/utils';
 import { CheckIcon, ChevronDownIcon } from 'lucide-react';
 
@@ -83,7 +83,7 @@ function SelectComponent({ value, onChange, options }) {
 ### Switch Component
 
 ```tsx
-import * as Switch from '@radix-ui/react-switch';
+import { Switch } from 'radix-ui';
 
 function SwitchComponent({ checked, onChange, label }) {
   return (
@@ -104,7 +104,7 @@ function SwitchComponent({ checked, onChange, label }) {
 ### Slider Component
 
 ```tsx
-import * as Slider from '@radix-ui/react-slider';
+import { Slider } from 'radix-ui';
 
 function SliderComponent({ value, onChange, min = 0, max = 100 }) {
   return (

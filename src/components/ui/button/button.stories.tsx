@@ -1,6 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { expect, userEvent, within } from '@storybook/test';
-import { Check, ChevronRight, Github, Loader2, Mail } from 'lucide-react';
+import {
+  CheckIcon,
+  ChevronRightIcon,
+  GithubIcon,
+  Loader2Icon,
+  MailIcon,
+} from 'lucide-react';
 
 import { Button } from './button';
 
@@ -151,7 +157,7 @@ export const WithLeftIcon: Story = {
   args: {
     children: (
       <>
-        <Mail className="mr-2 h-4 w-4" /> Login with Email
+        <MailIcon className="mr-2 h-4 w-4" /> Login with Email
       </>
     ),
   },
@@ -173,7 +179,7 @@ export const WithRightIcon: Story = {
   args: {
     children: (
       <>
-        Next Step <ChevronRight className="ml-2 h-4 w-4" />
+        Next Step <ChevronRightIcon className="ml-2 h-4 w-4" />
       </>
     ),
   },
@@ -183,7 +189,7 @@ export const Loading: Story = {
   args: {
     children: (
       <>
-        <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Please wait
+        <Loader2Icon className="mr-2 h-4 w-4 animate-spin" /> Please wait
       </>
     ),
     disabled: true,
@@ -204,7 +210,7 @@ export const Success: Story = {
   args: {
     children: (
       <>
-        <Check className="mr-2 h-4 w-4" /> Complete
+        <CheckIcon className="mr-2 h-4 w-4" /> Complete
       </>
     ),
     className:
@@ -217,7 +223,7 @@ export const WithSocialIcon: Story = {
   args: {
     children: (
       <>
-        <Github className="mr-2 h-4 w-4" /> Login with GitHub
+        <GithubIcon className="mr-2 h-4 w-4" /> Login with GitHub
       </>
     ),
     variant: 'outline',

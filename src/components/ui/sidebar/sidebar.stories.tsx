@@ -1,12 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import {
-  BarChart,
-  Heart,
-  Home,
-  MessageSquare,
-  Package,
-  Settings,
-  User,
+  BarChartIcon,
+  HeartIcon,
+  HomeIcon,
+  MessageSquareIcon,
+  PackageIcon,
+  SettingsIcon,
+  UserIcon,
 } from 'lucide-react';
 
 import { Button } from '../button';
@@ -68,7 +68,7 @@ export const Default: Story = {
                     aria-label="Dashboard"
                     data-testid="dashboard-button"
                   >
-                    <Home />
+                    <HomeIcon />
                     <span>Dashboard</span>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
@@ -77,7 +77,7 @@ export const Default: Story = {
                     aria-label="Products"
                     data-testid="products-button"
                   >
-                    <Package />
+                    <PackageIcon />
                     <span>Products</span>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
@@ -86,7 +86,7 @@ export const Default: Story = {
                     aria-label="Analytics"
                     data-testid="analytics-button"
                   >
-                    <BarChart />
+                    <BarChartIcon />
                     <span>Analytics</span>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
@@ -103,7 +103,7 @@ export const Default: Story = {
                     aria-label="Profile"
                     data-testid="profile-button"
                   >
-                    <User />
+                    <UserIcon />
                     <span>Profile</span>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
@@ -112,7 +112,7 @@ export const Default: Story = {
                     aria-label="Settings"
                     data-testid="settings-button"
                   >
-                    <Settings />
+                    <SettingsIcon />
                     <span>Settings</span>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
@@ -168,7 +168,7 @@ export const WithBadgesAndActions: Story = {
                     aria-label="Dashboard"
                     data-testid="dashboard-button-badges"
                   >
-                    <Home />
+                    <HomeIcon />
                     <span>Dashboard</span>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
@@ -177,7 +177,7 @@ export const WithBadgesAndActions: Story = {
                     aria-label="Messages"
                     data-testid="messages-button"
                   >
-                    <MessageSquare />
+                    <MessageSquareIcon />
                     <span>Messages</span>
                   </SidebarMenuButton>
                   <SidebarMenuBadge data-testid="messages-badge">
@@ -187,7 +187,7 @@ export const WithBadgesAndActions: Story = {
                     aria-label="Like Messages"
                     data-testid="messages-action"
                   >
-                    <Heart />
+                    <HeartIcon />
                   </SidebarMenuAction>
                 </SidebarMenuItem>
                 <SidebarMenuItem>
@@ -195,7 +195,7 @@ export const WithBadgesAndActions: Story = {
                     aria-label="Analytics"
                     data-testid="analytics-button-badges"
                   >
-                    <BarChart />
+                    <BarChartIcon />
                     <span>Analytics</span>
                   </SidebarMenuButton>
                   <SidebarMenuBadge data-testid="analytics-badge">
@@ -249,7 +249,7 @@ export const Variants: Story = {
                         aria-label="Home"
                         data-testid="home-button-default"
                       >
-                        <Home />
+                        <HomeIcon />
                         <span>Home</span>
                       </SidebarMenuButton>
                     </SidebarMenuItem>
@@ -258,7 +258,7 @@ export const Variants: Story = {
                         aria-label="Settings"
                         data-testid="settings-button-default"
                       >
-                        <Settings />
+                        <SettingsIcon />
                         <span>Settings</span>
                       </SidebarMenuButton>
                     </SidebarMenuItem>
@@ -294,7 +294,7 @@ export const Variants: Story = {
                         aria-label="Home"
                         data-testid="home-button-floating"
                       >
-                        <Home />
+                        <HomeIcon />
                         <span>Home</span>
                       </SidebarMenuButton>
                     </SidebarMenuItem>
@@ -303,7 +303,7 @@ export const Variants: Story = {
                         aria-label="Settings"
                         data-testid="settings-button-floating"
                       >
-                        <Settings />
+                        <SettingsIcon />
                         <span>Settings</span>
                       </SidebarMenuButton>
                     </SidebarMenuItem>
@@ -339,7 +339,7 @@ export const Variants: Story = {
                         aria-label="Home"
                         data-testid="home-button-inset"
                       >
-                        <Home />
+                        <HomeIcon />
                         <span>Home</span>
                       </SidebarMenuButton>
                     </SidebarMenuItem>
@@ -348,7 +348,7 @@ export const Variants: Story = {
                         aria-label="Settings"
                         data-testid="settings-button-inset"
                       >
-                        <Settings />
+                        <SettingsIcon />
                         <span>Settings</span>
                       </SidebarMenuButton>
                     </SidebarMenuItem>
@@ -389,7 +389,7 @@ export const Collapsible: Story = {
           <Sidebar collapsible="offcanvas">
             <SidebarHeader>
               <div className="flex items-center gap-2 p-2">
-                <Package className="text-primary h-8 w-8" />
+                <PackageIcon className="text-primary h-8 w-8" />
                 <div className="text-foreground font-bold">
                   Offcanvas Collapsible
                 </div>
@@ -404,7 +404,7 @@ export const Collapsible: Story = {
                         aria-label="Home"
                         className="text-foreground hover:text-foreground"
                       >
-                        <Home className="text-foreground" />
+                        <HomeIcon className="text-foreground" />
                         <span className="sidebar-expanded:inline sr-only">
                           Home
                         </span>
@@ -415,7 +415,7 @@ export const Collapsible: Story = {
                         aria-label="Settings"
                         className="text-foreground hover:text-foreground"
                       >
-                        <Settings className="text-foreground" />
+                        <SettingsIcon className="text-foreground" />
                         <span className="sidebar-expanded:inline sr-only">
                           Settings
                         </span>
@@ -455,7 +455,7 @@ export const Collapsible: Story = {
           <Sidebar collapsible="icon">
             <SidebarHeader>
               <div className="flex items-center gap-2 p-2">
-                <Package className="text-primary h-8 w-8" />
+                <PackageIcon className="text-primary h-8 w-8" />
                 <span className="sr-only">Icon Collapsible</span>
               </div>
             </SidebarHeader>
@@ -468,7 +468,7 @@ export const Collapsible: Story = {
                         aria-label="Home"
                         className="text-foreground hover:text-foreground"
                       >
-                        <Home className="text-foreground" />
+                        <HomeIcon className="text-foreground" />
                         <span className="sidebar-expanded:inline sr-only">
                           Home
                         </span>
@@ -479,7 +479,7 @@ export const Collapsible: Story = {
                         aria-label="Settings"
                         className="text-foreground hover:text-foreground"
                       >
-                        <Settings className="text-foreground" />
+                        <SettingsIcon className="text-foreground" />
                         <span className="sidebar-expanded:inline sr-only">
                           Settings
                         </span>
