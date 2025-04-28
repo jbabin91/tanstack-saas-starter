@@ -12,37 +12,48 @@ export default function Header() {
   const navigate = useNavigate();
 
   return (
-    <header className="flex justify-between gap-2 border-b p-2">
-      <nav className="flex flex-row items-center">
-        <div className="px-2 font-bold">
-          <Link to="/">{t('nav.home')}</Link>
-        </div>
-
-        <div className="px-2 font-bold">
-          <Link to="/demos/start/server-funcs">
-            {t('nav.startServerFuncs')}
-          </Link>
-        </div>
-
-        <div className="px-2 font-bold">
-          <Link to="/demos/start/api-request">{t('nav.startApiRequest')}</Link>
-        </div>
-
-        <div className="px-2 font-bold">
-          <Link to="/demos/forms/simple">{t('nav.simpleForm')}</Link>
-        </div>
-
-        <div className="px-2 font-bold">
-          <Link to="/demos/forms/address">{t('nav.addressForm')}</Link>
-        </div>
-
-        <div className="px-2 font-bold">
-          <Link to="/demos/data/query">{t('nav.tanstackQuery')}</Link>
-        </div>
-
-        <div className="px-2 font-bold">
-          <Link to="/users">{t('nav.tanstackTable')}</Link>
-        </div>
+    <header className="flex justify-between gap-2 border-b px-4 py-2">
+      <nav className="flex flex-row items-center gap-2">
+        <Link activeProps={{ className: 'font-bold' }} to="/">
+          {t('nav.home')}
+        </Link>
+        {session ?
+          <>
+            <Link
+              activeProps={{ className: 'font-bold' }}
+              to="/demos/start/server-funcs"
+            >
+              {t('nav.startServerFuncs')}
+            </Link>
+            <Link
+              activeProps={{ className: 'font-bold' }}
+              to="/demos/start/api-request"
+            >
+              {t('nav.startApiRequest')}
+            </Link>
+            <Link
+              activeProps={{ className: 'font-bold' }}
+              to="/demos/forms/simple"
+            >
+              {t('nav.simpleForm')}
+            </Link>
+            <Link
+              activeProps={{ className: 'font-bold' }}
+              to="/demos/forms/address"
+            >
+              {t('nav.addressForm')}
+            </Link>
+            <Link
+              activeProps={{ className: 'font-bold' }}
+              to="/demos/data/query"
+            >
+              {t('nav.tanstackQuery')}
+            </Link>
+            <Link activeProps={{ className: 'font-bold' }} to="/users">
+              {t('nav.tanstackTable')}
+            </Link>
+          </>
+        : null}
       </nav>
       <div className="flex flex-row items-center gap-2">
         {session ?
