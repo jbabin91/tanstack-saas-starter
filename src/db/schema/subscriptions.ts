@@ -1,11 +1,5 @@
-import {
-  index,
-  jsonb,
-  pgTable,
-  text,
-  timestamp,
-  uuid,
-} from 'drizzle-orm/pg-core';
+import { sql } from 'drizzle-orm';
+import { index, jsonb, pgTable, text, timestamp } from 'drizzle-orm/pg-core';
 import {
   createInsertSchema,
   createSelectSchema,
@@ -13,13 +7,15 @@ import {
 } from 'drizzle-zod';
 import { type z } from 'zod';
 
-import { users } from './users';
+import { users } from './auth';
 
 export const subscriptions = pgTable(
   'subscriptions',
   {
-    id: uuid().primaryKey().defaultRandom(),
-    userId: uuid()
+    id: text()
+      .primaryKey()
+      .$defaultFn(() => sql`gen_random_uuid()`),
+    userId: text()
       .notNull()
       .references(() => users.id, { onDelete: 'cascade' }),
     plan: text().notNull(),

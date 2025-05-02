@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { FileText, Settings, User } from 'lucide-react';
+import { FileTextIcon, SettingsIcon, UserIcon } from 'lucide-react';
 
 import {
   NavigationMenu,
@@ -53,7 +53,7 @@ export const WithDropdowns: Story = {
             <div className="grid w-[400px] gap-3 p-4">
               <NavigationMenuLink className="cursor-pointer">
                 <div className="flex items-center gap-2">
-                  <FileText className="size-4" />
+                  <FileTextIcon className="size-4" />
                   <div>
                     <h3 className="mb-1 text-sm font-medium">Product One</h3>
                     <p className="text-muted-foreground text-sm">
@@ -64,7 +64,7 @@ export const WithDropdowns: Story = {
               </NavigationMenuLink>
               <NavigationMenuLink className="cursor-pointer">
                 <div className="flex items-center gap-2">
-                  <Settings className="size-4" />
+                  <SettingsIcon className="size-4" />
                   <div>
                     <h3 className="mb-1 text-sm font-medium">Product Two</h3>
                     <p className="text-muted-foreground text-sm">
@@ -109,7 +109,7 @@ export const WithIcons: Story = {
         <NavigationMenuItem>
           <NavigationMenuLink className="cursor-pointer">
             <div className="flex items-center gap-2">
-              <FileText className="size-4" />
+              <FileTextIcon className="size-4" />
               Documents
             </div>
           </NavigationMenuLink>
@@ -117,7 +117,7 @@ export const WithIcons: Story = {
         <NavigationMenuItem>
           <NavigationMenuLink className="cursor-pointer">
             <div className="flex items-center gap-2">
-              <Settings className="size-4" />
+              <SettingsIcon className="size-4" />
               Settings
             </div>
           </NavigationMenuLink>
@@ -125,7 +125,7 @@ export const WithIcons: Story = {
         <NavigationMenuItem>
           <NavigationMenuLink className="cursor-pointer">
             <div className="flex items-center gap-2">
-              <User className="size-4" />
+              <UserIcon className="size-4" />
               Profile
             </div>
           </NavigationMenuLink>

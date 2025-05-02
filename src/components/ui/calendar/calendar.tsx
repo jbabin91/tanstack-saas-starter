@@ -1,5 +1,5 @@
 import { differenceInCalendarDays } from 'date-fns';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
 import * as React from 'react';
 import {
   DayPicker,
@@ -207,7 +207,8 @@ function Calendar({
           />
         ),
         Chevron: ({ orientation }) => {
-          const Icon = orientation === 'left' ? ChevronLeft : ChevronRight;
+          const Icon =
+            orientation === 'left' ? ChevronLeftIcon : ChevronRightIcon;
           return <Icon className="h-4 w-4" />;
         },
         MonthGrid: ({ className, children, ...props }) => (
@@ -361,7 +362,7 @@ function Nav({
         variant="outline"
         onClick={handlePreviousClick}
       >
-        <ChevronLeft className="h-4 w-4" />
+        <ChevronLeftIcon className="h-4 w-4" />
       </Button>
 
       <Button
@@ -377,7 +378,7 @@ function Nav({
         variant="outline"
         onClick={handleNextClick}
       >
-        <ChevronRight className="h-4 w-4" />
+        <ChevronRightIcon className="h-4 w-4" />
       </Button>
     </nav>
   );

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { FileText, Home, Settings } from 'lucide-react';
+import { FileTextIcon, HomeIcon, SettingsIcon } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 
@@ -51,21 +51,21 @@ export const WithIcons: Story = {
       <BreadcrumbList>
         <BreadcrumbItem>
           <BreadcrumbLink href="/">
-            <Home className="mr-1 h-4 w-4" />
+            <HomeIcon className="mr-1 h-4 w-4" />
             Home
           </BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator />
         <BreadcrumbItem>
           <BreadcrumbLink href="/settings">
-            <Settings className="mr-1 h-4 w-4" />
+            <SettingsIcon className="mr-1 h-4 w-4" />
             Settings
           </BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator />
         <BreadcrumbItem>
           <BreadcrumbPage>
-            <FileText className="mr-1 h-4 w-4" />
+            <FileTextIcon className="mr-1 h-4 w-4" />
             Profile
           </BreadcrumbPage>
         </BreadcrumbItem>

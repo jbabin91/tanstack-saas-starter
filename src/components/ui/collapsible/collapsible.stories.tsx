@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDownIcon } from 'lucide-react';
 import * as React from 'react';
 
 import { Button } from '../button';
@@ -28,7 +28,7 @@ export const Basic: Story = {
         <h4 className="text-sm font-semibold">What is a Collapsible?</h4>
         <CollapsibleTrigger asChild>
           <Button className="w-9 p-0" size="sm" variant="ghost">
-            <ChevronDown className="h-4 w-4" />
+            <ChevronDownIcon className="h-4 w-4" />
             <span className="sr-only">Toggle</span>
           </Button>
         </CollapsibleTrigger>
@@ -51,7 +51,7 @@ export const WithDefaultOpen: Story = {
         <h4 className="text-sm font-semibold">Default Open Example</h4>
         <CollapsibleTrigger asChild>
           <Button className="w-9 p-0" size="sm" variant="ghost">
-            <ChevronDown className="h-4 w-4" />
+            <ChevronDownIcon className="h-4 w-4" />
             <span className="sr-only">Toggle</span>
           </Button>
         </CollapsibleTrigger>
@@ -80,7 +80,7 @@ export const Controlled: Story = {
           <h4 className="text-sm font-semibold">Controlled Example</h4>
           <CollapsibleTrigger asChild>
             <Button className="w-9 p-0" size="sm" variant="ghost">
-              <ChevronDown className="h-4 w-4" />
+              <ChevronDownIcon className="h-4 w-4" />
               <span className="sr-only">Toggle</span>
             </Button>
           </CollapsibleTrigger>

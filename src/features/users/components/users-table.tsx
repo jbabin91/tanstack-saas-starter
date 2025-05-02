@@ -9,14 +9,14 @@ import {
   useReactTable,
 } from '@tanstack/react-table';
 import {
-  ArrowDown,
-  ArrowUp,
-  ChevronDown,
-  ChevronLeft,
-  ChevronRight,
-  ChevronsLeft,
-  ChevronsRight,
-  ChevronUp,
+  ArrowDownIcon,
+  ArrowUpIcon,
+  ChevronDownIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  ChevronsLeftIcon,
+  ChevronsRightIcon,
+  ChevronUpIcon,
 } from 'lucide-react';
 import { useMemo } from 'react';
 
@@ -223,10 +223,10 @@ export function UsersTable() {
                           header.getContext(),
                         )}
                         {header.column.getIsSorted() === 'asc' ?
-                          <ArrowDown className="ml-1 h-4 w-4" />
+                          <ArrowDownIcon className="ml-1 h-4 w-4" />
                         : null}
                         {header.column.getIsSorted() === 'desc' ?
-                          <ArrowUp className="ml-1 h-4 w-4" />
+                          <ArrowUpIcon className="ml-1 h-4 w-4" />
                         : null}
                       </div>
                     )}
@@ -278,7 +278,7 @@ export function UsersTable() {
             <span className="sr-only">
               {t('table.pagination.firstPageLabel')}
             </span>
-            <ChevronsLeft className="h-4 w-4" />
+            <ChevronsLeftIcon className="h-4 w-4" />
           </Button>
           <Button
             disabled={!table.getCanPreviousPage()}
@@ -289,7 +289,7 @@ export function UsersTable() {
             <span className="sr-only">
               {t('table.pagination.previousPageLabel')}
             </span>
-            <ChevronLeft className="h-4 w-4" />
+            <ChevronLeftIcon className="h-4 w-4" />
           </Button>
           <Button
             disabled={!table.getCanNextPage()}
@@ -300,7 +300,7 @@ export function UsersTable() {
             <span className="sr-only">
               {t('table.pagination.nextPageLabel')}
             </span>
-            <ChevronRight className="h-4 w-4" />
+            <ChevronRightIcon className="h-4 w-4" />
           </Button>
           <Button
             disabled={!table.getCanNextPage()}
@@ -311,7 +311,7 @@ export function UsersTable() {
             <span className="sr-only">
               {t('table.pagination.lastPageLabel')}
             </span>
-            <ChevronsRight className="h-4 w-4" />
+            <ChevronsRightIcon className="h-4 w-4" />
           </Button>
         </div>
         <span className="flex items-center gap-1 text-sm">
@@ -349,7 +349,7 @@ export function UsersTable() {
                 variant="ghost"
                 onClick={handleIncrementPage}
               >
-                <ChevronUp className="h-3 w-3" />
+                <ChevronUpIcon className="h-3 w-3" />
               </Button>
               <Button
                 aria-label={t('table.pagination.decrementAriaLabel')}
@@ -359,7 +359,7 @@ export function UsersTable() {
                 variant="ghost"
                 onClick={handleDecrementPage}
               >
-                <ChevronDown className="h-3 w-3" />
+                <ChevronDownIcon className="h-3 w-3" />
               </Button>
             </div>
           </div>
