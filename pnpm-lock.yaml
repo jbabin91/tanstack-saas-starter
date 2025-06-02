@@ -9,7 +9,7 @@ importers:
   .:
     dependencies:
       '@dotenvx/dotenvx':
-        specifier: ^1.43.0
+        specifier: ^1.44.1
         version: 1.44.1
       '@t3-oss/env-core':
         specifier: ^0.13.4
