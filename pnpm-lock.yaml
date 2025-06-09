@@ -151,7 +151,7 @@ importers:
         specifier: ^9.26.0
         version: 9.28.0
       '@faker-js/faker':
-        specifier: ^9.7.0
+        specifier: ^9.8.0
         version: 9.8.0
       '@storybook/addon-a11y':
         specifier: ^8.6.12
