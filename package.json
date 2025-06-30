@@ -42,7 +42,7 @@
     "@dotenvx/dotenvx": "^1.44.2",
     "@t3-oss/env-core": "^0.13.8",
     "@tanstack/match-sorter-utils": "^8.19.4",
-    "@tanstack/react-form": "^1.9.0",
+    "@tanstack/react-form": "^1.12.4",
     "@tanstack/react-query": "^5.75.4",
     "@tanstack/react-query-devtools": "^5.75.4",
     "@tanstack/react-router": "^1.119.0",
