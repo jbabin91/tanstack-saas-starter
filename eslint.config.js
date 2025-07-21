@@ -54,6 +54,7 @@ export default tseslint.config(
       'import-x/first': 'error',
       'import-x/newline-after-import': 'error',
       'import-x/no-duplicates': ['error', { 'prefer-inline': true }],
+      'require-await': 'off',
       'simple-import-sort/exports': 'error',
       'simple-import-sort/imports': 'error',
       'sort-keys-fix/sort-keys-fix': 'error',
