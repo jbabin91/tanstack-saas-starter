@@ -13,7 +13,7 @@ importers:
         version: 1.44.2
       '@t3-oss/env-core':
         specifier: ^0.13.8
-        version: 0.13.8(typescript@5.8.3)(zod@3.25.44)
+        version: 0.13.8(typescript@5.8.3)(zod@3.25.76)
       '@tanstack/match-sorter-utils':
         specifier: ^8.19.4
         version: 8.19.4
@@ -46,7 +46,7 @@ importers:
         version: 3.13.12(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@tanstack/zod-form-adapter':
         specifier: ^0.42.1
-        version: 0.42.1(zod@3.25.44)
+        version: 0.42.1(zod@3.25.76)
       better-auth:
         specifier: ^1.2.12
         version: 1.2.12
@@ -67,7 +67,7 @@ importers:
         version: 0.43.1(@types/pg@8.15.5)(kysely@0.28.2)(pg@8.16.3)
       drizzle-zod:
         specifier: ^0.7.1
-        version: 0.7.1(drizzle-orm@0.43.1(@types/pg@8.15.5)(kysely@0.28.2)(pg@8.16.3))(zod@3.25.44)
+        version: 0.7.1(drizzle-orm@0.43.1(@types/pg@8.15.5)(kysely@0.28.2)(pg@8.16.3))(zod@3.25.76)
       i18next:
         specifier: ^25.1.3
         version: 25.2.1(typescript@5.8.3)
@@ -132,11 +132,11 @@ importers:
         specifier: ^5.1.4
         version: 5.1.4(typescript@5.8.3)(vite@6.3.5(@types/node@22.15.29)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.40.0)(tsx@4.19.4)(yaml@2.8.0))
       zod:
-        specifier: ^3.24.4
-        version: 3.25.44
+        specifier: ^3.25.76
+        version: 3.25.76
       zod-i18n-map:
         specifier: ^2.27.0
-        version: 2.27.0(i18next@25.2.1(typescript@5.8.3))(zod@3.25.44)
+        version: 2.27.0(i18next@25.2.1(typescript@5.8.3))(zod@3.25.76)
     devDependencies:
       '@chromatic-com/storybook':
         specifier: ^3.2.7
@@ -8965,8 +8965,8 @@ packages:
       i18next: '>=21.3.0'
       zod: '>=3.17.0'
 
-  zod@3.25.44:
-    resolution: {integrity: sha512-BVwH2PnqCwxUN+SNjzRL6kcGvvz1JuojtB+uZB1Hg8DA56Zqn0pjpIwMrb1IhUsF75DjpEe4fhxPKO6+AErqzw==}
+  zod@3.25.76:
+    resolution: {integrity: sha512-gzUt/qt81nXsFGKIFcC3YnfEAx5NkunCfnDlvuBSSFS02bcXu4Lmea0AFIUwbLWxWPx3d9p8S5QoaujKcNQxcQ==}
 
 snapshots:
 
@@ -9841,7 +9841,7 @@ snapshots:
       '@eslint-react/eff': 1.50.0
       '@typescript-eslint/utils': 8.33.0(eslint@9.28.0(jiti@2.4.2))(typescript@5.8.3)
       ts-pattern: 5.7.1
-      zod: 3.25.44
+      zod: 3.25.76
     transitivePeerDependencies:
       - eslint
       - supports-color
@@ -9853,7 +9853,7 @@ snapshots:
       '@eslint-react/kit': 1.50.0(eslint@9.28.0(jiti@2.4.2))(typescript@5.8.3)
       '@typescript-eslint/utils': 8.33.0(eslint@9.28.0(jiti@2.4.2))(typescript@5.8.3)
       ts-pattern: 5.7.1
-      zod: 3.25.44
+      zod: 3.25.76
     transitivePeerDependencies:
       - eslint
       - supports-color
@@ -10302,7 +10302,7 @@ snapshots:
       unixify: 1.0.0
       urlpattern-polyfill: 8.0.2
       yargs: 17.7.2
-      zod: 3.25.44
+      zod: 3.25.76
     transitivePeerDependencies:
       - encoding
       - rollup
@@ -11706,10 +11706,10 @@ snapshots:
     dependencies:
       '@swc/counter': 0.1.3
 
-  '@t3-oss/env-core@0.13.8(typescript@5.8.3)(zod@3.25.44)':
+  '@t3-oss/env-core@0.13.8(typescript@5.8.3)(zod@3.25.76)':
     optionalDependencies:
       typescript: 5.8.3
-      zod: 3.25.44
+      zod: 3.25.76
 
   '@tailwindcss/node@4.1.8':
     dependencies:
@@ -11971,7 +11971,7 @@ snapshots:
       react-dom: 19.1.0(react@19.1.0)
       vinxi: 0.5.3(@types/node@22.15.29)(db0@0.3.2(drizzle-orm@0.43.1(@types/pg@8.15.5)(kysely@0.28.2)(pg@8.16.3)))(drizzle-orm@0.43.1(@types/pg@8.15.5)(kysely@0.28.2)(pg@8.16.3))(ioredis@5.6.1)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.40.0)(tsx@4.19.4)(yaml@2.8.0)
       vite: 6.3.5(@types/node@22.15.29)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.40.0)(tsx@4.19.4)(yaml@2.8.0)
-      zod: 3.25.44
+      zod: 3.25.76
     transitivePeerDependencies:
       - '@azure/app-configuration'
       - '@azure/cosmos'
@@ -12209,7 +12209,7 @@ snapshots:
       '@tanstack/virtual-file-routes': 1.115.0
       prettier: 3.5.3
       tsx: 4.19.4
-      zod: 3.25.44
+      zod: 3.25.76
     optionalDependencies:
       '@tanstack/react-router': 1.120.13(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
 
@@ -12231,7 +12231,7 @@ snapshots:
       babel-dead-code-elimination: 1.0.10
       chokidar: 3.6.0
       unplugin: 2.3.5
-      zod: 3.25.44
+      zod: 3.25.76
     optionalDependencies:
       '@tanstack/react-router': 1.120.13(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       vite: 6.3.5(@types/node@22.15.29)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.40.0)(tsx@4.19.4)(yaml@2.8.0)
@@ -12418,10 +12418,10 @@ snapshots:
 
   '@tanstack/virtual-file-routes@1.115.0': {}
 
-  '@tanstack/zod-form-adapter@0.42.1(zod@3.25.44)':
+  '@tanstack/zod-form-adapter@0.42.1(zod@3.25.76)':
     dependencies:
       '@tanstack/form-core': 0.42.1
-      zod: 3.25.44
+      zod: 3.25.76
 
   '@testing-library/dom@10.4.0':
     dependencies:
@@ -13317,7 +13317,7 @@ snapshots:
       jose: 6.0.11
       kysely: 0.28.2
       nanostores: 0.11.4
-      zod: 3.25.44
+      zod: 3.25.76
 
   better-call@1.0.9:
     dependencies:
@@ -14052,10 +14052,10 @@ snapshots:
     optionalDependencies:
       drizzle-orm: 0.43.1(@types/pg@8.15.5)(kysely@0.28.2)(pg@8.16.3)
 
-  drizzle-zod@0.7.1(drizzle-orm@0.43.1(@types/pg@8.15.5)(kysely@0.28.2)(pg@8.16.3))(zod@3.25.44):
+  drizzle-zod@0.7.1(drizzle-orm@0.43.1(@types/pg@8.15.5)(kysely@0.28.2)(pg@8.16.3))(zod@3.25.76):
     dependencies:
       drizzle-orm: 0.43.1(@types/pg@8.15.5)(kysely@0.28.2)(pg@8.16.3)
-      zod: 3.25.44
+      zod: 3.25.76
 
   dunder-proto@1.0.1:
     dependencies:
@@ -18398,7 +18398,7 @@ snapshots:
       unenv: 1.10.0
       unstorage: 1.16.0(db0@0.3.2(drizzle-orm@0.43.1(@types/pg@8.15.5)(kysely@0.28.2)(pg@8.16.3)))(ioredis@5.6.1)
       vite: 6.3.5(@types/node@22.15.29)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.40.0)(tsx@4.19.4)(yaml@2.8.0)
-      zod: 3.25.44
+      zod: 3.25.76
     transitivePeerDependencies:
       - '@azure/app-configuration'
       - '@azure/cosmos'
@@ -18476,7 +18476,7 @@ snapshots:
       unenv: 1.10.0
       unstorage: 1.16.0(db0@0.3.2(drizzle-orm@0.43.1(@types/pg@8.15.5)(kysely@0.28.2)(pg@8.16.3)))(ioredis@5.6.1)
       vite: 6.3.5(@types/node@22.15.29)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.40.0)(tsx@4.19.4)(yaml@2.8.0)
-      zod: 3.25.44
+      zod: 3.25.76
     transitivePeerDependencies:
       - '@azure/app-configuration'
       - '@azure/cosmos'
@@ -18898,9 +18898,9 @@ snapshots:
       compress-commons: 6.0.2
       readable-stream: 4.7.0
 
-  zod-i18n-map@2.27.0(i18next@25.2.1(typescript@5.8.3))(zod@3.25.44):
+  zod-i18n-map@2.27.0(i18next@25.2.1(typescript@5.8.3))(zod@3.25.76):
     dependencies:
       i18next: 25.2.1(typescript@5.8.3)
-      zod: 3.25.44
+      zod: 3.25.76
 
-  zod@3.25.44: {}
+  zod@3.25.76: {}
