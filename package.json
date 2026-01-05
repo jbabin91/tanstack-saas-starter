@@ -39,7 +39,7 @@
     }
   },
   "dependencies": {
-    "@dotenvx/dotenvx": "^1.51.2",
+    "@dotenvx/dotenvx": "^1.51.4",
     "@t3-oss/env-core": "^0.13.10",
     "@tanstack/match-sorter-utils": "^8.19.4",
     "@tanstack/react-form": "^1.12.4",
