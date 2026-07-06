@@ -90,8 +90,8 @@ importers:
         specifier: ^8.16.3
         version: 8.16.3
       postcode-validator:
-        specifier: ^3.10.15
-        version: 3.10.15
+        specifier: ^3.10.18
+        version: 3.10.18
       radix-ui:
         specifier: ^1.4.3
         version: 1.4.3(@types/react-dom@19.1.5(@types/react@19.1.6))(@types/react@19.1.6)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -7727,8 +7727,8 @@ packages:
     resolution: {integrity: sha512-/+5VFTchJDoVj3bhoqi6UeymcD00DAwb1nJwamzPvHEszJ4FpF6SNNbUbOS8yI56qHzdV8eK0qEfOSiodkTdxg==}
     engines: {node: '>= 0.4'}
 
-  postcode-validator@3.10.15:
-    resolution: {integrity: sha512-TTWlgG5YD9OQvPxcfBcwgjOgCI7rTxHX3LpxAZ1dKE+DjfNpRwrYrlhKWesofaKrO1MUTszQPmop4aptC1R6aw==}
+  postcode-validator@3.10.18:
+    resolution: {integrity: sha512-htkmukiWImiK6MwcaO6I1fcdxpm3Bh6qUauqpX/6vxswt1deNlHVmBTcTB3EJVly5gdMXpMTZ9Kecii3Kjct2Q==}
     engines: {node: '>=20.8.1'}
 
   postcss-values-parser@6.0.2:
@@ -17709,7 +17709,7 @@ snapshots:
 
   possible-typed-array-names@1.1.0: {}
 
-  postcode-validator@3.10.15: {}
+  postcode-validator@3.10.18: {}
 
   postcss-values-parser@6.0.2(postcss@8.5.16):
     dependencies:
